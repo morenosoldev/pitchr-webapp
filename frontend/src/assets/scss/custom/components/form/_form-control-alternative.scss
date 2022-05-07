@@ -1,0 +1,19 @@
+/*----------------------------------------------
+Input
+------------------------------------------------*/
+.form-group{
+    margin-bottom: $spacer;
+    .input-group-text {
+        color: $gray-500;
+    }
+}
+:focus-visible {
+	outline: none;
+}
+.bad-feedback{
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    color: #ff9b8a;
+    width: 100%;
+}
+

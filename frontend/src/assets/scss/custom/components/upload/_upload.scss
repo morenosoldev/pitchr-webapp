@@ -1,0 +1,21 @@
+.thumbnailBtn{
+display:flex;
+flex-direction:column;
+align-items:center;
+border: 2px dotted black;
+height:70px;
+justify-content:center;
+width:160px;
+cursor:pointer;
+padding:10px;
+}
+
+.upload-pitch-icon{
+    box-shadow: 1px 0px 5px 1px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 1px 0px 5px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 0px 5px 1px rgba(0,0,0,0.75);
+}
+.thumbnailBtn:hover{
+    color: black;
+    background-color: gray;
+}

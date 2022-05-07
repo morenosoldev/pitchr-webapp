@@ -1,0 +1,21 @@
+.company-description{
+    font-size: 0.6rem;
+}
+
+@media screen and (min-width: 1900px) {
+.company-pic{
+   height: 75px;
+   width: 75px;
+   object-fit: contain;
+}
+.company-icon{
+    font-size: 1.2rem;
+}
+.company-name{
+    font-size: 1rem;
+}
+.company-description{
+    font-size: 1rem;
+}
+  }
+  

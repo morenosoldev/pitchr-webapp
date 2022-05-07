@@ -1,0 +1,18 @@
+// Configuration
+@import "../../bootstrap/functions";
+// Variables
+@import "../../custom/variables";
+@import "../../bootstrap/variables";
+
+@import "../../bootstrap/mixins";
+@import "../../bootstrap/utilities";
+
+@import "../../bootstrap/modal";
+
+
+.investor-icon{
+    max-width: 32px;
+}
+.container--waitlistapi > div{
+display: none;
+}

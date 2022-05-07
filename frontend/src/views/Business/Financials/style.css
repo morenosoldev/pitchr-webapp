@@ -1,0 +1,9 @@
+.metric-upload{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.metric-header{
+    font-weight: 700;
+}

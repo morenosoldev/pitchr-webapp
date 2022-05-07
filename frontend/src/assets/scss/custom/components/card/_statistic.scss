@@ -1,0 +1,18 @@
+.card-statistic{
+display: flex;
+justify-content: space-evenly;
+}
+
+.card-statistic-text{
+    display: flex;
+    flex-direction: column;
+}
+.card-icon{
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.card-statistic-h2{
+    font-size: 1.6rem;
+    font-weight: bold;
+}

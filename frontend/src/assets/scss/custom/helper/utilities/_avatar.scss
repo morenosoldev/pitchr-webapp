@@ -1,0 +1,10 @@
+$value: 5;
+@while $value <= 130{
+    .avatar-#{$value}{
+        height: $value + px; 
+        width: $value + px; 
+        line-height: $value + px;
+        object-fit: cover;
+    }
+    $value : $value + 5;   
+}

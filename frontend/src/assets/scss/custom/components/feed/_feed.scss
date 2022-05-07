@@ -1,0 +1,300 @@
+
+.feather-icon {
+	a {
+		color:$secondary;
+		font-weight: 300;
+		&:hover {
+			color: $primary;
+		}
+	}
+}
+
+.chart-pitch{
+	background-color: #949697;
+	width: fit-content;
+	width: 135px;
+	height: 155px;
+	border-radius:23px;
+	position: relative;
+	overflow: hidden;
+}
+
+
+.pitch-btn{
+	color: white;
+}
+.recharts-pie-label-text{
+font-size: 0.6rem;
+}
+
+
+.pitch-btn{
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.table-sm > :not(caption) > * > *{
+	font-size: 0.6rem;
+}
+.red{
+	background-color: #F70000;
+}
+
+.green{
+	background-color: #13BA4B;
+}
+
+.blue{
+	background-color: #3895ff;
+}
+.pagination{
+	justify-content: space-evenly;
+}
+.error {
+	animation: shake 1.82s cubic-bezier(.36,.07,.19,.97) both;
+	transform: translate3d(0, 0, 0);
+	backface-visibility: hidden;
+	background-color: red !important;
+	perspective: 1000px;
+  }
+  
+  @keyframes shake {
+	10%, 90% {
+	  transform: translate3d(-1px, 0, 0);
+	}
+	
+	20%, 80% {
+	  transform: translate3d(2px, 0, 0);
+	}
+  
+	30%, 50%, 70% {
+	  transform: translate3d(-4px, 0, 0);
+	}
+  
+	40%, 60% {
+	  transform: translate3d(4px, 0, 0);
+	}
+  }
+
+.columnHeader{
+	cursor: pointer;
+}
+
+.activeColumn{
+	background-color:#3895ff !important;
+	color: white !important;
+}
+
+
+.pitch-undertitle{
+	font-size: 8px;
+	color: white;
+	text-align: right;
+}
+
+.chart-value{
+	position: absolute;
+	right: 15px;
+	bottom: 20px;
+	color: white;
+	font-size: medium;
+}
+
+.chart-title{
+	text-align: left;
+	color: white;
+	margin-left: 25px;
+	font-size: 14px;
+	margin-top: 10px;
+	font-weight: bold;
+}
+
+.pitchInfo{
+	display: flex;
+	align-items: flex-end;
+}
+
+.team-member{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	img{
+		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	}
+}
+
+
+
+.h-85{
+	height: 85% !important;
+}
+
+.react-pdf__Page__canvas {
+	border: 1px solid lightgray;
+}
+
+.react-pdf__Page__annotations .annotationLayer{
+display: none;
+}
+
+.linkAnnotation{
+display: none;
+}
+
+.react-pdf__Page.prevPage {
+	position: absolute !important;
+	height: 0px;
+	width: 0px;
+	z-index: 1;
+  }
+
+.pitch-container{
+	scroll-snap-type: y mandatory;
+	overflow-x: hidden;
+}
+
+.pitch-card{
+	scroll-snap-align: start;
+}
+
+.img-gradient{
+	position: relative;
+}
+.img-gradient::after{
+	content: '';
+	position: absolute;
+	left: 0; top: 0;
+	width: 100%; height: 100%;
+	border-radius: 15px;
+	background: linear-gradient(to top,rgb(9, 20, 57), rgba(117, 131, 246, 0.7));
+}
+.img-gradient > img{
+	border-radius: 15px;
+	max-height: 505px;
+}
+.play-button{
+	position: absolute; 
+	left: 0; 
+	right: 0; 
+	margin-left: auto; 
+	margin-right: auto; 
+	width: 100px;
+	top:50%;
+	cursor: pointer;
+}
+
+body{
+	overflow-x: hidden;
+}
+
+.react-pdf__Page__annotations annotationLayer{
+display: none;
+}
+
+.pitch-big{
+	height: 100%;
+}
+
+.flag{
+	height: 12px;
+}
+
+.pitch-card > .card-body{
+	display: flex;
+	height: 100%;
+	align-items: center;
+}
+
+.blur{
+  -webkit-filter: blur(3px);
+  -moz-filter: blur(3px);
+  -o-filter: blur(3px);
+  -ms-filter: blur(3px);
+  filter: blur(3px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.file-access{
+	position: absolute;
+	left: 42%;
+	top: 50px;
+}
+
+.mb-4{
+	margin-bottom: 0.875rem !important;
+}
+
+.mt-4{
+	margin-top: 0.875rem !important;
+}
+
+.message-icon {
+	a {
+		color:$secondary;
+		font-weight: 300;
+		&:hover {
+			color: $primary;
+		}
+	}
+}
+
+@include media-breakpoint-up(xl) {
+
+}
+
+#pitch-menu{
+	opacity: 0.0;
+    -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -ms-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+	position: absolute;
+	bottom: 0;
+	margin: 0px;
+	height: 50px;
+	color: white;
+	align-items:center;
+	background: rgb(74,72,94);
+	background: -moz-linear-gradient(0deg, rgba(74,72,94,1) 0%, rgba(255,255,255,0) 100%);
+	background: -webkit-linear-gradient(0deg, rgba(74,72,94,1) 0%, rgba(255,255,255,0) 100%);
+	background: linear-gradient(0deg, rgba(74,72,94,1) 0%, rgba(255,255,255,0) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#4a485e",endColorstr="#ffffff",GradientType=1); 
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	padding: 0px;
+}
+
+#feed{
+display: flex;
+justify-content: center;
+}
+
+.activeMenu{
+	border-bottom:2px solid #3895ff;
+
+}
+.banner > a{
+border: none;
+}
+
+.nav-link{
+	border: none !important;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
+	color: #3895ff;
+	font-weight: bold;
+}
+.wide-chart{
+	background-color: white;
+	padding: 10px;
+	border-radius: 6px;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;		
+}
+
+#deck:hover #pitch-menu {
+    opacity: 1.0 !important;
+}

@@ -1,0 +1,30 @@
+.setup-card{
+    display: flex;
+    box-shadow: none;
+}
+.setup-card-container{
+    border-radius: 5px;
+    border: 1px solid #EAEAEA;
+    margin: 10px;
+}
+
+.setup-text{
+    display: flex;
+    flex-direction: column;
+}
+
+.setup-card-title{
+    color: #54aceb;
+    font-weight: 500;
+    font-size: 1rem;
+}
+.setup-card-span{
+    font-size: 600;
+    font-size: 0.8rem;
+}
+
+.setup-icon{
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+}

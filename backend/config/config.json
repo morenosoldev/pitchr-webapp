@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "pitchradmin",
+    "password": "pitchrTineMarbjerg123",
+    "database": "pitchrdb",
+    "host": "pitchrdb.cm71rjbsbgvg.us-east-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "pitchradmin",
+    "password": "pitchrTineMarbjerg123",
+    "database": "pitchrdb",
+    "host": "pitchrdb.cm71rjbsbgvg.us-east-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "pitchradmin",
+    "password": "pitchrTineMarbjerg123",
+    "database": "pitchrdb",
+    "host": "pitchrdb.cm71rjbsbgvg.us-east-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  }
+}

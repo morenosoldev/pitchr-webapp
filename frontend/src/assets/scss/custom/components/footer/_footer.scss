@@ -1,0 +1,136 @@
+/*---------------------------------------------------------------------
+Footer
+-----------------------------------------------------------------------*/
+.iq-footer {
+	//padding:0.938rem;
+	position: absolute;
+	left: 43%;
+	width: 250px;
+	background-color: #f8f9fa !important;
+	@if $enable-shadows == true {
+		@include shadow-mixin($box-shadow);
+	}
+	
+	@if $enable-transitions == true {
+		@include transition-mixin(all 0.3s ease-in-out);
+	}
+	ul {
+		background-color: #f8f9fa;
+		li {
+			a {
+				color:$body-color;
+				&:hover {
+					color: $primary;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+}
+
+
+
+  .orange{
+	  background: #000000fa;
+  }
+  
+  .blue{
+	background: #3652D9;
+  }
+  
+  .rose{
+	background:#FF66CC;
+  }
+  
+  .center {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	height: 100vh;
+  }
+  
+  .circle {
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	box-shadow: 0px 0px 1px 1px #0000001a;
+  }
+  
+  .pulse {
+	animation: pulse-animation 1s infinite;
+  }
+  
+  @keyframes pulse-animation {
+	0% {
+	  box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+	}
+	100% {
+	  box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+	}
+  }
+
+  
+.new-footer {
+	background-color: black;
+	overflow: hidden;
+	position: fixed;
+	left: calc(-50vw + 50%);
+	background-color: #F8F9FA;
+	align-items: center;
+	height:61px;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+  }
+.bg-banner-image.style-three {
+	height: 150px;
+	// background: url('../images/bg-03.jpg');
+}
+.iq-mt--70 {
+	margin-top: -4.375rem;
+}
+
+.banner-main-text {
+	position: absolute;
+	left: 15%;
+	bottom: 13%;
+}
+
+@media (min-width: 1300px) and (max-width: 1499px){
+	.iq-footer {
+		//margin-left:250px;
+	}
+}
+@media (max-width: 1299px){
+.iq-footer, body.sidebar-main .iq-footer {
+    margin-left: 0;
+
+    width: 100%;
+}
+}
+@include media-breakpoint-down(xl) {
+    .iq-footer {
+        padding: 0.938rem 0.625rem;
+        margin-left: 0;
+        width: 100%;
+    }
+    body.sidebar-main {
+		.iq-footer {
+			padding: 0.938rem 0.625rem;
+			margin-left: 0;
+			width: 100%;
+		}
+    }
+}
+@include media-breakpoint-down(lg) {
+    .iq-footer{
+        .col-lg-6{
+            text-align: center !important;
+        }
+        .col-lg-6.d-flex.justify-content-end {
+             text-align: center !important;
+			 justify-content: center !important;
+        }
+    }  
+}

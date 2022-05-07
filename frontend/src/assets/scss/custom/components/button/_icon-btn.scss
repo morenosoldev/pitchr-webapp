@@ -1,0 +1,68 @@
+.btn {
+    .btn-inner{
+        i:not(.fas):not(.fab) {
+            position: relative;
+            top: 0.125rem;
+        }
+        svg{
+            position: relative;
+            top: -0.125rem;
+            width: 1.5rem;
+        }
+    }
+}
+.copy-btn:hover{
+color:black
+}
+
+.copy-btn{
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.btn-sm {
+    .btn-inner{
+        svg{
+            width: 1.25rem;
+        }
+    }
+}
+.btn-xs {
+    .btn-inner{
+        svg{
+            width: 1rem;
+        }
+    }
+}
+
+.btn-lg {
+    .btn-inner{
+        svg{
+            width: 2rem;
+        }
+    }
+    &.btn-icon {
+        .btn-inner {
+            svg {
+                top: 0;
+            }
+        }
+    }
+}
+//button//
+.bd-example {
+	>.btn {
+		margin: .25rem .125rem;
+	}
+	>.btn-group {
+		margin: .25rem .125rem;
+	}
+}
+
+.more-btn{
+padding-top: 5px;
+margin-right: 15px;
+margin-top: 15px;
+padding-right: 8px;
+padding-left: 8px;
+}
