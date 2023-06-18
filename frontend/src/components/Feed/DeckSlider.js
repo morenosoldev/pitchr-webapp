@@ -8,58 +8,14 @@ import { useSelector } from "react-redux";
 import Dropzone from "react-dropzone";
 import {
   BsChevronLeft,
-  BsThreeDotsVertical,
   BsTrash,
-  BsFillAspectRatioFill,
   BsChevronRight,
   BsFullscreen,
   BsImageFill,
 } from "react-icons/bs";
 import { Spinner } from "react-bootstrap";
 import API from "../../util/AxiosConfig";
-import { Dropdown } from "react-bootstrap";
-import { Keyboard, Pagination, Navigation } from "swiper";
-import { useParams } from "react-router-dom";
 import { uploadFile } from "../../firebase";
-
-// The forwardRef is important!!
-// Dropdown needs access to the DOM node in order to position the Menu
-const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-  <a
-    href=""
-    ref={ref}
-    onClick={(e) => {
-      e.preventDefault();
-      onClick(e);
-    }}
-  >
-    {children}
-  </a>
-));
-
-// forwardRef again here!
-// Dropdown needs access to the DOM of the Menu to measure it
-const CustomMenu = React.forwardRef(
-  ({ children, style, className, "aria-labelledby": labeledBy }, ref) => {
-    const [value, setValue] = useState("");
-
-    return (
-      <div
-        ref={ref}
-        style={style}
-        className={className}
-        aria-labelledby={labeledBy}
-      >
-        <ul className="list-unstyled">
-          {React.Children.toArray(children).filter(
-            (child) =>
-              !value || child.props.children.toLowerCase().startsWith(value)
-          )}
-        </ul>
-      </div>
-    );
-  }
-);
 
 export default function DeckSlider({ userID }) {
   const [loading, setLoading] = useState(true);
@@ -68,9 +24,7 @@ export default function DeckSlider({ userID }) {
   const [swiper, setSwiper] = React.useState();
   const prevRef = React.useRef();
   const nextRef = React.useRef();
-  const [images, setImages] = useState([]);
   const [deck, setDeck] = useState(false);
-  const { id } = useParams();
   const [selectedFiles, setSelectedFiles] = useState(null);
   const [pitchDeck, setPitchDeck] = useState(null);
   const [currentFile, setCurrentFile] = useState(null);
@@ -87,14 +41,17 @@ export default function DeckSlider({ userID }) {
   };
 
   const changePage = (index) => {
+    const newIndex = Math.max(0, Math.min(index, deck.files.length - 1));
+    if (newIndex !== index) {
+      setHasBeenSwiped(true);
+    }
+    setIndex(newIndex);
+
     if (!hasBeenSwiped && Number(userID) !== Number(user?.user_id)) {
-      //OPRET VIEW
+      // OPRET VIEW
       API.post(`/deckview/${user?.user_id}`);
     }
-    setHasBeenSwiped(true);
-    setIndex(index);
   };
-
   const upload = async () => {
     setLoading(true);
     let currentFile = selectedFiles[0];
@@ -105,11 +62,6 @@ export default function DeckSlider({ userID }) {
     setLoading(false);
     setDeck(true);
     setPitchDeck(fileUrl);
-  };
-
-  const reset = () => {
-    setCurrentFile(false);
-    fdescribe();
   };
 
   useEffect(() => {
@@ -125,7 +77,7 @@ export default function DeckSlider({ userID }) {
       const deck = await API.get(`/deck/${userID}`);
       console.log(deck);
       if (deck.data) {
-        console.log(deck.data);
+        console.log("deck", deck.data);
         setDeck(deck.data);
       }
       setLoading(false);
@@ -163,6 +115,7 @@ export default function DeckSlider({ userID }) {
                           handle={handle}
                         >
                           <Swiper
+                            initialSlide={index}
                             observeParents={true}
                             slidesPerView={1}
                             onSlideChange={(swiper) => {
@@ -193,7 +146,7 @@ export default function DeckSlider({ userID }) {
                                 }`}
                                 key={index}
                               >
-                                <img src={image.Url} />
+                                <img src={image} />
                               </SwiperSlide>
                             ))}
 
