@@ -11,7 +11,7 @@ import Setup from "./Setup/Setup";
 
 export default function NewBusiness() {
   const [content, setContent] = useState("");
-  const [setupComplete, setSetupComplete] = useState(true);
+  const [setupComplete] = useState(true);
 
   return (
     <Container fluid>

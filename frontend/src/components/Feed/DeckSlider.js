@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper.min.css";
-import "swiper/swiper-bundle.css";
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import "./styles.css";
-import { useSelector } from "react-redux";
+import { Spinner } from "react-bootstrap";
 import Dropzone from "react-dropzone";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import {
   BsChevronLeft,
-  BsTrash,
   BsChevronRight,
   BsFullscreen,
   BsImageFill,
 } from "react-icons/bs";
-import { Spinner } from "react-bootstrap";
-import API from "../../util/AxiosConfig";
+import { useSelector } from "react-redux";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
+import "swiper/swiper.min.css";
 import { uploadFile } from "../../firebase";
+import API from "../../util/AxiosConfig";
+import "./styles.css";
 
 export default function DeckSlider({ userID }) {
   const [loading, setLoading] = useState(true);

@@ -1,16 +1,13 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { verifyFileAccess } from "../../../store/services/auth.service";
-import { Link, useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 
 const FileAccess = () => {
   let token = useParams();
 
   useEffect(() => {
-      verifyFileAccess(token.confirmationCode);
-      console.log(token.confirmationCode);
-  }, [])
-  
+    verifyFileAccess(token.confirmationCode);
+  }, []);
 
   return (
     <div className="container">
@@ -20,7 +17,6 @@ const FileAccess = () => {
           <p>You can now close this windows.</p>
         </h3>
       </header>
-
     </div>
   );
 };
