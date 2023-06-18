@@ -1,30 +1,30 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class PitchDeck extends Model {
+  class PitchDeckFile extends Model {
     static associate(models) {
-      this.belongsTo(models.Business, { foreignKey: "userId" });
-      this.hasMany(models.PitchDeckFile, {
+      this.belongsTo(models.PitchDeck, {
         foreignKey: "pitchDeckId",
-        as: "pitchDeckFiles",
+        as: "pitchDeck",
       });
     }
   }
 
-  PitchDeck.init(
+  PitchDeckFile.init(
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      userId: DataTypes.INTEGER,
+      file: DataTypes.STRING,
+      pitchDeckId: DataTypes.INTEGER,
     },
     {
       sequelize,
-      modelName: "PitchDeck",
+      modelName: "PitchDeckFile",
     }
   );
 
-  return PitchDeck;
+  return PitchDeckFile;
 };

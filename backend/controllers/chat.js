@@ -1,316 +1,318 @@
-const models = require('../models');
+const models = require("../models");
 const User = models.User;
 const Chat = models.Chat;
 const ChatUser = models.ChatUser;
 const Message = models.Message;
-const sequelize = require('../utils/database');
-const {Op} = require('sequelize');
+const sequelize = require("../utils/database");
+const { Op } = require("sequelize");
 
-  
 const getChatsFromUser = async (req, res) => {
-    try {
-     const user = await User.findOne({
-       where: {
-        id:req.user.id
-       },     
-     include: [
-       {
-         model:Chat,
-         include: [
-           {
-             model:User,
-             where: {
-               [Op.not]: {
-                 id:req.user.id
-               }
-             }
+  try {
+    const user = await User.findOne({
+      where: {
+        id: req.user.id,
+      },
+      include: [
+        {
+          model: Chat,
+          include: [
+            {
+              model: User,
+              where: {
+                [Op.not]: {
+                  id: req.user.id,
+                },
+              },
+            },
+            {
+              model: Message,
+              limit: 20,
+              order: [["id", "DESC"]],
+            },
+          ],
+        },
+      ],
+    });
+    res.status(200).json(user.Chats);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+const create = async (req, res) => {
+  const { partnerId } = req.body;
+
+  const t = await sequelize.transaction();
+
+  try {
+    const user = await User.findOne({
+      where: {
+        id: req.user.id,
+      },
+      include: [
+        {
+          model: Chat,
+          where: {
+            type: "dual",
           },
-          {
-            model: Message,
-            limit: 20,
-            order: [['id', 'DESC']]
-          }
-         ]
-       }
-    ]})
-    console.log(user);
-    res.status(200).json(user.Chats)  
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  };
-  
-
-  const create = async (req, res) => {
-
-    const { partnerId } = req.body
-
-    console.log(partnerId);
-
-    console.log(req.user.id);
-
-    const t = await sequelize.transaction()
-
-    try {
-
-        const user = await User.findOne({
-            where: {
-                id: req.user.id
-            },
-            include: [
-                {
-                    model: Chat,
-                    where: {
-                        type: 'dual'
-                    },
-                    include: [
-                        {
-                            model: ChatUser,
-                            where: {
-                                userId: partnerId
-                            }
-                        }
-                    ]
-                }
-            ]
-        })
-
-        if (user && user.Chats.length > 0)
-            return res.status(403).json({ status: 'Error', message: 'Chat with this user already exists!' })
-
-        const chat = await Chat.create({ type: 'dual' }, { transaction: t })
-
-        await ChatUser.bulkCreate([
+          include: [
             {
-                chatId: chat.id,
-                userId: req.user.id
+              model: ChatUser,
+              where: {
+                userId: partnerId,
+              },
             },
-            {
-                chatId: chat.id,
-                userId: partnerId
-            }
-        ], { transaction: t })
+          ],
+        },
+      ],
+    });
 
+    if (user && user.Chats.length > 0)
+      return res
+        .status(403)
+        .json({
+          status: "Error",
+          message: "Chat with this user already exists!",
+        });
 
-        await t.commit()
+    const chat = await Chat.create({ type: "dual" }, { transaction: t });
 
-        // const chatNew = await Chat.findOne({
-        //     where: {
-        //         id: chat.id
-        //     },
-        //     include: [
-        //         {
-        //             model: User,
-        //             where: {
-        //                 [Op.not]: {
-        //                     id: req.user.id
-        //                 }
-        //             }
-        //         },
-        //         {
-        //             model: Message
-        //         }
-        //     ]
-        // })
+    await ChatUser.bulkCreate(
+      [
+        {
+          chatId: chat.id,
+          userId: req.user.id,
+        },
+        {
+          chatId: chat.id,
+          userId: partnerId,
+        },
+      ],
+      { transaction: t }
+    );
 
-        const creator = await User.findOne({
-            where: {
-                id: req.user.id
-            }
-        })
+    await t.commit();
 
-        const partner = await User.findOne({
-            where: {
-                id: partnerId
-            }
-        })
+    // const chatNew = await Chat.findOne({
+    //     where: {
+    //         id: chat.id
+    //     },
+    //     include: [
+    //         {
+    //             model: User,
+    //             where: {
+    //                 [Op.not]: {
+    //                     id: req.user.id
+    //                 }
+    //             }
+    //         },
+    //         {
+    //             model: Message
+    //         }
+    //     ]
+    // })
 
-        const forCreator = {
-            id: chat.id,
-            type: 'dual',
-            Users: [partner],
-            Messages: []
-        }
+    const creator = await User.findOne({
+      where: {
+        id: req.user.id,
+      },
+    });
 
-        const forReceiver = {
-            id: chat.id,
-            type: 'dual',
-            Users: [creator],
-            Messages: []
-        }
+    const partner = await User.findOne({
+      where: {
+        id: partnerId,
+      },
+    });
 
+    const forCreator = {
+      id: chat.id,
+      type: "dual",
+      Users: [partner],
+      Messages: [],
+    };
 
-        return res.json([forCreator, forReceiver])
+    const forReceiver = {
+      id: chat.id,
+      type: "dual",
+      Users: [creator],
+      Messages: [],
+    };
 
-    } catch (e) {
-        await t.rollback()
-        return res.status(500).json({ status: 'Error', message: e.message })
-    }
-}
+    return res.json([forCreator, forReceiver]);
+  } catch (e) {
+    await t.rollback();
+    return res.status(500).json({ status: "Error", message: e.message });
+  }
+};
 
 const messages = async (req, res) => {
+  const limit = 10;
+  const page = req.query.page || 1;
+  const offset = page > 1 ? page * limit : 0;
 
-    const limit = 10
-    const page = req.query.page || 1
-    const offset = page > 1 ? page * limit : 0
+  const messages = await Message.findAndCountAll({
+    where: {
+      chatId: req.query.id,
+    },
+    include: [
+      {
+        model: User,
+      },
+    ],
+    limit,
+    offset,
+    order: [["id", "DESC"]],
+  });
 
-    const messages = await Message.findAndCountAll({
-        where: {
-            chatId: req.query.id
-        },
-        include: [
-            {
-                model: User
-            }
-        ],
-        limit,
-        offset,
-        order: [['id', 'DESC']]
-    })
+  const totalPages = Math.ceil(messages.count / limit);
 
-    const totalPages = Math.ceil(messages.count / limit)
+  if (page > totalPages) return res.json({ data: { messages: [] } });
 
-    if (page > totalPages) return res.json({ data: { messages: [] } })
+  const result = {
+    messages: messages.rows,
+    pagination: {
+      page,
+      totalPages,
+    },
+  };
 
-    const result = {
-        messages: messages.rows,
-        pagination: {
-            page,
-            totalPages
-        }
-    }
-
-    return res.json(result)
-}
-
+  return res.json(result);
+};
 
 const addUserToGroup = async (req, res) => {
-    try {
+  try {
+    const { chatId, userId } = req.body;
 
-        const { chatId, userId } = req.body
-
-        const chat = await Chat.findOne({
-            where: {
-                id: chatId
+    const chat = await Chat.findOne({
+      where: {
+        id: chatId,
+      },
+      include: [
+        {
+          model: User,
+        },
+        {
+          model: Message,
+          include: [
+            {
+              model: User,
             },
-            include: [
-                {
-                    model: User,
-                },
-                {
-                    model: Message,
-                    include: [
-                        {
-                            model: User
-                        }
-                    ],
-                    limit: 20,
-                    order: [['id', 'DESC']]
-                }
-            ]
-        })
+          ],
+          limit: 20,
+          order: [["id", "DESC"]],
+        },
+      ],
+    });
 
-        chat.Messages.reverse()
+    chat.Messages.reverse();
 
-        // check if already in the group
-        chat.Users.forEach(user => {
-            if (user.id === userId) {
-                return res.status(403).json({ message: 'User already in the group!' })
-            }
-        })
+    // check if already in the group
+    chat.Users.forEach((user) => {
+      if (user.id === userId) {
+        return res.status(403).json({ message: "User already in the group!" });
+      }
+    });
 
-        await ChatUser.create({ chatId, userId })
+    await ChatUser.create({ chatId, userId });
 
-        const newChatter = await User.findOne({
-            where: {
-                id: userId
-            }
-        })
+    const newChatter = await User.findOne({
+      where: {
+        id: userId,
+      },
+    });
 
-        if (chat.type === 'dual') {
-            chat.type = 'group'
-            chat.save()
-        }
-
-        return res.json({ chat, newChatter })
-
-    } catch (e) {
-        return res.status(500).json({ status: 'Error', message: e.message })
+    if (chat.type === "dual") {
+      chat.type = "group";
+      chat.save();
     }
-}
+
+    return res.json({ chat, newChatter });
+  } catch (e) {
+    return res.status(500).json({ status: "Error", message: e.message });
+  }
+};
 
 const deleteChat = async (req, res) => {
+  const { id } = req.params;
 
-    const { id } = req.params
+  try {
+    const chat = await Chat.findOne({
+      where: {
+        id,
+      },
+      include: [
+        {
+          model: User,
+        },
+      ],
+    });
 
-    try {
-        const chat = await Chat.findOne({
-            where: {
-                id
-            },
-            include: [
-                {
-                    model: User
-                }
-            ]
-        })
+    const notifyUsers = chat.Users.map((user) => user.id);
 
-        const notifyUsers = chat.Users.map(user => user.id)
-
-        await chat.destroy()
-        return res.json({ chatId: id, notifyUsers })
-
-    } catch (e) {
-        return res.status(500).json({ status: 'Error', message: e.message })
-    }
-}
+    await chat.destroy();
+    return res.json({ chatId: id, notifyUsers });
+  } catch (e) {
+    return res.status(500).json({ status: "Error", message: e.message });
+  }
+};
 
 const leaveCurrentChat = async (req, res) => {
+  try {
+    const { chatId } = req.body;
+    const chat = await Chat.findOne({
+      where: {
+        id: chatId,
+      },
+      include: [
+        {
+          model: User,
+        },
+      ],
+    });
 
-    try {
-        const { chatId } = req.body
-        const chat = await Chat.findOne({
-            where: {
-                id: chatId
-            },
-            include: [
-                {
-                    model: User
-                }
-            ]
-        })
-
-        if (chat.Users.length === 2) {
-            return res.status(403).json({ status: 'Error', message: 'You cannot leave this chat' })
-
-        }
-
-        if (chat.Users.length === 3) {
-            chat.type = 'dual'
-            chat.save()
-        }
-
-        await ChatUser.destroy({
-            where: {
-                chatId,
-                userId: req.user.id
-            }
-        })
-
-        await Message.destroy({
-            where: {
-                chatId,
-                fromUserId: req.user.id
-            }
-        })
-
-        const notifyUsers = chat.Users.map(user => user.id)
-
-        return res.json({ chatId: chat.id, userId: req.user.id, currentUserId: req.user.id, notifyUsers })
-
-    } catch (e) {
-        return res.status(500).json({ status: 'Error', message: e.message })
+    if (chat.Users.length === 2) {
+      return res
+        .status(403)
+        .json({ status: "Error", message: "You cannot leave this chat" });
     }
-}
 
-  module.exports = {getChatsFromUser,leaveCurrentChat,deleteChat,addUserToGroup,messages,create}
+    if (chat.Users.length === 3) {
+      chat.type = "dual";
+      chat.save();
+    }
+
+    await ChatUser.destroy({
+      where: {
+        chatId,
+        userId: req.user.id,
+      },
+    });
+
+    await Message.destroy({
+      where: {
+        chatId,
+        fromUserId: req.user.id,
+      },
+    });
+
+    const notifyUsers = chat.Users.map((user) => user.id);
+
+    return res.json({
+      chatId: chat.id,
+      userId: req.user.id,
+      currentUserId: req.user.id,
+      notifyUsers,
+    });
+  } catch (e) {
+    return res.status(500).json({ status: "Error", message: e.message });
+  }
+};
+
+module.exports = {
+  getChatsFromUser,
+  leaveCurrentChat,
+  deleteChat,
+  addUserToGroup,
+  messages,
+  create,
+};
