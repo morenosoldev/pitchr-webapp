@@ -1,5 +1,4 @@
 import { isSupported, setup } from "@loomhq/loom-sdk";
-import moment from "moment";
 import "moment-duration-format";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Dropdown } from "react-bootstrap";
@@ -42,31 +41,16 @@ export default function Section({
   const [buttonID, setButtonID] = useState("loom-" + data.id);
 
   const addVideo = async (video) => {
-    let duration;
-    var reader = new FileReader();
-    reader.onload = function () {
-      var media = new Audio(reader.result);
-      media.onloadedmetadata = async function () {
-        console.log(media.duration);
-        duration = formatVideoDuration(media.duration);
-        console.log(duration);
-        const url = await uploadVideo(video, setProgress);
-        setSubmitted(true);
-        uploadData(url, duration, "video", data.id);
-      };
-      return duration;
-    };
-    reader.readAsDataURL(video);
+    const uploadedVideo = await uploadVideo(video, setProgress);
+    setSubmitted(true);
+    uploadData(uploadedVideo.url, uploadedVideo.duration, "video", data.id);
+    return uploadedVideo.duration;
   };
 
   const saveVideo = async () => {
     //Lav funktion som gemmer den nuværende struktur af den her journey
     await API.post(`/pitch/${user?.user_id}`, { data: items });
     setEdit(false);
-  };
-
-  const formatVideoDuration = (duration) => {
-    return moment.duration(duration, "seconds").format();
   };
 
   const removeColumn = async () => {

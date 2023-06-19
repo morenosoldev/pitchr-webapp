@@ -3,8 +3,8 @@ import { Route, Switch } from "react-router";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import BusinessDashboard from "../layouts/dashboard/BusinessDashboard";
 import InvestorDashboard from "../layouts/dashboard/InvestorDashboard";
-import Simple from "../layouts/dashboard/simple";
 import { useSelector } from "react-redux";
+import AuthRouter from "./AuthRouter";
 
 const IndexRouters = () => {
   const isAuthenticated = useSelector(
@@ -18,9 +18,7 @@ const IndexRouters = () => {
   return (
     <>
       <Switch>
-        <Route path="/auth" component={Simple}></Route>
-        <Route path="/errors" component={Simple}></Route>
-        <Route path="/extra-pages" component={Simple}></Route>
+        <Route path="/auth" component={AuthRouter}></Route>
         <ProtectedRoute
           isAuthenticated={isAuthenticated && user?.type == "Business"}
           path="/business"

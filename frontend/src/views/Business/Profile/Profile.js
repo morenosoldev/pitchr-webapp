@@ -52,18 +52,7 @@ export default function Profile() {
   const [editStage, setEditStage] = useState(false);
   const [editCapital, setEditCapital] = useState(false);
   const [editCompetences, setEditCompetences] = useState(false);
-  const [editInvestorAsk, setInvestorAsk] = useState(false);
   const [edit, setEdit] = useState(false);
-
-  const options = [
-    { name: "Swedish", value: "sv" },
-    { name: "English", value: "en" },
-    {
-      type: "group",
-      name: "Group name",
-      items: [{ name: "Spanish", value: "es" }],
-    },
-  ];
 
   useEffect(async () => {
     setKey(type);
@@ -196,12 +185,14 @@ export default function Profile() {
                           Elevator pitch{" "}
                           {!editElevatorPitch && edit ? (
                             <AiOutlineEdit
-                              style={{ marginLeft: "5px", cursor: "pointer" }}
+                              role="button"
+                              className="ms-2"
                               onClick={() => setEditElevatorPitch(true)}
                             />
                           ) : edit ? (
                             <AiOutlineClose
-                              style={{ marginLeft: "5px", cursor: "pointer" }}
+                              role="button"
+                              className="ms-2"
                               onClick={() => setEditElevatorPitch(false)}
                             />
                           ) : null}{" "}
@@ -251,12 +242,14 @@ export default function Profile() {
                           Industry{" "}
                           {!editIndustry && edit ? (
                             <AiOutlineEdit
-                              style={{ marginLeft: "5px", cursor: "pointer" }}
+                              role="button"
+                              className="ms-2"
                               onClick={() => setEditIndustry(true)}
                             />
                           ) : edit ? (
                             <AiOutlineClose
-                              style={{ marginLeft: "5px", cursor: "pointer" }}
+                              role="button"
+                              className="ms-2"
                               onClick={() => setEditIndustry(false)}
                             />
                           ) : null}
@@ -272,10 +265,24 @@ export default function Profile() {
                                 setIndustry(e.target.value);
                               }}
                             >
-                              <option>Industry</option>
+                              <option value="tech">Technology/Software</option>
+                              <option value="ecom">E-commerce</option>
+                              <option value="healthtech">Healthtech</option>
                               <option value="fintech">Fintech</option>
-                              <option value="software">Software</option>
-                              <option value="blabla">Blalba</option>
+                              <option value="saas">
+                                SaaS (Software as a Service)
+                              </option>
+                              <option value="ai">
+                                Artificial Intelligence (AI)
+                              </option>
+                              <option value="cleanenergy">
+                                Clean Energy/Sustainability
+                              </option>
+                              <option value="biotech">Biotech</option>
+                              <option value="edtech">
+                                Education Technology (EdTech)
+                              </option>
+                              <option value="foodbev">Food and Beverage</option>
                             </Form.Select>
 
                             <Button onClick={() => updateIndustry()}>
@@ -309,12 +316,14 @@ export default function Profile() {
                           Location{" "}
                           {!editCountry && edit ? (
                             <AiOutlineEdit
-                              style={{ marginLeft: "5px", cursor: "pointer" }}
+                              role="button"
+                              className="ms-2"
                               onClick={() => setEditCountry(true)}
                             />
                           ) : edit ? (
                             <AiOutlineClose
-                              style={{ marginLeft: "5px", cursor: "pointer" }}
+                              role="button"
+                              className="ms-2"
                               onClick={() => setEditCountry(false)}
                             />
                           ) : null}
@@ -360,12 +369,14 @@ export default function Profile() {
                           Development stage{" "}
                           {!editStage && edit ? (
                             <AiOutlineEdit
-                              style={{ marginLeft: "5px", cursor: "pointer" }}
+                              role="button"
+                              className="ms-2"
                               onClick={() => setEditStage(true)}
                             />
                           ) : edit ? (
                             <AiOutlineClose
-                              style={{ marginLeft: "5px", cursor: "pointer" }}
+                              role="button"
+                              className="ms-2"
                               onClick={() => setEditStage(false)}
                             />
                           ) : null}
@@ -426,19 +437,13 @@ export default function Profile() {
                             {!editCapital && edit ? (
                               <AiOutlineEdit
                                 onClick={() => setEditCapital(true)}
-                                style={{
-                                  marginLeft: "5px",
-                                  cursor: "pointer",
-                                  display: "inline",
-                                }}
+                                role="button"
+                                className="ms-2"
                               />
                             ) : edit ? (
                               <AiOutlineClose
-                                style={{
-                                  marginLeft: "5px",
-                                  cursor: "pointer",
-                                  display: "inline",
-                                }}
+                                role="button"
+                                className="ms-2"
                                 onClick={() => setEditCapital(false)}
                               />
                             ) : null}
@@ -452,15 +457,14 @@ export default function Profile() {
                                   aria-label="Capital"
                                 >
                                   <option>Wanted capital</option>
-                                  <option value="500.000 - 1000.000">
+                                  <option
+                                    value="                                    500.000 - 1M
+"
+                                  >
                                     500.000 - 1M
                                   </option>
-                                  <option value="500.000 - 1000.000">
-                                    1M - 2M
-                                  </option>
-                                  <option value="500.000 - 1000.000">
-                                    2M - 5M
-                                  </option>
+                                  <option value="1M - 2M">1M - 2M</option>
+                                  <option value="2M - 5M">2M - 5M</option>
                                 </Form.Select>
 
                                 <Form.Group
@@ -518,19 +522,13 @@ export default function Profile() {
                             {!editCompetences && edit ? (
                               <AiOutlineEdit
                                 onClick={() => setEditCompetences(true)}
-                                style={{
-                                  marginLeft: "5px",
-                                  cursor: "pointer",
-                                  display: "inline",
-                                }}
+                                role="button"
+                                className="ms-2"
                               />
                             ) : edit ? (
                               <AiOutlineClose
-                                style={{
-                                  marginLeft: "5px",
-                                  cursor: "pointer",
-                                  display: "inline",
-                                }}
+                                role="button"
+                                className="ms-2"
                                 onClick={() => setEditCompetences(false)}
                               />
                             ) : null}
@@ -559,18 +557,18 @@ export default function Profile() {
                                       {competence.name}
                                     </p>
                                     <BsTrash
-                                      style={{
-                                        cursor: "pointer",
-                                        display: "inline",
-                                        marginLeft: "6px",
-                                      }}
+                                      role="button"
+                                      className="ms-2"
                                       onClick={() => removeCompetence(index)}
                                     />
                                   </Badge>
                                 ))}
                               </ul>
 
-                              <Button onClick={() => updateCompetences()}>
+                              <Button
+                                className="mt-3"
+                                onClick={() => updateCompetences()}
+                              >
                                 Save
                               </Button>
                             </>

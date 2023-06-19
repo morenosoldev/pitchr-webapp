@@ -6,9 +6,10 @@ import Recoverpw from "../views/dashboard/auth/recoverpw";
 import SignIn from "../views/dashboard/auth/sign-in";
 import FileAccess from "../views/dashboard/auth/FileAccess";
 import Welcome from "../views/dashboard/auth/welcome";
-import SignUp from "../views/dashboard/auth/sign-up";
+import SignUpBusiness from "../views/dashboard/auth/sign-up-business";
+import SignUpInvestor from "../views/dashboard/auth/sign-up-investor";
 
-const SimpleRouter = () => {
+const AuthRouter = () => {
   return (
     <>
       <Switch>
@@ -16,7 +17,8 @@ const SimpleRouter = () => {
         <Route path="/auth/lock-screen" component={LockScreen} />
         <Route path="/auth/recoverpw" component={Recoverpw} />
         <Route path="/auth/sign-in" component={SignIn} />
-        <Route path="/auth/sign-up" component={SignUp} />
+        <Route path="/auth/sign-up/investor" component={SignUpInvestor} />
+        <Route path="/auth/sign-up/business" component={SignUpBusiness} />
         <Route path="/auth/confirm/:confirmationCode" component={Welcome} />
         <Route
           path="/auth/confirmFileAccess/:confirmationCode"
@@ -27,4 +29,4 @@ const SimpleRouter = () => {
   );
 };
 
-export default SimpleRouter;
+export default AuthRouter;

@@ -157,7 +157,7 @@ class NewGrid extends Component {
               ))}
               <div
                 onClick={() => this.props.addSection()}
-                style={{ cursor: "pointer" }}
+                role="button"
                 className="d-flex align-items-center"
               >
                 <a className="me-2">

@@ -43,6 +43,14 @@ const Groups = () => {
   }, []);
 
   const addMemberToTeam = () => {
+    // Perform validation checks
+    if (!name || !jobTitle || !jobDescription || !percentage) {
+      // Check if any of the required fields are empty
+      // You can display an error message or perform any other necessary actions
+      console.log("Please fill in all required fields.");
+      return;
+    }
+
     dispatch(
       teamActions.addMember(
         {
@@ -280,11 +288,7 @@ const Groups = () => {
                   justifyContent: "center",
                 }}
               >
-                <BsPlusCircle
-                  size="40"
-                  style={{ cursor: "pointer" }}
-                  onClick={handleShow}
-                />
+                <BsPlusCircle size="40" role="button" onClick={handleShow} />
               </div>
             </Card.Body>
           </Card>

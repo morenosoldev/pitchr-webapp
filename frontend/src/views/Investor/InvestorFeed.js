@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Container, Spinner } from "react-bootstrap";
-import { pitchActions } from "../../store/actions/pitch.actions";
-import Pitch from "../../components/Feed/Pitch";
-import PitchDeck from "../../components/PitchDeck/PitchDeck";
-import { useSelector, useDispatch } from "react-redux";
-import Footer from "../../components/partials/dashboard/footerStyle/footer";
-import { pitchService } from "../../store/services/pitch.service";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import VisibilitySensor from "react-visibility-sensor";
+import PitchDeck from "../../components/PitchDeck/PitchDeck";
+import { pitchService } from "../../store/services/pitch.service";
 
-const Index = () => {
-  const loading = useSelector((state) => state.pitch.loading);
+const InvestorFeed = () => {
+  const [loading, setLoading] = useState(true);
   const user = useSelector((state) => state.authentication.user);
   const [pitches, setPitches] = useState([]);
   const [currentID, setCurrentID] = useState(0);
@@ -17,23 +14,14 @@ const Index = () => {
 
   useEffect(async () => {
     const pitches = await pitchService.fetchPitches(user?.user_id);
-    console.log(pitches);
+    console.log("her", pitches);
 
     if (pitches.length > 0) {
       setPitches(pitches);
       setCurrentID(pitches[0].id);
+      setLoading(false);
+      document.getElementById("feed-pitch").focus();
     }
-
-    /*
-    const savedPitches = await pitchService.fetchSavedPitches(user?.user_id);
-    
-    if(savedPitches[0]){
-      setSavedPitches(savedPitches);
-    
-    }
-*/
-
-    document.getElementById("feed-pitch").focus();
   }, []);
 
   const handleKeyDown = (event) => {
@@ -154,14 +142,13 @@ body{
               onKeyPress={handleKeyDown}
               id="feed-pitch"
               style={{ outline: "none" }}
-              tabindex="0"
+              tabInvestorFeed="0"
               onKeyDown={handleKeyDown}
               fluid
             >
               <style>{css}</style>
               <Row style={{ height: "100%" }}>
                 <Col
-                  className="h-100"
                   lg={12}
                   className="pitch-container row m-0 p-0"
                   style={{
@@ -228,4 +215,4 @@ body{
   );
 };
 
-export default Index;
+export default InvestorFeed;

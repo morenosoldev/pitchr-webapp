@@ -1,6 +1,11 @@
 import React from "react";
-import { Col, Container, Row, Table } from "react-bootstrap";
-import { BsBullseye, BsCpu, BsFillPlusCircleFill } from "react-icons/bs";
+import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import {
+  BsBullseye,
+  BsCpu,
+  BsFillEnvelopeFill,
+  BsFillPlusCircleFill,
+} from "react-icons/bs";
 import { Link } from "react-router-dom";
 import Card from "../Card";
 import Flag from "../Flag/Flag";
@@ -35,8 +40,11 @@ const PitchDeck = ({
                 className="pickgradient row-span-2 row-span-md-1"
                 style={{ display: "flex", height: "100%" }}
               >
-                <Container style={{ height: "100%" }} fluid>
-                  <Row style={{ height: "100%" }}>
+                <Container
+                  fluid
+                  className="d-flex align-items-center justify-content-center"
+                >
+                  <Row>
                     <Col className="tw-items-center tw-flex" sm={4}>
                       <div style={{ width: "100%" }} className="user-profile">
                         <div className="user text-center mb-4">
@@ -118,7 +126,7 @@ const PitchDeck = ({
                               <span>Team</span>
                             </div>
 
-                            {members.map((member, index) => (
+                            {members.slice(0, 3).map((member, index) => (
                               <Col key={index} xs>
                                 <div className="team-member">
                                   <img
@@ -190,8 +198,8 @@ const PitchDeck = ({
                                 <tbody>
                                   {members.map((member) => (
                                     <tr>
-                                      <td>{member.name}</td>
-                                      <td>{member.equity}%</td>
+                                      <td>{member?.name}</td>
+                                      <td>{member?.equity}%</td>
                                     </tr>
                                   ))}
                                 </tbody>
@@ -219,6 +227,14 @@ const PitchDeck = ({
                                   <MRR data={chart} />
                                 </Col>
                               ))}
+                            </div>
+                          </Row>
+
+                          <Row>
+                            <div style={{ display: "flex" }} className="mb-4">
+                              <Button>
+                                Contact startup <BsFillEnvelopeFill />
+                              </Button>
                             </div>
                           </Row>
                         </div>

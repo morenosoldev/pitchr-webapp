@@ -148,11 +148,9 @@ const getUser = async (req, res) => {
           raw: true,
         });
 
-        return res
-          .status(200)
-          .json({
-            user: { ...bussiness, ...dbUser, id: bussiness.id, user_id: id },
-          });
+        return res.status(200).json({
+          user: { ...bussiness, ...dbUser, id: bussiness.id, user_id: id },
+        });
       }
     })
     .catch((err) => {
@@ -207,11 +205,9 @@ const getInvestor = async (req, res) => {
           raw: true,
         });
 
-        return res
-          .status(200)
-          .json({
-            user: { ...bussiness, ...dbUser, id: bussiness.id, user_id: id },
-          });
+        return res.status(200).json({
+          user: { ...bussiness, ...dbUser, id: bussiness.id, user_id: id },
+        });
       }
     })
     .catch((err) => {
@@ -279,6 +275,8 @@ const updateBusinessIndustrys = async (req, res) => {
         user_id: id,
       },
     });
+
+    console.log("req.body.industry", req.body.industry);
 
     user.industry = req.body.industry;
 

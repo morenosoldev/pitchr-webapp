@@ -1,6 +1,5 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import userProfile from "../views/dashboard/app/user-profile";
 import Chat from "../views/dashboard/app/chat";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Groups from "../views/dashboard/app/groups";
@@ -15,6 +14,7 @@ import Profile from "../views/Business/Profile/Profile";
 import "../assets/scss/socialv.scss";
 import NewBusiness from "../views/Business/NewBusiness";
 import UploadDeck from "../views/Business/Deck/UploadDeck";
+import InvestorProfile from "../views/Investor/InvestorProfile";
 
 const BusinessRouter = () => {
   return (
@@ -22,9 +22,7 @@ const BusinessRouter = () => {
       <CSSTransition classNames="fadeUp" timeout={300}>
         <Switch>
           <Route path="/business" exact component={NewBusiness} />
-
-          {/* app */}
-          <Route path="/business/app/profile" component={userProfile} />
+          <Route path="/business/app/profile" component={InvestorProfile} />
           <Route path="/business/app/team" component={Groups} />
           <Route path="/business/app/company/:id/:type" component={Profile} />
           <Route path="/business/app/upload" component={UploadDeck} />

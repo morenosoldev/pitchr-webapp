@@ -146,8 +146,8 @@ export default function AboutUs() {
                   <div className="user-img img-fluid">
                     <i
                       className="fas fa-user-edit"
+                      role="button"
                       onClick={() => setWriteDescription(true)}
-                      style={{ cursor: "pointer" }}
                     ></i>
                   </div>
                 ) : null}
@@ -199,8 +199,8 @@ export default function AboutUs() {
                             <div className="user-img img-fluid">
                               <i
                                 className="ri-add-fill"
+                                role="button"
                                 onClick={() => setWriteDescription(true)}
-                                style={{ cursor: "pointer" }}
                               ></i>
                             </div>
                             <div className="ms-3">
@@ -231,8 +231,8 @@ export default function AboutUs() {
                   <div className="user-img img-fluid">
                     <i
                       className="fas fa-user-edit"
+                      role="button"
                       onClick={() => setWriteDevelopmentStage(true)}
-                      style={{ cursor: "pointer" }}
                     ></i>
                   </div>
                 ) : null}
@@ -286,8 +286,8 @@ export default function AboutUs() {
                             <div className="user-img img-fluid">
                               <i
                                 className="ri-add-fill"
+                                role="button"
                                 onClick={() => setWriteDevelopmentStage(true)}
-                                style={{ cursor: "pointer" }}
                               ></i>
                             </div>
                             <div className="ms-3">
@@ -314,8 +314,8 @@ export default function AboutUs() {
                   <div className="user-img img-fluid">
                     <i
                       className="fas fa-user-edit"
+                      role="button"
                       onClick={() => setWriteMarkets(true)}
-                      style={{ cursor: "pointer" }}
                     ></i>
                   </div>
                 ) : null}
@@ -374,8 +374,8 @@ export default function AboutUs() {
                             <div className="user-img img-fluid">
                               <i
                                 className="ri-add-fill"
+                                role="button"
                                 onClick={() => setWriteMarkets(true)}
-                                style={{ cursor: "pointer" }}
                               ></i>
                             </div>
                             <div className="ms-3">
@@ -400,8 +400,8 @@ export default function AboutUs() {
                   <div className="user-img img-fluid">
                     <i
                       className="fas fa-user-edit"
+                      role="button"
                       onClick={() => setWriteIndustry(true)}
-                      style={{ cursor: "pointer" }}
                     ></i>
                   </div>
                 ) : null}
@@ -449,8 +449,8 @@ export default function AboutUs() {
                             <div className="user-img img-fluid">
                               <i
                                 className="ri-add-fill"
+                                role="button"
                                 onClick={() => setWriteIndustry(true)}
-                                style={{ cursor: "pointer" }}
                               ></i>
                             </div>
                             <div className="ms-3">
@@ -484,8 +484,8 @@ export default function AboutUs() {
                       <div className="user-img img-fluid">
                         <i
                           className="fas fa-user-edit"
+                          role="button"
                           onClick={() => setWriteGoal(true)}
-                          style={{ cursor: "pointer" }}
                         ></i>
                       </div>
                     ) : null}
@@ -571,7 +571,7 @@ export default function AboutUs() {
                                   <i
                                     className="ri-add-fill"
                                     onClick={() => setWriteGoal(true)}
-                                    style={{ cursor: "pointer" }}
+                                    role="button"
                                   ></i>
                                 </div>
                                 <div className="ms-3">
@@ -596,7 +596,7 @@ export default function AboutUs() {
                         <i
                           className="fas fa-user-edit"
                           onClick={() => setWriteCompetences(true)}
-                          style={{ cursor: "pointer" }}
+                          role="button"
                         ></i>
                       </div>
                     ) : null}
@@ -625,17 +625,11 @@ export default function AboutUs() {
                           {competences.length > 0 ? (
                             <ul className="suggestions-lists m-0 p-0">
                               {competences?.map((competence, key) => (
-                                <Badge
-                                  style={{ padding: "8px", margin: "6px" }}
-                                  pill
-                                  bg="primary"
-                                >
+                                <Badge className="p-2 m-1" pill bg="primary">
                                   {competence.name}
                                   <i
-                                    style={{
-                                      paddingLeft: "4px",
-                                      cursor: "pointer",
-                                    }}
+                                    role="button"
+                                    className="pl-1"
                                     class="fas fa-trash-alt"
                                     onClick={() => removeCompetence(key)}
                                   ></i>
@@ -673,8 +667,8 @@ export default function AboutUs() {
                                 <div className="user-img img-fluid">
                                   <i
                                     className="ri-add-fill"
+                                    role="button"
                                     onClick={() => setWriteCompetences(true)}
-                                    style={{ cursor: "pointer" }}
                                   ></i>
                                 </div>
                                 <div className="ms-3">

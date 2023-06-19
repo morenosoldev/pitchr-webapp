@@ -25,7 +25,7 @@ const { auth } = require("../../middleware/auth");
 module.exports = function (app) {
   app.get("/getAllUsers", auth, getAllUsers);
   app.get("/getUser/:id", auth, getUser);
-  app.get("/getInvestor/:id", auth, getInvestor);
+  app.get("/investor/:id", auth, getInvestor);
   app.get("/getChatProfile/:id", auth, getChatProfile);
   app.get("/business/:id", auth, getBusiness);
 

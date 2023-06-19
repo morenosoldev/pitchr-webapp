@@ -64,7 +64,8 @@ const createPitchDeck = async (req, res) => {
       return;
     }
 
-    res.status(200).json("Oprettet");
+    // Return the deck and files as an object
+    return { deck, files };
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -124,7 +125,7 @@ const getFileType = async (url) => {
 
 const getPitchDecks = async (req, res) => {
   try {
-    const data = await User.findOne({
+    const data = await User.findAll({
       where: {
         type: "Business",
       },

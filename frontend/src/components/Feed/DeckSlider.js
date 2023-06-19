@@ -48,7 +48,7 @@ export default function DeckSlider({ userID }) {
 
     if (!hasBeenSwiped && Number(userID) !== Number(user?.user_id)) {
       // OPRET VIEW
-      API.post(`/deckview/${user?.user_id}`);
+      //API.post(`/deckview/${user?.user_id}`);
     }
   };
   const upload = async () => {
@@ -56,10 +56,10 @@ export default function DeckSlider({ userID }) {
     let currentFile = selectedFiles[0];
     setCurrentFile(currentFile);
     const fileUrl = await uploadFile(currentFile);
-    console.log(fileUrl);
-    await API.post(`/deck/${user?.user_id}`, { file: fileUrl });
+    const deck = await API.post(`/deck/${user?.user_id}`, { file: fileUrl });
+    console.log("deck", deck);
     setLoading(false);
-    setDeck(true);
+    setDeck(deck.data);
     setPitchDeck(fileUrl);
   };
 
@@ -85,7 +85,7 @@ export default function DeckSlider({ userID }) {
   }, [swiper]);
 
   return (
-    <div style={{ overflow: "hidden" }} className="h-100">
+    <div style={{ overflow: "hidden" }}>
       {loading ? (
         <div
           style={{
