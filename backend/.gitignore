@@ -1,2 +1,6 @@
 node_modules
 db_config.js
+config.json
+pitchr.json
+.env
+```
