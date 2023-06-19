@@ -1,47 +1,36 @@
-import React from "react";
-//router
-import { LinkedInCallback } from "react-linkedin-login-oauth2";
+import React, { useEffect } from "react";
 import { Route, Switch } from "react-router";
-//layoutpages
+import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import BusinessDashboard from "../layouts/dashboard/BusinessDashboard";
 import InvestorDashboard from "../layouts/dashboard/InvestorDashboard";
 import Simple from "../layouts/dashboard/simple";
-import WithoutLeftSidebar from "../layouts/dashboard/without-leftsidebar";
-import WithoutRightSidebar from "../layouts/dashboard/without-rightsidebar";
-import Blog from "../views/LandingPage/Blog";
-import Business from "../views/LandingPage/Business";
-import Investor from "../views/LandingPage/Investor";
-import LandingPage from "../views/LandingPage/LandingPage";
-import PartnerPage from "../views/LandingPage/PartnerPage";
-import PrivacyPolicy from "../views/LandingPage/PrivacyPolicy";
+import { useSelector } from "react-redux";
 
 const IndexRouters = () => {
+  const isAuthenticated = useSelector(
+    (state) => state.authentication.isLoggedIn
+  );
+  const user = useSelector((state) => state.authentication.user);
+
+  useEffect(() => {
+    console.log("user", user);
+  }, [user]);
   return (
     <>
       <Switch>
-        <Route
-          path="/without-leftsidebar"
-          component={WithoutLeftSidebar}
-        ></Route>
-        <Route
-          path="/without-rightsidebar"
-          component={WithoutRightSidebar}
-        ></Route>
         <Route path="/auth" component={Simple}></Route>
         <Route path="/errors" component={Simple}></Route>
-
-        <Route path="/startup" component={Business}></Route>
-        <Route path="/investors" component={Investor}></Route>
-        <Route path="/partners" component={PartnerPage}></Route>
-        <Route exact path="/" component={LandingPage}></Route>
-        <Route path="/blog" component={Blog}></Route>
-        <Route exact path="/linkedin" component={LinkedInCallback} />
-        <Route path="/privacy" component={PrivacyPolicy}></Route>
-
         <Route path="/extra-pages" component={Simple}></Route>
-
-        <Route path="/business" component={BusinessDashboard}></Route>
-        <Route path="/investor" component={InvestorDashboard}></Route>
+        <ProtectedRoute
+          isAuthenticated={isAuthenticated && user?.type == "Business"}
+          path="/business"
+          component={BusinessDashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          isAuthenticated={isAuthenticated && user?.type == "Investor"}
+          path="/investor"
+          component={InvestorDashboard}
+        ></ProtectedRoute>
       </Switch>
     </>
   );

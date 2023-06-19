@@ -17,22 +17,24 @@ const addProfileView = async (req, res) => {
 
     res.status(200).json("tilføjet");
   } catch (error) {
+    console.log("error", error);
     res.status(500).json(error);
   }
 };
 
 const addDeckView = async (req, res) => {
-  const { userID, visitorID } = req.params;
+  const { deckID, visitorID } = req.params;
 
   try {
     DeckViews.create({
-      user_id: userID,
+      deckId: deckID,
       visitor_user_id: visitorID,
-      count: 0,
     });
 
     res.status(200).json("tilføjet");
   } catch (error) {
+    console.log("error", error);
+
     res.status(500).json(error);
   }
 };
@@ -237,6 +239,7 @@ const getProfileViews = async (req, res) => {
 
 module.exports = {
   addPitchView,
+  addDeckView,
   addProfileView,
   getPitchViews,
   getProfileViews,

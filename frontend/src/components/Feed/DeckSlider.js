@@ -74,7 +74,7 @@ export default function DeckSlider({ userID }) {
     const getDeck = async () => {
       console.log(userID);
       const deck = await API.get(`/deck/${userID}`);
-      console.log(deck);
+      console.log("deckll", deck);
       if (deck.data) {
         console.log("deck", deck.data);
         setDeck(deck.data);
@@ -100,15 +100,15 @@ export default function DeckSlider({ userID }) {
       ) : (
         <>
           {deck ? (
-            <div className="tw-w-full tw-h-full tw-hidden md:tw-flex">
-              <div className="tw-flex tw-flex-col tw-flex-1 tw-justify-center tw-h-full tw-relative tw-m-0">
-                <div className="journey-experience-node">
-                  <div className="journey-experience-node"></div>
+            <div class="w-full h-full hidden d-md-flex">
+              <div class="d-flex flex-column flex-1 justify-content-center h-full relative mx-auto">
+                <div class="journey-experience-node">
+                  <div class="journey-experience-node"></div>
                 </div>
-                <div className="journey-experience-node">
-                  <div className="tw-relative tw-h-full tw-mb-4 tw-flex tw-justify-start tw-space-x-1">
-                    <div className="tw-flex tw-w-full tw-h-full">
-                      <div className="tw-flex tw-w-full tw-h-full">
+                <div class="journey-experience-node">
+                  <div class="relative h-full mb-4 d-flex justify-start space-x-1">
+                    <div class="d-flex w-full h-full">
+                      <div class="d-flex w-full h-full">
                         <FullScreen
                           style={{ margin: "0 auto" }}
                           handle={handle}
@@ -122,7 +122,7 @@ export default function DeckSlider({ userID }) {
                             }}
                             onSwiper={setSwiper}
                             observer={true}
-                            className={`mySwiper swiper swiper-initialized swiper-horizontal swiper-pointer-events tw-flex tw-flex-col tw-self-center theme-component-bg tw-rounded-xl tw-transition-opacity ${
+                            className={`mySwiper swiper swiper-initialized d-flex flex-column swiper-horizontal swiper-pointer-events theme-component-bg  ${
                               handle.active ? "fullscreen-view" : ""
                             }`}
                             breakpoints={{
@@ -149,42 +149,42 @@ export default function DeckSlider({ userID }) {
                               </SwiperSlide>
                             ))}
 
-                            <div className="tw-bg-white tw-border-t tw-border-gray-100 tw-transition-opacity">
-                              <div className="tw-flex tw-space-x-4 tw-items-center tw-justify-between tw-px-4 tw-py-2">
-                                <div className="tw-flex tw-flex-none tw-space-x-2 tw-justify-between tw-items-center">
-                                  <div className="tw-flex tw-flex-none tw-space-x-2 tw-justify-between tw-items-center">
-                                    <div className="tw-font-semibold tw-text-sm">
+                            <div class="bg-white swiper-nav border-top border-gray-100 transition-opacity">
+                              <div class="d-flex justify-content-between align-items-center px-4 py-2">
+                                <div class="d-flex w-100 me-3 justify-content-between align-items-center">
+                                  <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <div class="font-semibold text-sm">
                                       <button
                                         ref={prevRef}
                                         style={{
-                                          border: "medium none",
+                                          border: "none",
                                           cursor: "pointer",
                                         }}
-                                        className="tw-p-2 tw-rounded tw-text-black hover:tw-bg-gray-100 "
+                                        class="rounded text-black hover:bg-gray-100"
                                       >
                                         <BsChevronLeft />
                                       </button>
                                     </div>
-                                    <div className="tw-font-semibold tw-text-sm">
-                                      <span className="tw-inline-block min-w-[3rem] tw-text-center tw-text-black">
+                                    <div class="font-semibold text-sm">
+                                      <span class="d-inline-block min-w-3rem text-center text-black">
                                         {index} / {swiper?.slidesGrid.length}
                                       </span>
                                     </div>
-                                    <div className="tw-font-semibold tw-text-sm">
+                                    <div class="font-semibold text-sm">
                                       <button
                                         ref={nextRef}
                                         style={{
-                                          border: "medium none",
+                                          border: "none",
                                           cursor: "pointer",
                                         }}
-                                        className="tw-p-2 tw-rounded tw-text-black hover:tw-bg-gray-100 "
+                                        class="rounded text-black hover:bg-gray-100"
                                       >
                                         <BsChevronRight />
                                       </button>
                                     </div>
                                   </div>
                                 </div>
-                                <div className="tw-flex tw-space-x-4 tw-items-center tw-justify-between">
+                                <div className="d-flex justify-content-between align-items-center">
                                   <BsFullscreen
                                     style={{ cursor: "pointer" }}
                                     onClick={handle.enter}
@@ -205,7 +205,7 @@ export default function DeckSlider({ userID }) {
               <div className="content-container">
                 <div className="mx-auto">
                   <div className="content-icon">
-                    <div>
+                    <div className="text-center">
                       <img
                         src="https://cdn.devdojo.com/images/november2020/welcome.png"
                         style={{ width: "200px", margin: "0 auto" }}

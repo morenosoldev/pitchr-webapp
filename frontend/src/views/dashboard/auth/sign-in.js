@@ -1,19 +1,8 @@
-import React, { useState, useEffect } from "react";
-import {
-  Row,
-  Col,
-  Container,
-  Form,
-  Button,
-  Image,
-  Spinner,
-} from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import { userActions } from "../../../store/actions";
-import { useLinkedIn } from "react-linkedin-login-oauth2";
-import linkedin from "react-linkedin-login-oauth2/assets/linkedin.png";
-import API from "../../../util/AxiosConfig";
 
 const SignIn = () => {
   const [inputs, setInputs] = useState({
@@ -23,16 +12,10 @@ const SignIn = () => {
 
   const [submitted, setSubmitted] = useState(false);
   const { email, password } = inputs;
-  const loggingIn = useSelector((state) => state.authentication.loggingIn);
   const message = useSelector((state) => state.alert.message);
   const loading = useSelector((state) => state.authentication.loading);
   const dispatch = useDispatch();
   const location = useLocation();
-
-  // reset login status
-  useEffect(() => {
-    dispatch(userActions.logout());
-  }, []);
 
   function handleChange(e) {
     const { name, value } = e.target;

@@ -1,3 +1,4 @@
+const uploadImage = require("../firebase/firebase");
 const models = require("../models");
 const PitchDeck = models.PitchDeck;
 const PitchDeckFile = models.PitchDeckFile;
@@ -32,8 +33,9 @@ const createPitchDeck = async (req, res) => {
 
       // Save each file individually in the PitchDeckFile model
       for (const fileData of files) {
+        console.log("fileData", fileData);
         await PitchDeckFile.create({
-          file: fileData.Url,
+          file: await uploadImage(fileData.Url, `files/${fileData.FileName}`),
           pitchDeckId: deck.id,
         });
       }
@@ -49,8 +51,9 @@ const createPitchDeck = async (req, res) => {
 
       // Save each file individually in the PitchDeckFile model
       for (const fileData of files) {
+        console.log("fileData", fileData);
         await PitchDeckFile.create({
-          file: fileData.Url,
+          file: await uploadImage(fileData.Url, `files/${fileData.FileName}`),
           pitchDeckId: deck.id,
         });
       }
@@ -78,9 +81,12 @@ const getPitchDeck = async (req, res) => {
       },
       include: {
         model: PitchDeckFile,
+        require: true,
         as: "pitchDeckFiles", // Specify the correct alias for the association
       },
     });
+
+    console.log("dekc", deck);
 
     if (deck) {
       const files = deck.pitchDeckFiles.map((file) => file.file);
@@ -118,7 +124,7 @@ const getFileType = async (url) => {
 
 const getPitchDecks = async (req, res) => {
   try {
-    const data = await User.findAll({
+    const data = await User.findOne({
       where: {
         type: "Business",
       },
@@ -128,9 +134,10 @@ const getPitchDecks = async (req, res) => {
           required: true,
           include: [
             "employees",
-            { model: PitchDeck },
+            { model: PitchDeck, required: true, include: ["pitchDeckFiles"] },
             {
               model: Metrics,
+              required: true,
               include: [
                 {
                   model: Row,
@@ -142,8 +149,14 @@ const getPitchDecks = async (req, res) => {
         },
       ],
     });
+    console.log("data", data);
 
-    res.status(200).json(data);
+    if (!data) {
+      // No PitchDecks found, return an empty array
+      res.status(200).json([]);
+    } else {
+      res.status(200).json(data);
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

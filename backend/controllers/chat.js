@@ -7,10 +7,11 @@ const sequelize = require("../utils/database");
 const { Op } = require("sequelize");
 
 const getChatsFromUser = async (req, res) => {
+  console.log("getChatsFromUser", req.user.email);
   try {
     const user = await User.findOne({
       where: {
-        id: req.user.id,
+        email: req.user.email,
       },
       include: [
         {
@@ -20,7 +21,7 @@ const getChatsFromUser = async (req, res) => {
               model: User,
               where: {
                 [Op.not]: {
-                  id: req.user.id,
+                  email: req.user.email,
                 },
               },
             },
@@ -35,6 +36,7 @@ const getChatsFromUser = async (req, res) => {
     });
     res.status(200).json(user.Chats);
   } catch (err) {
+    console.log("Error in getChatsFromUser: ", err);
     res.status(500).json(err);
   }
 };
@@ -68,12 +70,10 @@ const create = async (req, res) => {
     });
 
     if (user && user.Chats.length > 0)
-      return res
-        .status(403)
-        .json({
-          status: "Error",
-          message: "Chat with this user already exists!",
-        });
+      return res.status(403).json({
+        status: "Error",
+        message: "Chat with this user already exists!",
+      });
 
     const chat = await Chat.create({ type: "dual" }, { transaction: t });
 

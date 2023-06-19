@@ -1,13 +1,8 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-
-//app
 import userProfile from "../views/dashboard/app/user-profile";
 import Chat from "../views/dashboard/app/chat";
-
-//TransitionGroup
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-
 import Groups from "../views/dashboard/app/groups";
 import FileWrapper from "../views/dashboard/app/FileWrapper";
 import UploadMRR from "../views/Business/Financials/UploadExcel/UploadMRR";

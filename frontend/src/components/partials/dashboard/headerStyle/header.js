@@ -1,8 +1,7 @@
 import React from "react";
-import { Card, Dropdown, Image, Nav, Navbar } from "react-bootstrap";
+import { Button, Card, Dropdown, Image, Nav, Navbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import Button from "@restart/ui/esm/Button";
 
 const Header = () => {
   const user = useSelector((state) => state.authentication.user);
@@ -110,15 +109,14 @@ const Header = () => {
                 <Dropdown as="li" className="nav-item">
                   <Dropdown.Toggle
                     href="#"
-                    as={Button}
-                    bsPrefix="d-flex align-items-center search-toggle"
+                    bsPrefix="d-flex align-items-center search-toggle "
                   >
                     <Image
                       src={user?.profile_pic}
-                      className="img-fluid rounded-circle me-3"
+                      className="img-fluid rounded-circle me-2"
                       alt="user"
                     />
-                    <div className="caption">
+                    <div className="caption me-2">
                       <h6 className="mb-0 line-height">{user?.name}</h6>
                     </div>
                   </Dropdown.Toggle>

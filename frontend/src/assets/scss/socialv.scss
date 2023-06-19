@@ -60,8 +60,9 @@
 // Utilities
 @import "./bootstrap/utilities/api";
 
-body > iframe[style*="2147483647"]:not([id="webpack-dev-server-client-overlay"]) {
-    display: none;
+body
+  > iframe[style*="2147483647"]:not([id="webpack-dev-server-client-overlay"]) {
+  display: none;
 }
 
 // // Extra Components and Utilities and plugins
@@ -72,8 +73,19 @@ body > iframe[style*="2147483647"]:not([id="webpack-dev-server-client-overlay"])
 @import "./custom/mode/dark/index";
 @import "./custom/mode/rtl/index";
 
-
 //fontawesome
 @import url("../vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css");
 @import url("../vendor/@fortawesome/fontawesome-free/css/all.min.css");
 @import url("../vendor/remixicon/fonts/remixicon.css");
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+.search-toggle {
+  background-color: transparent;
+  border: none;
+}
