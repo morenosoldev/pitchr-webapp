@@ -1,38 +1,36 @@
+import { useEffect, useState } from "react";
 import {
-  Container,
-  Row,
-  Col,
-  Stack,
   Badge,
   Button,
-  Dropdown,
+  Card,
+  Col,
+  Container,
   Form,
+  Nav,
+  Row,
+  Tab,
 } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import Flag from "../../../components/Flag/Flag";
-import { BsCameraFill, BsCpu, BsTrash } from "react-icons/bs";
-import { Nav, Tab, Card } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import File from "../../dashboard/app/file";
-import FinancialIndex from "../Financials";
+import ReactFlagsSelect from "react-flags-select";
 import {
   AiOutlineAreaChart,
   AiOutlineCamera,
   AiOutlineClose,
   AiOutlineEdit,
 } from "react-icons/ai";
-import DeckShowcase from "./DeckShowcase";
-import Groups from "../../dashboard/app/groups";
+import "./profile.scss";
+import { BsCpu, BsTrash } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import DeckSlider from "../../../components/Feed/DeckSlider";
+import Flag from "../../../components/Flag/Flag";
+import { uploadFile } from "../../../firebase";
+import { userActions } from "../../../store/actions";
 import { viewActions } from "../../../store/actions/views.actions";
 import API from "../../../util/AxiosConfig";
-import { userActions } from "../../../store/actions";
-import ReactFlagsSelect from "react-flags-select";
-import SelectSearch from "react-select-search";
-import CurrencyInput from "react-currency-input-field";
-import { uploadFile, uploadImage } from "../../../firebase";
+import File from "../../dashboard/app/file";
+import Groups from "../../dashboard/app/groups";
+import FinancialIndex from "../Financials";
+import DeckShowcase from "./DeckShowcase";
 
 export default function Profile() {
   const user = useSelector((state) => state.authentication.user);
@@ -152,7 +150,7 @@ export default function Profile() {
           <Card style={{ overflowY: "scroll" }} className="h-100">
             <Card.Body>
               <div style={{ width: "100%" }} className="user-profile">
-                <div className="user text-center">
+                <div className="user">
                   <Row>
                     <Row>
                       <div
@@ -173,17 +171,7 @@ export default function Profile() {
                               htmlFor="file-upload"
                               className="custom-file-upload"
                             >
-                              <div
-                                style={{
-                                  borderRadius: "50%",
-                                  background: "gray",
-                                  cursor: "pointer",
-                                  position: "absolute",
-                                  top: "-6px",
-                                  left: "-5px",
-                                  padding: "6px",
-                                }}
-                              >
+                              <div className="add-picture-ab">
                                 <AiOutlineCamera color="white" />
                               </div>
                             </label>
@@ -203,14 +191,8 @@ export default function Profile() {
                     </Row>
 
                     <Row>
-                      <div style={{ textAlign: "left" }} className="mb-3 mt-3">
-                        <h5
-                          style={{
-                            textAlign: "left",
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
+                      <div className="text-left mb-3 mt-3">
+                        <h5 className="d-flex align-items-center text-left">
                           Elevator pitch{" "}
                           {!editElevatorPitch && edit ? (
                             <AiOutlineEdit
@@ -249,9 +231,7 @@ export default function Profile() {
                                 {profile?.description}
                               </p>
                             ) : (
-                              <p style={{ textAlign: "left" }}>
-                                No elevator pitch
-                              </p>
+                              <p className="text-left">No elevator pitch</p>
                             )}
                           </div>
                         )}
@@ -260,7 +240,7 @@ export default function Profile() {
                     </Row>
 
                     <Row>
-                      <div style={{ textAlign: "left" }} className="mb-3 mt-3">
+                      <div className="text-left mb-3 mt-3">
                         <h5
                           style={{
                             textAlign: "left",
@@ -303,7 +283,7 @@ export default function Profile() {
                             </Button>
                           </>
                         ) : (
-                          <p style={{ textAlign: "left" }}>
+                          <p className="text-left">
                             {" "}
                             <BsCpu
                               style={{ display: "inline", marginRight: "5px" }}
@@ -318,7 +298,7 @@ export default function Profile() {
                     </Row>
 
                     <Row>
-                      <div style={{ textAlign: "left" }} className="mb-3 mt-3">
+                      <div className="text-left mb-3 mt-3">
                         <h5
                           style={{
                             textAlign: "left",
@@ -353,7 +333,7 @@ export default function Profile() {
                             </Button>
                           </>
                         ) : (
-                          <p style={{ textAlign: "left" }}>
+                          <p className="text-left">
                             <Flag
                               flagNationCode={
                                 profile?.Business.location
@@ -369,7 +349,7 @@ export default function Profile() {
                     </Row>
 
                     <Row>
-                      <div style={{ textAlign: "left" }} className="mb-3 mt-3">
+                      <div className="text-left mb-3 mt-3">
                         <h5
                           style={{
                             textAlign: "left",
@@ -412,10 +392,7 @@ export default function Profile() {
                             </Button>
                           </>
                         ) : (
-                          <p
-                            className="mt-2 d-flex"
-                            style={{ textAlign: "left" }}
-                          >
+                          <p className="mt-2 d-flex align-items-center text-left">
                             {" "}
                             <AiOutlineAreaChart
                               style={{ display: "inline" }}
@@ -441,10 +418,7 @@ export default function Profile() {
                           Investor ask
                         </h5>
 
-                        <Row
-                          style={{ textAlign: "left" }}
-                          className="mt-2 mb-2"
-                        >
+                        <Row className="text-left mt-2 mb-2">
                           <span
                             style={{ fontWeight: "bold", textAlign: "left" }}
                           >
@@ -519,7 +493,7 @@ export default function Profile() {
                                 </Button>
                               </>
                             ) : (
-                              <p style={{ textAlign: "left" }}>
+                              <p className="text-left">
                                 <span
                                   style={{
                                     fontWeight: "bold",
@@ -563,10 +537,7 @@ export default function Profile() {
                           </span>
                           {editCompetences ? (
                             <>
-                              <ul
-                                style={{ textAlign: "left" }}
-                                className="suggestions-lists m-0 p-0"
-                              >
+                              <ul className="text-left suggestions-lists m-0 p-0">
                                 <Form.Group
                                   className="mt-3"
                                   controlId="exampleForm.ControlInput1"
@@ -604,10 +575,7 @@ export default function Profile() {
                               </Button>
                             </>
                           ) : (
-                            <ul
-                              style={{ textAlign: "left" }}
-                              className="suggestions-lists m-0 p-0"
-                            >
+                            <ul className="text-left suggestions-lists m-0 p-0">
                               {profile?.Business?.competences.map(
                                 (competence) => (
                                   <Badge>

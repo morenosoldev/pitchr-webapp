@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
@@ -10,7 +10,6 @@ const SignIn = () => {
     password: "",
   });
 
-  const [submitted, setSubmitted] = useState(false);
   const { email, password } = inputs;
   const message = useSelector((state) => state.alert.message);
   const loading = useSelector((state) => state.authentication.loading);
@@ -25,7 +24,6 @@ const SignIn = () => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    setSubmitted(true);
     if (email && password) {
       // get return url from location state or default to home page
       const { from } = location.state || { from: { pathname: "/" } };

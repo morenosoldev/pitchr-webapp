@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import DeckTitle from "./DeckTitle";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { AiOutlinePlus, AiOutlinePlusCircle } from "react-icons/ai";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import DeckTitle from "./DeckTitle";
 import Decks from "./Decks";
 
-// a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
@@ -14,18 +12,14 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const grid = 8;
-
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: "none",
   // styles we need to apply on draggables
-  ...draggableStyle
+  ...draggableStyle,
 });
 
-const getListStyle = isDraggingOver => ({
-
-});
+const getListStyle = (isDraggingOver) => ({});
 
 class NewGrid extends Component {
   constructor(props) {
@@ -66,9 +60,9 @@ class NewGrid extends Component {
           sourceIndex,
           destIndex
         );
-        newItems = newItems.map(item => {
+        newItems = newItems.map((item) => {
           if (item.id == sourceParentId) {
-              console.log("yessir");
+            console.log("yessir");
             item.subItems = reorderedSubItems;
           }
           return item;
@@ -80,7 +74,7 @@ class NewGrid extends Component {
 
         let newDestSubItems = [...destSubItems];
         newDestSubItems.splice(destIndex, 0, draggedItem);
-        newItems = newItems.map(item => {
+        newItems = newItems.map((item) => {
           if (item.id == sourceParentId) {
             item.subItems = newSourceSubItems;
           } else if (item.id == destParentId) {
@@ -105,7 +99,11 @@ class NewGrid extends Component {
               style={getListStyle(snapshot.isDraggingOver)}
             >
               {this.props.data.map((item, index) => (
-                <Draggable key={item.id.toString()} draggableId={item.id.toString()} index={index}>
+                <Draggable
+                  key={item.id.toString()}
+                  draggableId={item.id.toString()}
+                  index={index}
+                >
                   {(provided, snapshot) => (
                     <div>
                       <div
@@ -116,39 +114,57 @@ class NewGrid extends Component {
                           provided.draggableProps.style
                         )}
                       >
-                       <DeckTitle data={item} removeRow={this.props.removeColumn} changeTitle={this.props.changeTitle} move={provided.dragHandleProps}/>
-                        
+                        <DeckTitle
+                          data={item}
+                          removeRow={this.props.removeColumn}
+                          changeTitle={this.props.changeTitle}
+                          move={provided.dragHandleProps}
+                        />
+
                         <Decks
-                          uploadData={this.props.addContent} 
-                          removeContent={this.props.removeContent} 
+                          uploadData={this.props.addContent}
+                          removeContent={this.props.removeContent}
                           data={this.props.data}
-                          changeColumnTitle={this.props.changeColumnTitle} 
-                          selectedColumn={this.props.selectedColumn} 
-                          changeSelected={this.props.selectColumn} 
+                          changeColumnTitle={this.props.changeColumnTitle}
+                          selectedColumn={this.props.selectedColumn}
+                          changeSelected={this.props.selectColumn}
                           removeRow={this.props.removeRow}
                           subItems={item.subItems}
                           type={item.id}
                         />
-                        <div style={{display:'flex',justifyContent:'center',flexDirection:'column', alignItems:'center'}}>
-                      <div className="vl" />
-                     <a className="btn-add-deck" onClick={() => this.props.addColumn(index)}  href="#">
-                          <AiOutlinePlus color="black" size={'20'}/>
-                      </a>     
-                      </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                            alignItems: "center",
+                          }}
+                        >
+                          <div className="vl" />
+                          <a
+                            className="btn-add-deck"
+                            onClick={() => this.props.addColumn(index)}
+                            href="#"
+                          >
+                            <AiOutlinePlus color="black" size={"20"} />
+                          </a>
+                        </div>
                       </div>
                       {provided.placeholder}
                     </div>
                   )}
                 </Draggable>
               ))}
-              <div  onClick={() => this.props.addSection()}style={{cursor:'pointer'}} className="tw-flex tw-items-center">
-              <a style={{marginRight:'5px'}}>
-                <AiOutlinePlusCircle color="black" size={'30'}/>
-              </a>
+              <div
+                onClick={() => this.props.addSection()}
+                style={{ cursor: "pointer" }}
+                className="d-flex align-items-center"
+              >
+                <a className="me-2">
+                  <AiOutlinePlusCircle color="black" size={"30"} />
+                </a>
 
-              <p style={{color:'black'}}> 
-                New Section
-              </p>
+                <p className="text-black m-0">New Section</p>
               </div>
               {provided.placeholder}
             </div>

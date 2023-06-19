@@ -1,40 +1,40 @@
 .recharts-cartesian-axis-tick-line {
-      stroke-opacity: 0;
+  stroke-opacity: 0;
 }
-.recharts-cartesian-axis-tick-value{
-font-weight: 200;
-}
-
-
-.views-date{
-    font-weight: lighter;
-    color: grey;
+.recharts-cartesian-axis-tick-value {
+  font-weight: 200;
 }
 
-.chart-btn{
-    border-radius: 6px;
-    padding: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.views-date {
+  font-weight: lighter;
+  color: grey;
 }
 
-.chart-btn-active{
-    background-color: #2A7BE4;
-    color: white;
+.chart-btn {
+  border-radius: 6px;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.deck-title-container{
-    display: flex;
-    position: relative;
-    
-    justify-content: space-between;
-    padding: 10px;
+.chart-btn-active {
+  background-color: #2a7be4;
+  color: white;
 }
-.deck-input{
-    background-color: transparent;
-    font-size: 1rem;
-    color: black;
+
+.deck-title-container {
+  display: flex;
+  position: relative;
+
+  justify-content: space-between;
+  padding: 10px;
+}
+.deck-input {
+  background-color: transparent;
+  font-size: 1rem;
+  color: black;
+  border: none;
 }
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
@@ -42,67 +42,66 @@ textarea::-webkit-input-placeholder {
 }
 input:-moz-placeholder,
 textarea:-moz-placeholder {
-    font-weight: 500;
+  font-weight: 500;
 }
 input::-moz-placeholder,
 textarea::-moz-placeholder {
-    font-weight: 500;
+  font-weight: 500;
 }
 input:-ms-input-placeholder,
 textarea:-ms-input-placeholder {
-    font-weight: 500;
+  font-weight: 500;
 }
-input:focus, textarea:focus, select:focus{
-    outline: none;
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
 }
-.chart-btns{
-    display: flex;
-    justify-content: space-evenly;
+.chart-btns {
+  display: flex;
+  justify-content: space-evenly;
 }
 
-
-.deck-title-icons{
-	opacity: 0.0;
-    -webkit-transition: all 500ms ease-in-out;
-    -moz-transition: all 500ms ease-in-out;
-    -ms-transition: all 500ms ease-in-out;
-    -o-transition: all 500ms ease-in-out;
-    transition: all 500ms ease-in-out;
-	position: absolute;
-	bottom: 0;
-	margin: 0px;
-    right: 10px;
-	color:black;
-	align-items:center;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#4a485e",endColorstr="#ffffff",GradientType=1); 
+.deck-title-icons {
+  opacity: 0;
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+  position: absolute;
+  bottom: 0;
+  margin: 0px;
+  right: 10px;
+  color: black;
+  align-items: center;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#4a485e",endColorstr="#ffffff",GradientType=1);
 }
 
 .deck-title-container:hover .deck-title-icons {
-    opacity: 1.0 !important;
+  opacity: 1 !important;
 }
 
-.deck-title-container:hover{
-    background-color: #F3F4F6;
+.deck-title-container:hover {
+  background-color: #f3f4f6;
 }
 
+.deck-title-icons {
+  width: 80px;
+  display: flex;
 
-.deck-title-icons{
-    width: 80px;
-    display: flex;
-
-    align-items: center;
-    top: 50%;
-    transform: translateY(-50%);
-    justify-content: space-between;
+  align-items: center;
+  top: 50%;
+  transform: translateY(-50%);
+  justify-content: space-between;
 }
 
-
-.deck-actions{
-    display: flex;
-    justify-content: space-between;
+.deck-actions {
+  display: flex;
+  justify-content: space-between;
 }
 
-.deck-actions > a{
-display: flex;
-background-color: #FFFFFF;
+.deck-actions > a {
+  display: flex;
+  background-color: #ffffff;
 }

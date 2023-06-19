@@ -19,7 +19,8 @@ API.interceptors.response.use(
     return res;
   },
   (err) => {
-    if (err.response.status) {
+    if (err.response) {
+      console.log("fejl", err.response);
       if (err.response.data.error.name === "TokenExpiredError") {
         console.log("nu den gal");
         store.dispatch(userActions.logout());

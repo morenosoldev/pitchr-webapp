@@ -7,14 +7,12 @@ import {
   AiOutlineVideoCamera,
 } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import "../../../assets/scss/custom/components/setup/setup.scss";
-import { Link, useLocation } from "react-router-dom";
-import { teamActions } from "../../../store/actions/team.actions";
-import { fileActions } from "../../../store/actions/file.actions";
-import filesReducer from "../../../store/reducers/files.reducer";
 import FilesService from "../../../store/services/files.service";
 import TeamService from "../../../store/services/team.service";
+import API from "../../../util/AxiosConfig";
 
 export default function Setup() {
   const [progress, setProgress] = useState(0);
@@ -23,21 +21,26 @@ export default function Setup() {
   const [pitch, setPitch] = useState(false);
   const [files, setFiles] = useState([]);
   const [members, setMembers] = useState([]);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
       const newFiles = await FilesService.fetchFiles(user?.user_id);
       const newMembers = await TeamService.getMembers(user?.user_id);
-
+      const pitch = await API.get(`/developmentPitch/${user?.user_id}`);
       setProgress(0);
 
+      if (pitch.data?.length > 0) {
+        if (pitch.data[0]?.public == true) {
+          setProgress((progress) => progress + 25);
+          setPitch(true);
+        }
+      }
       if (user?.description?.length > 0) {
         setProgress((progress) => progress + 25);
         setDescription(true);
       }
 
-      if (newFiles?.length > 2) {
+      if (newFiles?.length > 0) {
         setFiles(newFiles);
         setProgress((progress) => progress + 25);
       }

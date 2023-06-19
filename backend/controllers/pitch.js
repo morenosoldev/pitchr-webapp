@@ -71,6 +71,7 @@ const createPitch = async (req, res) => {
     await deleteData();
     res.status(200).json("Video pitch has been created!");
   } catch (err) {
+    console.log("error", err);
     res.status(500).json(err);
   }
 };
