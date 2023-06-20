@@ -27,16 +27,6 @@ const InvestorSidebar = () => {
               </li>
               <li
                 className={`${
-                  location.pathname === "/investor/app/profile" ? "active" : ""
-                }`}
-              >
-                <Link to="/investor/app/profile">
-                  <i className="las la-user"></i>
-                  <span>Profile</span>
-                </Link>
-              </li>
-              <li
-                className={`${
                   location.pathname === "/investor/app/chat" ? "active" : ""
                 }`}
               >

@@ -76,17 +76,7 @@ const Header = () => {
                       Feed
                     </Link>
                   </li>
-                  <li
-                    className={`${
-                      location.pathname === `/investor/app/profile`
-                        ? "topbar-li-active"
-                        : "topbar-li"
-                    } `}
-                  >
-                    <Link to={`/investor/app/profile`} className="topbar-a">
-                      Profile
-                    </Link>
-                  </li>
+
                   <li
                     className={`${
                       location.pathname === "/investor/app/chat"

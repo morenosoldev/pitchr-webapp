@@ -5,17 +5,12 @@ import moment from "moment";
 // Your web app's Firebase configuration
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB2HXpC9yehW-2XLt8_rSmpX3fj8OnEj5w",
-
-  authDomain: "pitchr-d3d71.firebaseapp.com",
-
-  projectId: "pitchr-d3d71",
-
-  storageBucket: "pitchr-d3d71.appspot.com",
-
-  messagingSenderId: "103159451572",
-
-  appId: "1:103159451572:web:29ddca82e60cd5fff22ce1",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 firebase.initializeApp(firebaseConfig);

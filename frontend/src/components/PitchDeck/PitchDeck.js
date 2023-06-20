@@ -54,7 +54,12 @@ const PitchDeck = ({
                   className="d-flex align-items-center justify-content-center"
                 >
                   <Row className="w-100 h-100">
-                    <Col className="mb-3" sm={12} md={12}>
+                    <Col
+                      className="mb-3 d-flex align-items-center"
+                      sm={12}
+                      md={12}
+                      xxl={4}
+                    >
                       <div style={{ width: "100%" }} className="user-profile">
                         <div className="user text-center mb-4">
                           <Row className="mb-4">
@@ -227,7 +232,7 @@ const PitchDeck = ({
                       </div>
                     </Col>
 
-                    <Col sm={12} md={12} className="h-100">
+                    <Col sm={12} md={12} xxl={8} className="h-100 ">
                       <Row className="h-100">
                         <DeckSlider userID={userID} />
                       </Row>

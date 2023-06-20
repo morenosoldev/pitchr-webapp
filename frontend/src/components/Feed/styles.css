@@ -94,6 +94,7 @@
 .fullscreen {
   overflow: hidden;
 }
+
 .fullscreen-enabled {
   position: fixed;
   top: 0;
@@ -105,6 +106,13 @@
 .fullscreen-enabled > .mySwiper {
   max-height: none !important;
   height: 100vh !important;
+}
+
+@media (min-width: 1400px) {
+  .fullscreen {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .swiper-container {
