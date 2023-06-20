@@ -30,17 +30,19 @@ const createFinancial = async (req, res) => {
 
   try {
     const metricObj = await Metric.create({ name: name, userId: id });
-    rows.map((row, index) => {
-      Row.create({
-        month: row.month,
-        amount: row.amount,
-        metricId: metricObj.id,
-        index: index,
-      });
-    });
+    await Promise.all(
+      rows.map(async (row, index) => {
+        await Row.create({
+          month: row.month,
+          amount: row.amount,
+          metricId: metricObj.id,
+          index: index,
+        });
+      })
+    );
     res.status(200).json("Data has been uploaded");
   } catch (err) {
-    console.log(err);
+    console.log("fejl", err);
     res.status(500).json(err);
   }
 };

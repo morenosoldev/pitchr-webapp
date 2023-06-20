@@ -1,7 +1,9 @@
 import React from "react";
 import { Col, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { userActions } from "../../store/actions";
 import { useDispatch } from "react-redux";
+import { storage } from "../../firebase";
 
 export default function TopBanner() {
   const dispatch = useDispatch();

@@ -18,9 +18,6 @@ export default function ChatHeader({ chat }) {
               alt="avatar"
               className="rounded-circle avatar-50 "
             />
-            <span className="avatar-status">
-              <i className="ri-checkbox-blank-circle-fill text-success"></i>
-            </span>
           </div>
           <h5 className="mb-0">{chat?.Users[0].name}</h5>
         </div>

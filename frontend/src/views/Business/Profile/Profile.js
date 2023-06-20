@@ -689,8 +689,10 @@ export default function Profile() {
                 </Nav>
 
                 <Tab.Content style={{ height: "calc(100% - 65px)" }}>
-                  <Tab.Pane className="h-100" eventKey="deck">
-                    <DeckSlider userID={id} />
+                  <Tab.Pane className="h-100 " eventKey="deck">
+                    <div className="d-flex h-100 align-items-center justify-content-center">
+                      <DeckSlider userID={id} />
+                    </div>
                   </Tab.Pane>
 
                   <Tab.Pane className="h-100" eventKey="team">

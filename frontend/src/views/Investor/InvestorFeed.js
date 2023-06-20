@@ -14,7 +14,6 @@ const InvestorFeed = () => {
 
   useEffect(async () => {
     const pitches = await pitchService.fetchPitches(user?.user_id);
-    console.log("her", pitches);
 
     if (pitches.length > 0) {
       setPitches(pitches);

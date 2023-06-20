@@ -8,11 +8,14 @@ import {
 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import Card from "../Card";
+import { history } from "../../util/history";
 import Flag from "../Flag/Flag";
+import ChatService from "../../store/services/chat.service";
 import Equity from "../../views/Business/Charts/Equity";
 import DeckSlider from "../Feed/DeckSlider";
 import MRR from "../Financials/MRR";
 import "./style.css";
+import { AiFillVideoCamera, AiOutlineVideoCamera } from "react-icons/ai";
 
 const PitchDeck = ({
   savedPitch,
@@ -30,22 +33,28 @@ const PitchDeck = ({
   userID,
   pitchID,
 }) => {
+  const addChat = () => {
+    ChatService.createChat(userID)
+      .then((chats) => {
+        //socket.emit("add-friend", chats);
+        history.push("/investor/app/chat");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="pitch-big" style={{ display: "flex" }}>
       <Card className="pitch-card card-block card-stretch">
         <Card.Body>
-          <div style={{ width: "100%", height: "100%" }} className="user-post">
-            <div style={{ height: "100%" }}>
-              <div
-                className="pickgradient row-span-2 row-span-md-1"
-                style={{ display: "flex", height: "100%" }}
-              >
+          <div className="user-post h-100 w-100">
+            <div className="h-100">
+              <div className="pickgradient row-span-2 d-flex h-100 row-span-md-1">
                 <Container
                   fluid
                   className="d-flex align-items-center justify-content-center"
                 >
-                  <Row>
-                    <Col className="tw-items-center tw-flex" sm={4}>
+                  <Row className="w-100 h-100">
+                    <Col className="mb-3" sm={12} md={12}>
                       <div style={{ width: "100%" }} className="user-profile">
                         <div className="user text-center mb-4">
                           <Row className="mb-4">
@@ -56,7 +65,7 @@ const PitchDeck = ({
                                   justifyContent: "space-evenly",
                                 }}
                               >
-                                <div>
+                                <div className="me-3">
                                   <Link
                                     to={`/investor/app/company/${userID}/deck`}
                                   >
@@ -72,8 +81,11 @@ const PitchDeck = ({
                                     flexDirection: "column",
                                   }}
                                 >
-                                  <p style={{ fontWeight: "bold" }}>
+                                  <p className="fw-bold m-0 text-left">
                                     {company}
+                                  </p>
+                                  <p className="company-description text-left">
+                                    {description}
                                   </p>
                                   <span>
                                     <Flag
@@ -109,139 +121,113 @@ const PitchDeck = ({
 
                             <Col sm={6}>
                               <Row>
-                                <div>
-                                  <p
-                                    className="company-description"
-                                    style={{ textAlign: "left" }}
-                                  >
-                                    {description}
-                                  </p>
-                                </div>
+                                <Button
+                                  className="mb-3"
+                                  onClick={() => addChat()}
+                                >
+                                  Contact startup <BsFillEnvelopeFill />
+                                </Button>
+                                <Link
+                                  as={Button}
+                                  to={`/investor/app/company/${userID}/deck#pitch`}
+                                >
+                                  Watch pitch <AiFillVideoCamera />
+                                </Link>
                               </Row>
                             </Col>
                           </Row>
 
                           <Row>
-                            <div style={{ display: "flex" }} className="mb-4">
-                              <span>Team</span>
-                            </div>
+                            <Col sm={6} md={6}>
+                              <div style={{ display: "flex" }} className="mb-4">
+                                <span>Team</span>
+                              </div>
+                              <div className="d-flex">
+                                {members.slice(0, 3).map((member, index) => (
+                                  <Col key={index} xs>
+                                    <div className="team-member">
+                                      <img
+                                        className="rounded-circle avatar-50"
+                                        src={member.profilePic}
+                                      />
+                                      <p
+                                        style={{
+                                          fontSize: "0.6rem",
+                                          color: "black",
+                                        }}
+                                        className="mt-4"
+                                      >
+                                        {member.name}
+                                      </p>
+                                      <span style={{ fontSize: "9px" }}>
+                                        {member.jobTitle}
+                                      </span>
+                                    </div>
+                                  </Col>
+                                ))}
 
-                            {members.slice(0, 3).map((member, index) => (
-                              <Col key={index} xs>
-                                <div className="team-member">
-                                  <img
-                                    className="rounded-circle avatar-50"
-                                    src={member.profilePic}
-                                  />
-                                  <p
-                                    style={{
-                                      fontSize: "0.6rem",
-                                      color: "black",
-                                    }}
-                                    className="mt-4"
-                                  >
-                                    {member.name}
-                                  </p>
-                                  <span style={{ fontSize: "9px" }}>
-                                    {member.jobTitle}
-                                  </span>
-                                </div>
-                              </Col>
-                            ))}
-
-                            {members.length >= 3 ? (
-                              <Col xs>
-                                <div
-                                  style={{
-                                    marginTop: "80px",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    flexDirection: "column",
-                                  }}
-                                >
-                                  <BsFillPlusCircleFill />
-                                  <Link
-                                    to={`/investor/app/company/${userID}/team`}
-                                    style={{ fontSize: "9px" }}
-                                  >
-                                    See more...
-                                  </Link>
-                                </div>
-                              </Col>
-                            ) : null}
-                          </Row>
-
-                          <Row
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                            }}
-                            className="mt-7"
-                          >
-                            <div style={{ display: "flex" }} className="mt-4">
-                              <span>Equity</span>
-                            </div>
-                            <Col sm={7}>
-                              <div style={{ width: "100%", height: "125px" }}>
-                                <Equity data={members} />
+                                {members.length >= 3 ? (
+                                  <Col xs>
+                                    <div
+                                      style={{
+                                        marginTop: "80px",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        flexDirection: "column",
+                                      }}
+                                    >
+                                      <BsFillPlusCircleFill />
+                                      <Link
+                                        to={`/investor/app/company/${userID}/team`}
+                                        style={{ fontSize: "9px" }}
+                                      >
+                                        See more...
+                                      </Link>
+                                    </div>
+                                  </Col>
+                                ) : null}
                               </div>
                             </Col>
-                            <Col>
-                              <Table hover size="sm">
-                                <thead>
-                                  <tr>
-                                    <th>Name</th>
-                                    <th>Equity</th>
-                                  </tr>
-                                </thead>
 
-                                <tbody>
-                                  {members.map((member) => (
-                                    <tr>
-                                      <td>{member?.name}</td>
-                                      <td>{member?.equity}%</td>
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </Table>
-                            </Col>
-                          </Row>
-
-                          <Row className="mt-4">
-                            <div style={{ display: "flex" }} className="mb-4">
-                              <span>Key numbers</span>
-                            </div>
-                            <div
-                              style={{
-                                display: "flex",
-                                justifyContent: "space-evenly",
-                              }}
-                            >
-                              {charts.map((chart) => (
-                                <Col
-                                  style={{
-                                    display: "contents",
-                                    marginRight: 10,
-                                  }}
-                                >
-                                  <MRR data={chart} />
+                            <Col sm={6} md={6}>
+                              <div style={{ display: "flex" }} className="mt-4">
+                                <span>Equity</span>
+                              </div>
+                              <Row>
+                                <Col>
+                                  <div
+                                    style={{ width: "100%", height: "125px" }}
+                                  >
+                                    <Equity data={members} />
+                                  </div>
                                 </Col>
-                              ))}
-                            </div>
-                          </Row>
+                                <Col>
+                                  <Table hover size="sm">
+                                    <thead>
+                                      <tr>
+                                        <th>Name</th>
+                                        <th>Equity</th>
+                                      </tr>
+                                    </thead>
 
-                          <Row>
-                            <div style={{ display: "flex" }} className="mb-4">
-                              <Button>
-                                Contact startup <BsFillEnvelopeFill />
-                              </Button>
-                            </div>
+                                    <tbody>
+                                      {members.map((member) => (
+                                        <tr>
+                                          <td>{member?.name}</td>
+                                          <td>{member?.equity}%</td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </Table>
+                                </Col>
+                              </Row>
+                            </Col>
                           </Row>
                         </div>
                       </div>
                     </Col>
 
-                    <Col sm={8} className="h-100">
+                    <Col sm={12} md={12} className="h-100">
                       <Row className="h-100">
                         <DeckSlider userID={userID} />
                       </Row>

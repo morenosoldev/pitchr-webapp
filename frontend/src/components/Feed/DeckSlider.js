@@ -85,7 +85,7 @@ export default function DeckSlider({ userID }) {
   }, [swiper]);
 
   return (
-    <div style={{ overflow: "hidden" }}>
+    <div className="h-100 w-100">
       {loading ? (
         <div
           style={{
@@ -100,19 +100,16 @@ export default function DeckSlider({ userID }) {
       ) : (
         <>
           {deck ? (
-            <div class="w-full h-full hidden d-md-flex">
-              <div class="d-flex flex-column flex-1 justify-content-center h-full relative mx-auto">
+            <div class="w-100 h-100 hidden d-md-flex">
+              <div class="d-flex flex-column flex-1 justify-content-center w-100 h-100 relative">
                 <div class="journey-experience-node">
                   <div class="journey-experience-node"></div>
                 </div>
-                <div class="journey-experience-node">
-                  <div class="relative h-full mb-4 d-flex justify-start space-x-1">
-                    <div class="d-flex w-full h-full">
-                      <div class="d-flex w-full h-full">
-                        <FullScreen
-                          style={{ margin: "0 auto" }}
-                          handle={handle}
-                        >
+                <div class="journey-experience-node w-100 h-100">
+                  <div class="relative h-100 mb-4 d-flex justify-start space-x-1">
+                    <div class="d-flex w-100 h-100">
+                      <div class="d-flex w-100 h-100">
+                        <FullScreen className="w-100 h-100" handle={handle}>
                           <Swiper
                             initialSlide={index}
                             observeParents={true}
@@ -125,18 +122,6 @@ export default function DeckSlider({ userID }) {
                             className={`mySwiper swiper swiper-initialized d-flex flex-column swiper-horizontal swiper-pointer-events theme-component-bg  ${
                               handle.active ? "fullscreen-view" : ""
                             }`}
-                            breakpoints={{
-                              // when window width is >= 640px
-                              640: {
-                                width: 729,
-                                slidesPerView: 1,
-                              },
-                              // when window width is >= 768px
-                              1900: {
-                                width: 1068,
-                                slidesPerView: 1,
-                              },
-                            }}
                           >
                             {deck?.files.map((image, index) => (
                               <SwiperSlide

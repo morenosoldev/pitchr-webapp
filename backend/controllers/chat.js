@@ -34,7 +34,13 @@ const getChatsFromUser = async (req, res) => {
         },
       ],
     });
-    res.status(200).json(user.Chats);
+
+    if (!user?.Chats || user?.Chats.length === 0) {
+      // No chats found
+      res.status(200).json([]);
+    } else {
+      res.status(200).json(user.Chats);
+    }
   } catch (err) {
     console.log("Error in getChatsFromUser: ", err);
     res.status(500).json(err);

@@ -1,15 +1,12 @@
 import React, { useState } from "react";
-import Card from "../Card";
-import { Dropdown, Button } from "react-bootstrap";
-import ChatService from "../../store/services/chat.service";
-import { useSelector, useDispatch } from "react-redux";
-import useSocket from "../../util/socketConnect";
-import { history } from "../../util/history";
-import ReactPlayer from "react-player";
-import ViewsService from "../../store/services/views.service";
-import { viewActions } from "../../store/actions/views.actions";
-import { pitchService } from "../../store/services/pitch.service";
+import { Dropdown } from "react-bootstrap";
 import { openPopupWidget } from "react-calendly";
+import { useDispatch, useSelector } from "react-redux";
+import { viewActions } from "../../store/actions/views.actions";
+import ChatService from "../../store/services/chat.service";
+import { pitchService } from "../../store/services/pitch.service";
+import { history } from "../../util/history";
+import Card from "../Card";
 import PitchDeck from "../PitchDeck/PitchDeck";
 
 export default function Pitch({
