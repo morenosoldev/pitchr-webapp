@@ -5,7 +5,7 @@ import { userActions } from "../store/actions";
 const token = localStorage.getItem("token");
 
 let API = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: process.env.REACT_APP_API_ENDPOINT,
   headers: {
     Accept: "application/json",
     Authorization: `Bearer ${localStorage.getItem("token")}`,
