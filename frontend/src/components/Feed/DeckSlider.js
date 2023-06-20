@@ -59,7 +59,7 @@ export default function DeckSlider({ userID }) {
     const deck = await API.post(`/deck/${user?.user_id}`, { file: fileUrl });
     console.log("deck", deck);
     setLoading(false);
-    setDeck(deck.data);
+    setDeck(deck);
     setPitchDeck(fileUrl);
   };
 

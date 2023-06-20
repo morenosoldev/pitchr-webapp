@@ -1,7 +1,6 @@
 const admin = require("firebase-admin");
-const { Storage } = require("@google-cloud/storage");
 const axios = require("axios");
-const serviceAccount = require("./pitchr.json");
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 const bucketName = "pitchr-d3d71.appspot.com";
 
 // Initialize Firebase Admin SDK

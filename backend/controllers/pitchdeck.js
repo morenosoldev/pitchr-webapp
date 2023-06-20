@@ -20,6 +20,7 @@ const createPitchDeck = async (req, res) => {
 
     // Perform the conversion and store the converted files
     const fileType = await getFileType(file);
+    let files = [];
 
     if (fileType === "pdf") {
       const result = await convertapi.convert(
@@ -29,7 +30,7 @@ const createPitchDeck = async (req, res) => {
         },
         "pdf"
       );
-      const files = result.response.Files;
+      files = result.response.Files;
 
       // Save each file individually in the PitchDeckFile model
       for (const fileData of files) {
@@ -47,7 +48,7 @@ const createPitchDeck = async (req, res) => {
         },
         "pptx"
       );
-      const files = result.response.Files;
+      files = result.response.Files;
 
       // Save each file individually in the PitchDeckFile model
       for (const fileData of files) {
