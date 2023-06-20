@@ -22,6 +22,7 @@ export default function DeckShowcase() {
     if (lastSaved?.length > 0) {
       console.log("data", lastSaved);
       setData(lastSaved);
+      setSelectedColumn(lastSaved[0].subItems[0]);
     }
   }, []);
   const selectColumn = (obj) => {
