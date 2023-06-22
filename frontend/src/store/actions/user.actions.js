@@ -1,9 +1,8 @@
+import { history } from "../../util/history";
 import { userConstants } from "../constants";
 import { userService } from "../services";
-import { alertActions } from "./alert.actions";
-import { history } from "../../util/history";
-import config from "../../util/AxiosConfig";
 import { requestAccessService } from "../services/auth.service";
+import { alertActions } from "./alert.actions";
 
 export const userActions = {
   login,
@@ -17,6 +16,7 @@ export const userActions = {
   updateProfilePicture,
   updateLocation,
   updateIndustry,
+  updateCompetences,
   updateDevelopmentStage,
   updateCalendly,
   registerBusiness,
@@ -169,6 +169,31 @@ function updateDescription(description, id) {
     return { type: userConstants.UPDATE_DESCRIPTION_FAILURE, error };
   }
 }
+
+const updateCompetences = (competences, id) => {
+  return (dispatch) => {
+    dispatch(request({ competences }));
+    userService.updateCompetences(competences, id).then(
+      () => {
+        dispatch(success(competences));
+      },
+      (error) => {
+        console.log("error", error);
+        dispatch(failure(error.message));
+        dispatch(alertActions.error(error.message));
+      }
+    );
+  };
+  function request(description) {
+    return { type: userConstants.UPDATE_DESCRIPTION_REQUEST, description };
+  }
+  function success(description) {
+    return { type: userConstants.UPDATE_DESCRIPTION_SUCCESS, description };
+  }
+  function failure(error) {
+    return { type: userConstants.UPDATE_DESCRIPTION_FAILURE, error };
+  }
+};
 
 function updateLocation(location, id) {
   return (dispatch) => {

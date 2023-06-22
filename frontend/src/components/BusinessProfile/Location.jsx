@@ -3,12 +3,12 @@ import { Button, Row } from "react-bootstrap";
 import ReactFlagsSelect from "react-flags-select";
 import { AiOutlineClose, AiOutlineEdit } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import Flag from "react-world-flags";
+import Flag from "../Flag/Flag";
+import { userActions } from "../../store/actions";
 
-export default function Location() {
-  const user = useSelector((state) => state.user.user);
+export default function Location({ edit }) {
+  const user = useSelector((state) => state.authentication.user);
   const [state, setState] = useState({
-    edit: false,
     editCountry: false,
     country: user?.location,
   });
@@ -16,7 +16,7 @@ export default function Location() {
   const { editCountry, country } = state;
 
   const updateLocation = () => {
-    dispatch(updateLocation(country, user?.user_id));
+    dispatch(userActions.updateLocation(country, user?.user_id));
     setState((prevState) => ({
       ...prevState,
       editCountry: false,
@@ -34,7 +34,7 @@ export default function Location() {
           }}
         >
           Location{" "}
-          {!state.editCountry && state.edit ? (
+          {!state.editCountry && edit ? (
             <AiOutlineEdit
               role="button"
               className="ms-2"
@@ -45,7 +45,7 @@ export default function Location() {
                 }))
               }
             />
-          ) : state.edit ? (
+          ) : edit ? (
             <AiOutlineClose
               role="button"
               className="ms-2"
@@ -65,16 +65,14 @@ export default function Location() {
               searchable
               className="mb-2"
               selected={country}
-              onSelect={(code) => setCountry(code)}
+              onSelect={(code) => setState({ ...state, country: code })}
             />
             <Button onClick={() => updateLocation()}>Save</Button>
           </>
         ) : (
           <p className="text-left">
             <Flag
-              flagNationCode={
-                user?.Business?.location ? user.Business.location : "DK"
-              }
+              flagNationCode={user.location ? user.location : "DK"}
               showText={true}
             />
           </p>

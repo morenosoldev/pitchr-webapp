@@ -8,10 +8,10 @@ import {
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { userActions } from "../../redux/actions/user.actions";
+import { userActions } from "../../store/actions";
 
 export default function DevelopmentStage({ edit }) {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.authentication.user);
   const [state, setState] = useState({
     editStage: false,
     stage: user?.stage,
@@ -27,7 +27,7 @@ export default function DevelopmentStage({ edit }) {
   };
 
   const updateDevelopmentStage = () => {
-    dispatch(userActions.updateStage(stage, user?.user_id));
+    dispatch(userActions.updateDevelopmentStage(stage, user?.user_id));
     setState((prevState) => ({
       ...prevState,
       editStage: false,
@@ -85,8 +85,8 @@ export default function DevelopmentStage({ edit }) {
           <p className="mt-2 d-flex align-items-center text-left">
             {" "}
             <AiOutlineAreaChart style={{ display: "inline" }} />{" "}
-            {user?.Business?.development_stage
-              ? user?.Business?.development_stage
+            {user.development_stage
+              ? user.development_stage
               : "No development stage set yet"}{" "}
           </p>
         )}

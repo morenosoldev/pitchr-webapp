@@ -4,19 +4,19 @@ import { AiOutlineEdit, AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { userActions } from "../../redux/actions/user.actions";
+import { userActions } from "../../store/actions";
 import { BsCpu } from "react-icons/bs";
 
-export default function Industry() {
-  const user = useSelector((state) => state.user.user);
+export default function Industry({ edit }) {
+  const user = useSelector((state) => state.authentication.user);
   const dispatch = useDispatch();
   const [state, setState] = useState({
-    edit: false,
     editIndustry: false,
     industry: user?.industry,
   });
 
   const updateIndustry = () => {
+    console.log("updateIndustry", state.industry);
     dispatch(userActions.updateIndustry(state.industry, user?.user_id));
     setState((prevState) => ({
       ...prevState,
@@ -35,7 +35,7 @@ export default function Industry() {
           }}
         >
           Industry{" "}
-          {!state.editIndustry && state.edit ? (
+          {!state.editIndustry && edit ? (
             <AiOutlineEdit
               role="button"
               className="ms-2"
@@ -46,7 +46,7 @@ export default function Industry() {
                 }))
               }
             />
-          ) : state.edit ? (
+          ) : edit ? (
             <AiOutlineClose
               role="button"
               className="ms-2"
@@ -72,16 +72,24 @@ export default function Industry() {
                 }))
               }
             >
-              <option value="tech">Technology/Software</option>
-              <option value="ecom">E-commerce</option>
-              <option value="healthtech">Healthtech</option>
-              <option value="fintech">Fintech</option>
-              <option value="saas">SaaS (Software as a Service)</option>
-              <option value="ai">Artificial Intelligence (AI)</option>
-              <option value="cleanenergy">Clean Energy/Sustainability</option>
-              <option value="biotech">Biotech</option>
-              <option value="edtech">Education Technology (EdTech)</option>
-              <option value="foodbev">Food and Beverage</option>
+              <option value="Technology/Software">Technology/Software</option>
+              <option value="E-commerce">E-commerce</option>
+              <option value="Healthtech">Healthtech</option>
+              <option value="Fintech">Fintech</option>
+              <option value="SaaS (Software as a Service)">
+                SaaS (Software as a Service)
+              </option>
+              <option value="Artificial Intelligence (AI)">
+                Artificial Intelligence (AI)
+              </option>
+              <option value="Clean Energy/Sustainability">
+                Clean Energy/Sustainability
+              </option>
+              <option value="Biotech">Biotech</option>
+              <option value="Education Technology (EdTech)">
+                Education Technology (EdTech)
+              </option>
+              <option value="Food and Beverage">Food and Beverage</option>
             </Form.Select>
 
             <Button onClick={() => updateIndustry()}>Save</Button>
@@ -90,9 +98,7 @@ export default function Industry() {
           <p className="text-left">
             {" "}
             <BsCpu style={{ display: "inline", marginRight: "5px" }} />
-            {user?.Business?.industry
-              ? user?.Business?.industry
-              : "No industry set yet"}
+            {user.industry ? user.industry : "No industry set yet"}
           </p>
         )}
       </div>

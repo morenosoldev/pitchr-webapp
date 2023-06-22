@@ -9,10 +9,10 @@ import { Badge } from "react-bootstrap";
 import { BsTrash } from "react-icons/bs";
 
 export default function Competences({ edit }) {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.authentication.user);
   const [state, setState] = useState({
     editCompetences: false,
-    competences: user?.competences,
+    competences: user?.competences || [],
     competence: "",
   });
   const dispatch = useDispatch();
@@ -104,13 +104,19 @@ export default function Competences({ edit }) {
           </Button>
         </>
       ) : (
-        <ul className="text-left suggestions-lists m-0 p-0">
-          {user?.Business?.competences.map((competence, index) => (
-            <Badge key={index}>
-              <p>{competence.name}</p>
-            </Badge>
-          ))}
-        </ul>
+        <>
+          {user?.competences ? (
+            <ul className="text-left suggestions-lists m-0 p-0">
+              {user.competences.map((competence, index) => (
+                <Badge key={index}>
+                  <p>{competence.name}</p>
+                </Badge>
+              ))}
+            </ul>
+          ) : (
+            <p>No competences added</p>
+          )}
+        </>
       )}
     </Row>
   );

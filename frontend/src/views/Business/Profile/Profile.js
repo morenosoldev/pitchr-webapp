@@ -9,17 +9,20 @@ import Industry from "../../../components/BusinessProfile/Industry";
 import InvestorAsk from "../../../components/BusinessProfile/InvestorAsk";
 import ProfileTop from "../../../components/BusinessProfile/ProfileTop";
 import DeckSlider from "../../../components/Feed/DeckSlider";
+import Location from "../../../components/BusinessProfile/Location";
 import { viewActions } from "../../../store/actions/views.actions";
 import File from "../../dashboard/app/file";
 import Groups from "../../dashboard/app/groups";
 import FinancialIndex from "../Financials";
 import DeckShowcase from "./DeckShowcase";
+import { useState } from "react";
 import "./profile.scss";
 
 export default function Profile() {
   const user = useSelector((state) => state.authentication.user);
   const dispatch = useDispatch();
   const { id } = useParams();
+  const [key, setKey] = useState("deck");
 
   useEffect(() => {
     if (user?.user_id !== Number(id)) {
@@ -36,11 +39,11 @@ export default function Profile() {
               <div style={{ width: "100%" }} className="user-profile">
                 <div className="user">
                   <Row>
-                    <ProfileTop />
-                    <ElevatorPitch />
-                    <Industry />
-                    <Location />
-                    <DevelopmentStage />
+                    <ProfileTop edit={user.user_id == id} />
+                    <ElevatorPitch edit={user.user_id == id} />
+                    <Industry edit={user.user_id == id} />
+                    <Location edit={user.user_id == id} />
+                    <DevelopmentStage edit={user.user_id == id} />
 
                     <Row>
                       <div className="mt-2">
@@ -54,8 +57,8 @@ export default function Profile() {
                           Investor ask
                         </h5>
 
-                        <InvestorAsk />
-                        <Competences />
+                        <InvestorAsk edit={user.user_id == id} />
+                        <Competences edit={user.user_id == id} />
                       </div>
                     </Row>
                   </Row>

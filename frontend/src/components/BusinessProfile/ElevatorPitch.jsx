@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { userActions } from "../../store/actions";
 
 export default function ElevatorPitch({ edit }) {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.authentication.user);
   const dispatch = useDispatch();
   const [state, setState] = useState({
     editElevatorPitch: false,
