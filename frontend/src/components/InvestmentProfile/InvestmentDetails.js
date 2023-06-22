@@ -213,7 +213,7 @@ export default function InvestmentDetails() {
                                       style={{
                                         paddingLeft: "4px",
                                       }}
-                                      class="fas fa-trash-alt"
+                                      className="fas fa-trash-alt"
                                       onClick={() =>
                                         removeInvestmentInterest(key)
                                       }
@@ -335,7 +335,7 @@ export default function InvestmentDetails() {
                                               style={{
                                                 paddingLeft: "4px",
                                               }}
-                                              class="fas fa-trash-alt"
+                                              className="fas fa-trash-alt"
                                               onClick={() =>
                                                 removePreviousInvestment(key)
                                               }
@@ -458,7 +458,7 @@ export default function InvestmentDetails() {
                                               style={{
                                                 paddingLeft: "4px",
                                               }}
-                                              class="fas fa-trash-alt"
+                                              className="fas fa-trash-alt"
                                               onClick={() => removeMarket(key)}
                                             ></i>
                                           </Badge>{" "}
@@ -563,8 +563,7 @@ export default function InvestmentDetails() {
                                               {industry.name}
                                               <i
                                                 role="button"
-                                                className="ms-2"
-                                                class="fas fa-trash-alt"
+                                                className="ms-2 fas fa-trash-alt"
                                                 onClick={() =>
                                                   removeIndustry(key)
                                                 }

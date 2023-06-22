@@ -78,8 +78,7 @@ export default function Competences({ writeCompetences, setWriteCompetences }) {
                             {market.name}
                             <i
                               role="button"
-                              className="ms-2"
-                              class="fas fa-trash-alt"
+                              className="ms-2 fas fa-trash-alt"
                               onClick={() => removeCompetences(key)}
                             ></i>
                           </Badge>{" "}

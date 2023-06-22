@@ -100,7 +100,7 @@ export default function BusinessProfile() {
                               className="add-picture"
                               for="file-input-cover"
                             >
-                              <i class="fas fa-camera"></i>
+                              <i className="fas fa-camera"></i>
                             </label>
                           ) : null}
 
@@ -248,7 +248,7 @@ export default function BusinessProfile() {
                                   marginTop: 20,
                                   marginBottom: 20,
                                 }}
-                                class="fas fa-times-circle"
+                                className="fas fa-times-circle"
                               ></i>
                               {user?.user_id == id ? (
                                 <h3>

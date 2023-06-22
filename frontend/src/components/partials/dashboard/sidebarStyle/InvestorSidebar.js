@@ -45,7 +45,7 @@ const InvestorSidebar = () => {
                 }`}
               >
                 <Link to="/investor/app/pitches">
-                  <i class="fas fa-photo-video"></i>
+                  <i className="fas fa-photo-video"></i>
                   <span>Saved pitches</span>
                 </Link>
               </li>

@@ -62,7 +62,7 @@ export default function TopBanner() {
                 />
 
                 <label className="add-picture" for="file-input-cover">
-                  <i class="upload-icon fas fa-camera" role="button"></i>
+                  <i className="upload-icon fas fa-camera" role="button"></i>
                 </label>
 
                 <input

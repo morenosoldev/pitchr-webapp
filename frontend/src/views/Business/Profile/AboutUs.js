@@ -629,8 +629,7 @@ export default function AboutUs() {
                                   {competence.name}
                                   <i
                                     role="button"
-                                    className="pl-1"
-                                    class="fas fa-trash-alt"
+                                    className="pl-1 fas fa-trash-alt"
                                     onClick={() => removeCompetence(key)}
                                   ></i>
                                 </Badge>

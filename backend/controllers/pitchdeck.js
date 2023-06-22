@@ -66,8 +66,8 @@ const createPitchDeck = async (req, res) => {
       return;
     }
 
-    // Return the deck and files as an object
-    return { deck, files };
+    // Return the deck and files as a response
+    res.status(200).json({ deck, files });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

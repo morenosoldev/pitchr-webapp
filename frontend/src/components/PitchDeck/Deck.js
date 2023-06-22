@@ -98,21 +98,21 @@ export default function Deck() {
                 style={{ height: 42, border: "none" }}
                 variant="outline-secondary"
               >
-                <i style={{ marginLeft: 10 }} class="fas fa-comment-dots"></i>
+                <i className="fas fa-comment-dots ms-3"></i>
               </Button>{" "}
               <Button
                 className="pitch-btn"
                 style={{ height: 42, border: "none" }}
                 variant="outline-secondary"
               >
-                <i style={{ marginLeft: 10 }} class="fas fa-users"></i>
+                <i className="fas fa-users ms-3"></i>
               </Button>{" "}
               <Button
                 className="pitch-btn"
                 style={{ height: 42, border: "none" }}
                 variant="outline-secondary"
               >
-                <i style={{ marginLeft: 10 }} class="fas fa-save"></i>
+                <i className="fas fa-save ms-3"></i>
               </Button>
             </div>
           </Col>

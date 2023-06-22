@@ -80,16 +80,15 @@ export default function Member({
         </Modal>
         <div className="member-btn">
           {linkedIn.length > 0 ? (
-            <button type="submit" className="btn btn-primary d-block w-100">
-              <a
-                target="_blank"
-                style={{ color: "white", fontWeight: "bold" }}
-                href={linkedIn}
-              >
-                {" "}
-                Visit LinkedIn <i class="fab fa-linkedin-in"></i>
-              </a>
-            </button>
+            <a
+              href={linkedIn}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary d-block w-100"
+              style={{ color: "white", fontWeight: "bold" }}
+            >
+              Visit LinkedIn <i className="fab fa-linkedin-in"></i>
+            </a>
           ) : null}
 
           {urlID == user?.user_id ? (

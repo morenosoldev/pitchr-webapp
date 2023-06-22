@@ -25,9 +25,8 @@ export default function DeckSlider({ userID }) {
   const nextRef = React.useRef();
   const [deck, setDeck] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState(null);
-  const [pitchDeck, setPitchDeck] = useState(null);
   const [currentFile, setCurrentFile] = useState(null);
-  const [progress, setProgress] = useState(0);
+  const [progress] = useState(0);
 
   const user = useSelector((state) => state.authentication.user);
   const handle = useFullScreenHandle();
@@ -59,8 +58,7 @@ export default function DeckSlider({ userID }) {
     const deck = await API.post(`/deck/${user?.user_id}`, { file: fileUrl });
     console.log("deck", deck);
     setLoading(false);
-    setDeck(deck);
-    setPitchDeck(fileUrl);
+    setDeck(deck.data);
   };
 
   useEffect(() => {
@@ -100,15 +98,15 @@ export default function DeckSlider({ userID }) {
       ) : (
         <>
           {deck ? (
-            <div class="w-100 h-100 hidden d-md-flex">
-              <div class="d-flex flex-column flex-1 justify-content-center w-100 h-100 relative">
-                <div class="journey-experience-node">
-                  <div class="journey-experience-node"></div>
+            <div className="w-100 h-100 hidden d-md-flex">
+              <div className="d-flex flex-column flex-1 justify-content-center w-100 h-100 relative">
+                <div className="journey-experience-node">
+                  <div className="journey-experience-node"></div>
                 </div>
-                <div class="journey-experience-node w-100 h-100">
-                  <div class="relative h-100 mb-4 d-flex justify-start space-x-1">
-                    <div class="d-flex w-100 h-100">
-                      <div class="d-flex w-100 h-100">
+                <div className="journey-experience-node w-100 h-100">
+                  <div className="relative h-100 mb-4 d-flex justify-start space-x-1">
+                    <div className="d-flex w-100 h-100">
+                      <div className="d-flex w-100 h-100">
                         <FullScreen className="w-100 h-100" handle={handle}>
                           <Swiper
                             initialSlide={index}
@@ -134,35 +132,35 @@ export default function DeckSlider({ userID }) {
                               </SwiperSlide>
                             ))}
 
-                            <div class="bg-white swiper-nav border-top border-gray-100 transition-opacity">
-                              <div class="d-flex justify-content-between align-items-center px-4 py-2">
-                                <div class="d-flex w-100 me-3 justify-content-between align-items-center">
-                                  <div class="d-flex w-100 justify-content-between align-items-center">
-                                    <div class="font-semibold text-sm">
+                            <div className="bg-white swiper-nav border-top border-gray-100 transition-opacity">
+                              <div className="d-flex justify-content-between align-items-center px-4 py-2">
+                                <div className="d-flex w-100 me-3 justify-content-between align-items-center">
+                                  <div className="d-flex w-100 justify-content-between align-items-center">
+                                    <div className="font-semibold text-sm">
                                       <button
                                         ref={prevRef}
                                         style={{
                                           border: "none",
                                           cursor: "pointer",
                                         }}
-                                        class="rounded text-black hover:bg-gray-100"
+                                        className="rounded text-black hover:bg-gray-100"
                                       >
                                         <BsChevronLeft />
                                       </button>
                                     </div>
-                                    <div class="font-semibold text-sm">
-                                      <span class="d-inline-block min-w-3rem text-center text-black">
+                                    <div className="font-semibold text-sm">
+                                      <span className="d-inline-block min-w-3rem text-center text-black">
                                         {index} / {swiper?.slidesGrid.length}
                                       </span>
                                     </div>
-                                    <div class="font-semibold text-sm">
+                                    <div className="font-semibold text-sm">
                                       <button
                                         ref={nextRef}
                                         style={{
                                           border: "none",
                                           cursor: "pointer",
                                         }}
-                                        class="rounded text-black hover:bg-gray-100"
+                                        className="rounded text-black hover:bg-gray-100"
                                       >
                                         <BsChevronRight />
                                       </button>
@@ -193,11 +191,12 @@ export default function DeckSlider({ userID }) {
                     <div className="text-center">
                       <img
                         src="https://cdn.devdojo.com/images/november2020/welcome.png"
+                        alt="No pitch uploaded"
                         style={{ width: "200px", margin: "0 auto" }}
                       />
                     </div>
                     <div className="mt-3 text-center">
-                      <h2>You have not uploaded your first deck yet!.</h2>
+                      <h2>You have not uploaded your first deck yet!</h2>
                       <p>
                         When you are ready you can just drag and drop the file
                         down below!
@@ -234,9 +233,9 @@ export default function DeckSlider({ userID }) {
                                     size={"20"}
                                     style={{ margin: "0 auto" }}
                                   />
-                                  <h3>
+                                  <h5>
                                     Drop your file here, or <a>browse</a>
-                                  </h3>
+                                  </h5>
                                   <span>
                                     Supports: PDF, PowerPoint, Google
                                     Presentations

@@ -62,7 +62,7 @@ export default function Pitch({
     return (
       <Dropdown.Item onClick={() => onClick()} className="p-3" to="#">
         <div className="d-flex align-items-top">
-          <i class="fas fa-mug-hot"></i>{" "}
+          <i className="fas fa-mug-hot"></i>{" "}
           <div className="data ms-2">
             <h6>Get a cup of coffee</h6>
             <p className="mb-0">Setup meeting</p>
@@ -156,7 +156,7 @@ export default function Pitch({
                       <button className="play-button">
                         <i
                           onClick={() => setPlaying(!playing)}
-                          class="fas fa-play-circle"
+                          className="fas fa-play-circle"
                           style={{ color: "white", fontSize: "3.5rem" }}
                         ></i>
                       </button>
@@ -181,7 +181,7 @@ export default function Pitch({
                                 href={`/investor/app/company/${businessID}/about-us`}
                               >
                                 <div className="d-flex align-items-top">
-                                  <i class="far fa-building"></i>
+                                  <i className="far fa-building"></i>
                                   <div className="data ms-2">
                                     <h6>See more</h6>
                                     <p className="mb-0">
@@ -198,7 +198,7 @@ export default function Pitch({
                               >
                                 <div className="d-flex align-items-top">
                                   <div className="h4">
-                                    <i class="fas fa-chart-area"></i>
+                                    <i className="fas fa-chart-area"></i>
                                   </div>
                                   <div className="data ms-2">
                                     <h6>Show pitchdeck</h6>
@@ -235,7 +235,7 @@ export default function Pitch({
                                 to="#"
                               >
                                 <div className="d-flex align-items-top">
-                                  <i class="far fa-comment-dots"></i>{" "}
+                                  <i className="far fa-comment-dots"></i>{" "}
                                   <div className="data ms-2">
                                     <h6>Get in contact</h6>
                                     <p className="mb-0">

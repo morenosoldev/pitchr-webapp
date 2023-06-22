@@ -1,46 +1,33 @@
-const admin = require("firebase-admin");
 const axios = require("axios");
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
-const bucketName = "pitchr-d3d71.appspot.com";
+const bucketName = "pitchrimages";
+const AWS = require("aws-sdk");
 
-// Initialize Firebase Admin SDK
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  storageBucket: bucketName,
+// Configure AWS credentials and region
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: "eu-north-1", // Replace with your desired AWS region
 });
 
-// Get a reference to the default Firebase Storage bucket
-const bucket = admin.storage().bucket();
-// Function to upload an image from an external source to Firebase Storage and return the download URL
+const s3 = new AWS.S3();
+
 const uploadImage = async (imageURL, destinationPath) => {
   try {
-    // Fetch the image data from the external source
-    const { data } = await axios.get(imageURL, {
-      responseType: "arraybuffer",
-    });
+    const response = await axios.get(imageURL, { responseType: "arraybuffer" });
+    const imageBuffer = Buffer.from(response.data, "binary");
 
-    const destinationFile = bucket.file(destinationPath);
+    const params = {
+      Bucket: bucketName,
+      Key: destinationPath,
+      Body: imageBuffer,
+      ContentType: "image/webp",
+    };
 
-    // Upload the image data to Firebase Storage
-    await destinationFile.save(data, {
-      metadata: {
-        contentType: "image/webp", // Adjust the content type according to the image format
-      },
-    });
+    const uploadResult = await s3.upload(params).promise();
 
-    // Generate and return the download URL for the uploaded image
-    const [url] = await destinationFile.getSignedUrl({
-      action: "read",
-      expires: "03-01-2500", // Adjust the expiration date as desired
-    });
-
-    // Convert the signed URL to a regular download URL
-    const downloadUrl = url.replace(
-      "https://storage.googleapis.com/",
-      "https://storage.cloud.google.com/"
-    );
-
-    return downloadUrl;
+    // Generate and return the CDN URL for the uploaded image
+    const cdnUrl = uploadResult.Location;
+    return cdnUrl;
   } catch (error) {
     console.error("Error uploading image:", error);
     throw error;

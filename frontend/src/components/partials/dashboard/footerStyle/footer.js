@@ -39,13 +39,13 @@ const Footer = ({ scrollDown, scrollUp, up, down }) => {
             onClick={() => scrollUp()}
             className={`circle ${up ? "pulse" : null} orange`}
           >
-            <i class="fas fa-chevron-up" style={{ color: "#FF9C1A" }}></i>
+            <i className="fas fa-chevron-up" style={{ color: "#FF9C1A" }}></i>
           </button>
           <button
             onClick={() => scrollDown()}
             className={`circle ${down ? "pulse" : null} orange`}
           >
-            <i class="fas fa-chevron-down" style={{ color: "#FF9C1A" }}></i>
+            <i className="fas fa-chevron-down" style={{ color: "#FF9C1A" }}></i>
           </button>
         </ul>
       </footer>

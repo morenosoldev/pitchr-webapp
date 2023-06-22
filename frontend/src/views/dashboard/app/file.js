@@ -243,7 +243,7 @@ const File = () => {
                                     borderRadius: "50%",
                                     backgroundColor: "#F9F9F9",
                                   }}
-                                  class="circle-upload fas fa-upload"
+                                  className="circle-upload fas fa-upload"
                                 ></i>
                                 <p style={{ marginTop: 25 }}>
                                   Choose which files you want to upload
@@ -474,7 +474,7 @@ const File = () => {
                                     borderRadius: "50%",
                                     backgroundColor: "#F9F9F9",
                                   }}
-                                  class="circle-upload fas fa-upload"
+                                  className="circle-upload fas fa-upload"
                                 ></i>
                                 <p style={{ marginTop: 25 }}>
                                   Choose which files you want to upload
