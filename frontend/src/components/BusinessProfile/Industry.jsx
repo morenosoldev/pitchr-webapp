@@ -9,6 +9,7 @@ import { BsCpu } from "react-icons/bs";
 
 export default function Industry() {
   const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
   const [state, setState] = useState({
     edit: false,
     editIndustry: false,
