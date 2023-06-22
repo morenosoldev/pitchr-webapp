@@ -6,7 +6,7 @@ const {
   request_file_access,
   verifyFileAccess,
   hasFileAccess,
-} = require("../../controllers/newAuth");
+} = require("../../controllers/auth");
 
 module.exports = function (app) {
   app.post("/login", signin);

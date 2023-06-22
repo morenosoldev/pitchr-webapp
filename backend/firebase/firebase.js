@@ -34,7 +34,13 @@ const uploadImage = async (imageURL, destinationPath) => {
       expires: "03-01-2500", // Adjust the expiration date as desired
     });
 
-    return url;
+    // Convert the signed URL to a regular download URL
+    const downloadUrl = url.replace(
+      "https://storage.googleapis.com/",
+      "https://storage.cloud.google.com/"
+    );
+
+    return downloadUrl;
   } catch (error) {
     console.error("Error uploading image:", error);
     throw error;

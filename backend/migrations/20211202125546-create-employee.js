@@ -21,10 +21,10 @@ module.exports = {
         type: Sequelize.STRING,
       },
       equity: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
       },
       BusinessUserId: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
       },
       linkedIn: {
         type: Sequelize.STRING,

@@ -1,71 +1,117 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const Investor = require("../models/").Investor;
-const Business = require("../models/").Business;
-const User = require("../models").User;
-const Pitch = require("../models").Pitch;
-const user_type = require("../models/").UserTypes;
-const { QueryTypes } = require("sequelize");
-const sequelize = require("../utils/database");
+const nodemailer = require("../config/nodemailer.config");
+const db = require("../models");
+const User = db.User;
+const Invitation = db.invitation;
+const Business = db.Business;
+const Investor = db.Investor;
+const Competence = db.Competence;
+const FileRequest = db.filerequest;
+var jwt = require("jsonwebtoken");
+var bcrypt = require("bcryptjs");
 
-const INVESTOR_SIGNUP = async (req, res, next) => {
-  try {
-    const dbUser = await User.findOne({
-      where: { email: req.body.email },
+exports.request_access = async (req, res) => {
+  res.status(200).json({
+    message:
+      "Invitation has been sent! Please check your email, in a couple of days.",
+  });
+};
+
+exports.request_file_access = async (req, res) => {
+  const requestUser = await FileRequest.findOne({
+    where: {
+      user_id: req.body.id,
+    },
+  });
+
+  if (!requestUser) {
+    const token = jwt.sign(
+      { id: req.body.user_id + " " + req.body.id },
+      "secret"
+    );
+
+    const receiverUser = await User.findOne({
+      where: {
+        id: req.body.user_id,
+      },
       raw: true,
     });
-    if (dbUser) {
-      return res.status(409).json({ message: "email already exists" });
-    } else if (req.body.email && req.body.password) {
-      const passwordHash = await bcrypt.hash(req.body.password, 12);
-      if (passwordHash) {
-        const user = await User.create({
-          email: req.body.email,
-          name: req.body.name,
-          password: passwordHash,
-        });
-        const investor = await Investor.create({
-          user_id: user.id,
-          investor_experience: req.body.investor_experience,
-          investor_type: req.body.investor_type,
-          available_capital: req.body.available_capital,
-          description: req.body.description,
-          profile_pic: req.body.profile_pic,
-          public: req.body.public,
-        });
-        await user_type.create({
-          id: investor.user_id,
-          type: "Investor",
-        });
 
-        /*
-            const expertises = req.body.expertises
-            await investor.setExpertises(expertises)
-            const competences = await sequelize.query('SELECT m.* FROM expertises m INNER JOIN investor_expertise am on m.id = am.expertiseId INNER JOIN investors a on am.investorId = a.id WHERE a.id = ?',{replacements: [investor.id],type: QueryTypes.SELECT});
-          */
+    const sender = await User.findOne({
+      where: {
+        id: req.body.id,
+      },
+      raw: true,
+    });
 
-        const token = jwt.sign({ email: req.body.email }, "secret", {
-          expiresIn: "24h",
-        });
-        res.status(200).json({
-          message: "user created",
-          token: token,
-          user: { ...investor.dataValues, ...user.dataValues },
-        });
-      }
-    } else if (!req.body.password) {
-      return res.status(400).json({ message: "password not provided" });
-    } else if (!req.body.email) {
-      return res.status(400).json({ message: "email not provided" });
-    }
-  } catch (err) {
-    console.log(err);
-    res.status(502).json({ message: "error while creating the user" });
+    FileRequest.create({
+      user_id: req.body.id,
+      request_user_id: req.body.user_id,
+      user_email: receiverUser.email,
+      request_email: sender.email,
+      token: token,
+    });
+
+    nodemailer.sendFileRequest(
+      receiverUser.email,
+      sender.name,
+      receiverUser.name,
+      token
+    );
+
+    res.status(200).json({
+      message:
+        "Invitation has been sent! Please check your email, in a couple of days.",
+    });
+  } else {
+    res
+      .status(401)
+      .json({ message: "You have already requested access please wait." });
   }
 };
 
-const BUSINESS_SIGNUP = (req, res, next) => {
-  // checks if email already exists
+exports.investor_signup = async (req, res) => {
+  const token = jwt.sign({ email: req.body.email }, "secret");
+
+  const user = await User.create({
+    name: req.body.name,
+    email: req.body.email,
+    type: "Investor",
+    profile_pic:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+    password: bcrypt.hashSync(req.body.password, 8),
+  });
+
+  const newInvestor = await Investor.create({ user_id: user.id });
+
+  return res.status(200).json({
+    message: "user logged in",
+    token: token,
+    user: { ...user.dataValues, ...newInvestor.dataValues },
+  });
+};
+
+exports.business_signup = async (req, res) => {
+  const token = await jwt.sign({ email: req.body.email }, "secret");
+
+  const user = await User.create({
+    name: req.body.name,
+    email: req.body.email,
+    type: "Business",
+    profile_pic:
+      "https://thumbs.dreamstime.com/b/dollars-suitcase-business-icon-vector-sign-symbol-isolated-white-background-logo-concept-your-web-mobile-app-design-134169376.jpg",
+    password: bcrypt.hashSync(req.body.password, 8),
+  });
+
+  const newBusiness = await Business.create({ user_id: user.id });
+
+  return res.status(200).json({
+    message: "User logged in",
+    token: token,
+    user: { ...user.dataValues, ...newBusiness.dataValues },
+  });
+};
+
+exports.signin = (req, res) => {
   User.findOne({
     where: {
       email: req.body.email,
@@ -73,150 +119,181 @@ const BUSINESS_SIGNUP = (req, res, next) => {
     raw: true,
   })
     .then((dbUser) => {
-      if (dbUser) {
-        return res.status(409).json({ message: "email already exists" });
-      } else if (req.body.email && req.body.password) {
+      if (!dbUser) {
+        return res.status(500).json({ message: "User not found" });
+      } else {
         // password hash
-        bcrypt.hash(req.body.password, 12, (err, passwordHash) => {
-          if (err) {
-            return res
-              .status(500)
-              .json({ message: "couldnt hash the password" });
-          } else if (passwordHash) {
-            return User.create({
-              email: req.body.email,
-              name: req.body.name,
-              password: passwordHash,
-            })
-              .then((user) => {
-                Business.create({
-                  user_id: user.id,
-                  business_name: req.body.business_name,
-                  business_cvr: req.body.business_cvr,
-                  logo: req.body.logo,
-                  industry: req.body.industry,
-                  development_stage: req.body.development_stage,
-                  description: req.body.description,
-                  profile_visits: 0,
-                }).then((business) => {
-                  user_type.create({
-                    id: business.user_id,
-                    type: "Business",
-                  });
-                  const token = jwt.sign({ email: req.body.email }, "secret", {
-                    expiresIn: "1h",
-                  });
-                  res.status(200).json({
-                    message: "user created",
-                    token: token,
-                    user: business,
-                  });
+        bcrypt.compare(
+          req.body.password,
+          dbUser.password,
+          async (err, compareRes) => {
+            if (err) {
+              // error while comparing
+              res
+                .status(502)
+                .json({ message: "Error while checking user password" });
+            } else if (compareRes) {
+              // password match
+              const token = jwt.sign(dbUser, "secret", { expiresIn: "1h" });
+              const type = dbUser.type;
+
+              if (type == "Investor") {
+                const investor = await Investor.findOne({
+                  where: {
+                    user_id: dbUser.id,
+                  },
+                  raw: true,
                 });
-              })
-              .catch((err) => {
-                console.log(err);
-                res
-                  .status(502)
-                  .json({ message: "error while creating the user" });
-              });
+
+                return res.status(200).json({
+                  message: "user logged in",
+                  token: token,
+                  user: {
+                    ...investor,
+                    ...dbUser,
+                    id: investor.user_id,
+                    user_id: dbUser.id,
+                  },
+                  type: type,
+                });
+              } else {
+                const user = await User.findOne({
+                  where: {
+                    id: dbUser.id,
+                  },
+                  include: [
+                    {
+                      model: Business,
+                      include: [
+                        {
+                          model: Competence,
+                          as: "competences",
+                        },
+                      ],
+                    },
+                  ],
+                });
+
+                const business = {
+                  ...user.Business.dataValues,
+                  competences: user.Business.competences.map(
+                    (competence) => competence.dataValues
+                  ),
+                };
+
+                const formattedUser = {
+                  ...user.dataValues,
+                  ...business,
+                  id: business.user_id,
+                  user_id: user.id,
+                };
+
+                return res.status(200).json({
+                  message: "user logged in",
+                  token: token,
+                  user: formattedUser,
+                  type: type,
+                });
+              }
+            } else {
+              // password doesnt match
+              res.status(401).json({ message: "Invalid credentials" });
+            }
           }
-        });
-      } else if (!req.body.password) {
-        return res.status(400).json({ message: "password not provided" });
-      } else if (!req.body.email) {
-        return res.status(400).json({ message: "email not provided" });
+        );
       }
     })
     .catch((err) => {
       console.log("error", err);
     });
 };
-const login = async (req, res, next) => {
-  try {
-    // checks if email exists
-    const dbUser = await User.findOne({
-      where: {
-        email: req.body.body.email,
-      },
-      raw: true,
-    });
 
-    if (!dbUser) {
-      return res.status(404).json({ message: "User not found" });
-    } else {
-      // password hash
-      bcrypt.compare(
-        req.body.body.password,
-        dbUser.password,
-        async (err, compareRes) => {
-          if (err) {
-            // error while comparing
-            res
-              .status(502)
-              .json({ message: "Error while checking user password" });
-          } else if (compareRes) {
-            // password match
-            const token = jwt.sign(dbUser, "secret", { expiresIn: "1h" });
-            const type = await sequelize.query(
-              "SELECT type FROM UserTypes WHERE id = ?",
-              { replacements: [dbUser.id], type: QueryTypes.SELECT }
-            );
+exports.hasFileAccess = async (req, res, next) => {
+  const invitation = await FileRequest.findOne({
+    where: {
+      user_id: req.body.id,
+      request_user_id: req.body.user_id,
+    },
+    raw: true,
+  });
 
-            let user;
-            if (type[0].type == "Investor") {
-              user = await Investor.findOne({
-                where: {
-                  user_id: dbUser.id,
-                },
-                raw: true,
-              });
-            } else {
-              user = await Business.findOne({
-                where: {
-                  user_id: dbUser.id,
-                },
-                raw: true,
-              });
-            }
-
-            res.status(200).json({
-              message: "user logged in",
-              token: token,
-              user: { ...user, ...dbUser },
-              type: type,
-            });
-          } else {
-            // password doesn't match
-            res.status(401).json({ message: "Invalid credentials" });
-          }
-        }
-      );
-    }
-  } catch (err) {
-    console.log("error", err);
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
-
-const isAuth = (req, res, next) => {
-  const authHeader = req.get("Authorization");
-  if (!authHeader) {
-    return res.status(401).json({ message: "not authenticated" });
-  }
-  const token = authHeader.split(" ")[1];
-  let decodedToken;
-  try {
-    decodedToken = jwt.verify(token, "secret");
-  } catch (err) {
-    return res
-      .status(500)
-      .json({ message: err.message || "could not decode the token" });
-  }
-  if (!decodedToken) {
-    res.status(401).json({ message: "unauthorized" });
+  if (!invitation) {
+    res.status(200).send({ access: -1 });
+  } else if (invitation.access == 1) {
+    res.status(200).send({ access: invitation.access });
   } else {
-    res.status(200).json({ message: "here is your resource" });
+    res.status(200).send({ access: 0 });
   }
 };
 
-module.exports = { login, isAuth, BUSINESS_SIGNUP, INVESTOR_SIGNUP };
+exports.verifyUser = (req, res, next) => {
+  Invitation.findOne({
+    where: {
+      token: req.params.confirmationCode,
+    },
+  })
+    .then((invitation) => {
+      if (!invitation) {
+        return res.status(404).send({ message: "User Not found." });
+      }
+      invitation.access = 1;
+      invitation.save((err) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send({ message: err });
+          return;
+        }
+      });
+      nodemailer.sendRegistrationEmail(invitation.email);
+
+      res
+        .status(200)
+        .send("Brugeren har nu fået en mail, med link til registration");
+    })
+    .catch((e) => console.log("error", e));
+};
+
+exports.verifyFileAccess = (req, res, next) => {
+  FileRequest.findOne({
+    where: {
+      token: req.params.confirmationCode,
+    },
+  })
+    .then(async (invitation) => {
+      if (!invitation) {
+        return res.status(404).send({ message: "User Not found." });
+      }
+      invitation.access = 1;
+      invitation.save(async (err) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send({ message: err });
+          return;
+        }
+      });
+
+      const receiver = await User.findOne({
+        where: {
+          id: invitation.user_id,
+        },
+        raw: true,
+      });
+
+      const sender = await User.findOne({
+        where: {
+          id: invitation.request_user_id,
+        },
+        raw: true,
+      });
+
+      nodemailer.sendAccessConfirmedMail(
+        receiver.email,
+        receiver.name,
+        sender.name,
+        sender.id
+      );
+
+      res.status(200).send("You can now close this window.");
+    })
+    .catch((e) => console.log("error", e));
+};

@@ -108,6 +108,18 @@ export function authentication(state = initialState, action) {
     case userConstants.UPDATE_DESCRIPTION_FAILURE:
       return { ...state };
 
+    case userConstants.UPDATE_COMPETENCES_REQUEST:
+      return { ...state, loading: true };
+
+    case userConstants.UPDATE_COMPETENCES_SUCCESS:
+      return {
+        ...state,
+        user: { ...state.user, competences: action.competences },
+      };
+
+    case userConstants.UPDATE_COMPETENCES_FAILURE:
+      return { ...state };
+
     case userConstants.UPDATE_LOCATION_REQUEST:
       return { ...state, loading: true };
 

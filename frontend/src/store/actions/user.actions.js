@@ -170,7 +170,7 @@ function updateDescription(description, id) {
   }
 }
 
-const updateCompetences = (competences, id) => {
+function updateCompetences(competences, id) {
   return (dispatch) => {
     dispatch(request({ competences }));
     userService.updateCompetences(competences, id).then(
@@ -184,16 +184,16 @@ const updateCompetences = (competences, id) => {
       }
     );
   };
-  function request(description) {
-    return { type: userConstants.UPDATE_DESCRIPTION_REQUEST, description };
+  function request(competences) {
+    return { type: userConstants.UPDATE_COMPETENCES_REQUEST, competences };
   }
-  function success(description) {
-    return { type: userConstants.UPDATE_DESCRIPTION_SUCCESS, description };
+  function success(competences) {
+    return { type: userConstants.UPDATE_COMPETENCES_SUCCESS, competences };
   }
   function failure(error) {
-    return { type: userConstants.UPDATE_DESCRIPTION_FAILURE, error };
+    return { type: userConstants.UPDATE_COMPETENCES_FAILURE, error };
   }
-};
+}
 
 function updateLocation(location, id) {
   return (dispatch) => {

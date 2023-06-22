@@ -35,6 +35,7 @@ const createPitchDeck = async (req, res) => {
       // Save each file individually in the PitchDeckFile model
       for (const fileData of files) {
         console.log("fileData", fileData);
+        console.log("deck", deck.id);
         await PitchDeckFile.create({
           file: await uploadImage(fileData.Url, `files/${fileData.FileName}`),
           pitchDeckId: deck.id,

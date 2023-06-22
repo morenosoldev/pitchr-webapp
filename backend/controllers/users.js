@@ -211,6 +211,7 @@ const getInvestor = async (req, res) => {
 
 const updateInvestmentInterest = async (req, res) => {
   const { id } = req.params;
+  const { investmentInterests } = req.body;
   try {
     await Investor.findOne({
       where: {
@@ -223,11 +224,11 @@ const updateInvestmentInterest = async (req, res) => {
         },
       });
 
-      req.body.investmentInterests.map(async (market) => {
+      investmentInterests.map(async (market) => {
         await user.createInvestmentInterest(market);
       });
 
-      res.status(200).json(req.body.investmentInterests);
+      res.status(200).json(investmentInterests);
     });
   } catch (error) {
     console.log(error);
@@ -413,17 +414,19 @@ const updateLocation = async (req, res) => {
 
 const updateCapital = async (req, res) => {
   const { id } = req.params;
+  const { capital } = req.body;
   try {
-    const user = await Investor.findOne({
+    const business = await Business.findOne({
       where: {
         user_id: id,
       },
     });
 
-    user.available_capital = req.body.capital;
-    await user.save();
+    console.log("req.body.capital", capital);
+    business.goal = capital;
+    await business.save();
 
-    res.status(200).json(user);
+    res.status(200).json(business);
   } catch (error) {
     console.log(error);
     res.status(500).json("Can't find user");

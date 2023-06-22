@@ -10,7 +10,7 @@ export default function InvestorAsk({ edit }) {
   const user = useSelector((state) => state.authentication.user);
   const [state, setState] = useState({
     editCapital: false,
-    capital: user?.capital,
+    capital: user?.goal,
     editPercentage: false,
     percentage: user?.percentage,
   });
@@ -18,7 +18,7 @@ export default function InvestorAsk({ edit }) {
   const { editCapital, capital, percentage } = state;
 
   const updateCapital = () => {
-    dispatch(userActions.updateCapital(capital, user?.user_id));
+    dispatch(userActions.updateGoal(capital, percentage, user?.user_id));
     setState((prevState) => ({
       ...prevState,
       editCapital: false,

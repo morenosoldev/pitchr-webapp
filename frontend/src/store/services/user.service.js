@@ -58,11 +58,11 @@ function updateLocation(location, id) {
   return config.put(`/location/${id}`, { location: location });
 }
 
-const updateCompetences = (competences, id) => {
+function updateCompetences(competences, id) {
   return config.put(`/competences/${id}`, {
     competences: competences,
   });
-};
+}
 
 function registerInvestor(user) {
   return config.post("/investor", user).then((res) => {

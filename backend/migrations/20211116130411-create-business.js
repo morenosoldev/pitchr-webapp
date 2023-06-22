@@ -14,6 +14,12 @@ module.exports = {
       cvr: {
         type: Sequelize.INTEGER,
       },
+      calendly: {
+        type: Sequelize.STRING,
+      },
+      location: {
+        type: Sequelize.STRING,
+      },
       industry: {
         type: Sequelize.STRING,
       },
@@ -24,7 +30,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       percentage: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
