@@ -131,77 +131,71 @@ const BUSINESS_SIGNUP = (req, res, next) => {
       console.log("error", err);
     });
 };
-
-const login = (req, res, next) => {
-  // checks if email exists
-  User.findOne({
-    where: {
-      email: req.body.body.email,
-    },
-    raw: true,
-  })
-    .then((dbUser) => {
-      if (!dbUser) {
-        return res.status(404).json({ message: "User not found" });
-      } else {
-        // password hash
-        bcrypt.compare(
-          req.body.body.password,
-          dbUser.password,
-          async (err, compareRes) => {
-            if (err) {
-              // error while comparing
-              res
-                .status(502)
-                .json({ message: "Error while checking user password" });
-            } else if (compareRes) {
-              // password match
-              const token = jwt.sign(dbUser, "secret", { expiresIn: "1h" });
-              const type = await sequelize.query(
-                "SELECT type FROM UserTypes WHERE id = ?",
-                { replacements: [dbUser.id], type: QueryTypes.SELECT }
-              );
-
-              if (type[0].type == "Investor") {
-                const investor = await Investor.findOne({
-                  where: {
-                    user_id: dbUser.id,
-                  },
-                  raw: true,
-                });
-
-                res.status(200).json({
-                  message: "user logged in",
-                  token: token,
-                  user: { ...investor, ...dbUser },
-                  type: type,
-                });
-              } else {
-                const bussiness = await Business.findOne({
-                  where: {
-                    user_id: dbUser.id,
-                  },
-                  raw: true,
-                });
-
-                res.status(200).json({
-                  message: "user logged in",
-                  token: token,
-                  user: { ...bussiness, ...dbUser, id: bussiness.id },
-                  type: type,
-                });
-              }
-            } else {
-              // password doesnt match
-              res.status(401).json({ message: "Invalid credentials" });
-            }
-          }
-        );
-      }
-    })
-    .catch((err) => {
-      console.log("error", err);
+const login = async (req, res, next) => {
+  try {
+    // checks if email exists
+    const dbUser = await User.findOne({
+      where: {
+        email: req.body.body.email,
+      },
+      raw: true,
     });
+
+    if (!dbUser) {
+      return res.status(404).json({ message: "User not found" });
+    } else {
+      // password hash
+      bcrypt.compare(
+        req.body.body.password,
+        dbUser.password,
+        async (err, compareRes) => {
+          if (err) {
+            // error while comparing
+            res
+              .status(502)
+              .json({ message: "Error while checking user password" });
+          } else if (compareRes) {
+            // password match
+            const token = jwt.sign(dbUser, "secret", { expiresIn: "1h" });
+            const type = await sequelize.query(
+              "SELECT type FROM UserTypes WHERE id = ?",
+              { replacements: [dbUser.id], type: QueryTypes.SELECT }
+            );
+
+            let user;
+            if (type[0].type == "Investor") {
+              user = await Investor.findOne({
+                where: {
+                  user_id: dbUser.id,
+                },
+                raw: true,
+              });
+            } else {
+              user = await Business.findOne({
+                where: {
+                  user_id: dbUser.id,
+                },
+                raw: true,
+              });
+            }
+
+            res.status(200).json({
+              message: "user logged in",
+              token: token,
+              user: { ...user, ...dbUser },
+              type: type,
+            });
+          } else {
+            // password doesn't match
+            res.status(401).json({ message: "Invalid credentials" });
+          }
+        }
+      );
+    }
+  } catch (err) {
+    console.log("error", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 const isAuth = (req, res, next) => {

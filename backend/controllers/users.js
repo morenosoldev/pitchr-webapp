@@ -1,16 +1,10 @@
 const models = require("../models");
 const Business = models.Business;
 const User = models.User;
-const Markets = models.Market;
-const Industry = models.Industry;
 const Competence = models.Competence;
-
-const PreviousInvestment = models.PreviousInvestment;
 const Investor = models.Investor;
 const sequelize = require("../utils/database");
-const { Op } = require("sequelize");
 const { QueryTypes } = require("sequelize");
-const res = require("express/lib/response");
 
 const getAllUsers = async (req, res) => {
   try {

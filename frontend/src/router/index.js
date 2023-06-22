@@ -5,6 +5,7 @@ import BusinessDashboard from "../layouts/dashboard/BusinessDashboard";
 import InvestorDashboard from "../layouts/dashboard/InvestorDashboard";
 import { useSelector } from "react-redux";
 import AuthRouter from "./AuthRouter";
+import { Redirect } from "react-router-dom";
 
 const IndexRouters = () => {
   const isAuthenticated = useSelector(
@@ -29,6 +30,7 @@ const IndexRouters = () => {
           path="/investor"
           component={InvestorDashboard}
         ></ProtectedRoute>
+        <Redirect to="/auth/sign-in" />
       </Switch>
     </>
   );

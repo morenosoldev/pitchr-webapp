@@ -1,48 +1,50 @@
-'use strict';
+"use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Messages', {
+    await queryInterface.createTable("Messages", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       type: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       message: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       chatId: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull: false,
         references: {
-          model: 'Chats',
-          key:'id'        
+          model: "Chats",
+          key: "id",
         },
-        onDelete: 'CASCADE'
+        onDelete: "CASCADE",
+        name: "FK_Messages_ChatId", // Unique constraint name
       },
       fromUserId: {
         type: Sequelize.INTEGER,
-        allowNull:false,
+        allowNull: false,
         references: {
-          model: 'Users',
-          key:'id'        
+          model: "Users",
+          key: "id",
         },
-        onDelete: 'CASCADE'
+        onDelete: "CASCADE",
+        name: "FK_Messages_FromUserId", // Unique constraint name
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Messages');
-  }
+    await queryInterface.dropTable("Messages");
+  },
 };

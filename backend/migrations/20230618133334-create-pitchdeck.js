@@ -32,9 +32,12 @@ module.exports = {
         allowNull: false,
       },
     });
+
+    await queryInterface.addIndex("PitchDecks", ["id"]);
   },
 
   down: async (queryInterface, Sequelize) => {
+    await queryInterface.removeIndex("PitchDecks", ["id"]);
     await queryInterface.dropTable("PitchDecks");
   },
 };

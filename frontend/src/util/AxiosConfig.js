@@ -19,9 +19,9 @@ API.interceptors.response.use(
     return res;
   },
   (err) => {
-    if (err.response) {
+    if (err.response?.data) {
       console.log("fejl", err.response);
-      if (err.response.data.error.name === "TokenExpiredError") {
+      if (err.response.data?.error?.name === "TokenExpiredError") {
         console.log("nu den gal");
         store.dispatch(userActions.logout());
         throw err;
@@ -29,6 +29,10 @@ API.interceptors.response.use(
       throw err.response.data;
     }
     if (typeof err?.response?.data?.error.name !== "undefined") {
+      if (err.response.data.error.name === "TokenExpiredError") {
+        store.dispatch(userActions.logout());
+        throw err;
+      }
     }
   }
 );

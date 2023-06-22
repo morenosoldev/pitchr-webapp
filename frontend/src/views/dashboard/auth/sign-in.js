@@ -90,8 +90,8 @@ const SignIn = () => {
                       placeholder="Password"
                     />
 
-                    {message?.length > 0 ? (
-                      <div className="bad-feedback">{message}</div>
+                    {message ? (
+                      <div className="bad-feedback">{message.toString()}</div>
                     ) : null}
                   </Form.Group>
                   <div className="d-inline-block w-100">

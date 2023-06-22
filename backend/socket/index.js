@@ -246,6 +246,12 @@ const getChatters = async (userId) => {
     );
 
     console.log("resultater", results);
+
+    // Check if results is null or undefined
+    if (!results) {
+      return [];
+    }
+
     return results.length > 0 ? results.map((el) => el.userId) : [];
   } catch (e) {
     console.log(e);

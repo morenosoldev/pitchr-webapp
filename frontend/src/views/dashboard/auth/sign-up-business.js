@@ -120,6 +120,7 @@ const SignUpBusiness = () => {
                       Sign Up
                     </Button>
                   </div>
+                  <p>{message}</p>
                   {message ? (
                     <div className="bad-feedback">{message}</div>
                   ) : null}
