@@ -34,6 +34,8 @@ export default function ChatFooter({ chat }) {
   const sendMessage = (e) => {
     e.preventDefault();
 
+    if (message.length === 0) return;
+
     const msg = {
       type: "text",
       fromUser: user,

@@ -24,6 +24,9 @@ module.exports = {
         onDelete: "CASCADE",
         name: "FK_Messages_ChatId", // Unique constraint name
       },
+      profile_pic: {
+        type: Sequelize.STRING,
+      },
       fromUserId: {
         type: Sequelize.INTEGER,
         allowNull: false,

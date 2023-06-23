@@ -173,6 +173,7 @@ body{
                               deck={pitch?.Business?.PitchDeck.file}
                               calendly={pitch.calendly}
                               userID={pitch.id}
+                              business={pitch.Business}
                               company={pitch.name}
                               logo={pitch.profile_pic}
                               description={pitch.description}

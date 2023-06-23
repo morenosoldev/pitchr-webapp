@@ -94,7 +94,13 @@ export default function NewBusiness() {
       </Row>
 
       <Row>
-        <Col></Col>
+        <Col>
+          <Card>
+            <Card.Body>
+              <Investors />
+            </Card.Body>
+          </Card>
+        </Col>
       </Row>
     </Container>
   );

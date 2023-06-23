@@ -130,7 +130,7 @@ function Investors() {
               </div>
             </div>
           </div>
-          <Row className="mx-lg-n10">
+          <Row className="mx-lg-n10 mt-5">
             <Col>
               <InvestorCarousel items={items} />
             </Col>

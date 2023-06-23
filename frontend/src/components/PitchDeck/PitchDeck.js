@@ -21,16 +21,19 @@ const PitchDeck = ({
   logo,
   calendly,
   location,
+  business,
   members,
   description,
   pitchID,
   userID,
 }) => {
-  const addChat = () => {
-    ChatService.createChat(userID).then((chats) => {
-      //socket.emit("add-friend", chats);
+  const addChat = async () => {
+    try {
+      const chats = await ChatService.createChat(userID);
       history.push("/investor/app/chat");
-    });
+    } catch (error) {
+      console.error("Error creating chat:", error);
+    }
   };
 
   return (
@@ -52,7 +55,7 @@ const PitchDeck = ({
                       xxl={4}
                     >
                       <div style={{ width: "100%" }} className="user-profile">
-                        <div className="user text-center mb-4">
+                        <div className="user  mb-4">
                           <Row className="mb-4">
                             <Col sm={3}>
                               <div
@@ -77,12 +80,10 @@ const PitchDeck = ({
                                     flexDirection: "column",
                                   }}
                                 >
-                                  <p className="fw-bold m-0 text-left">
+                                  <h3 className="fw-bold m-0 text-left">
                                     {company}
-                                  </p>
-                                  <p className="company-description text-left">
-                                    {description}
-                                  </p>
+                                  </h3>
+
                                   <span>
                                     <Flag
                                       flagNationCode={location}
@@ -102,15 +103,18 @@ const PitchDeck = ({
                               >
                                 <p className="company-icon">
                                   {" "}
-                                  <BsCpu style={{ display: "inline" }} />{" "}
-                                  Fintech
+                                  <BsCpu
+                                    style={{ display: "inline" }}
+                                    className="me-1"
+                                  />{" "}
+                                  {business.industry}
                                 </p>
                                 <p className="company-icon">
-                                  {" "}
                                   <BsBullseye
                                     style={{ display: "inline" }}
-                                  />{" "}
-                                  Startup{" "}
+                                    className="me-1"
+                                  />
+                                  {business.development_stage}
                                 </p>
                               </div>
                             </Col>
@@ -119,22 +123,38 @@ const PitchDeck = ({
                               <Row>
                                 <Button
                                   className="mb-3"
+                                  variant="primary"
                                   onClick={() => addChat()}
                                 >
-                                  Contact startup <BsFillEnvelopeFill />
+                                  Contact startup{" "}
+                                  <BsFillEnvelopeFill className="ms-2" />
                                 </Button>
                                 <Link
-                                  as={Button}
+                                  className="p-0"
                                   to={`/investor/app/company/${userID}/deck#pitch`}
                                 >
-                                  Watch pitch <AiFillVideoCamera />
+                                  <Button variant="secondary" className="w-100">
+                                    Watch pitch{" "}
+                                    <AiFillVideoCamera className="ms-2" />
+                                  </Button>
                                 </Link>
                               </Row>
                             </Col>
                           </Row>
 
                           <Row>
-                            <Col sm={6} md={6}>
+                            <Col>
+                              <div style={{ display: "flex" }} className="mb-4">
+                                <span>Elevator pitch</span>
+                              </div>
+                              <p className="company-description">
+                                {description}
+                              </p>
+                            </Col>
+                          </Row>
+
+                          <Row>
+                            <Col sm={12} md={12}>
                               <div style={{ display: "flex" }} className="mb-4">
                                 <span>Team</span>
                               </div>
@@ -143,62 +163,31 @@ const PitchDeck = ({
                                   <Col key={index} xs>
                                     <div className="team-member">
                                       <img
-                                        className="rounded-circle avatar-50"
+                                        className="rounded-circle avatar-100"
                                         src={member.profilePic}
                                       />
-                                      <p
-                                        style={{
-                                          fontSize: "0.6rem",
-                                          color: "black",
-                                        }}
-                                        className="mt-4"
-                                      >
-                                        {member.name}
-                                      </p>
-                                      <span style={{ fontSize: "9px" }}>
-                                        {member.jobTitle}
-                                      </span>
+                                      <p className="mt-4">{member.name}</p>
+                                      <span>{member.jobTitle}</span>
                                     </div>
                                   </Col>
                                 ))}
-
-                                {members.length >= 3 ? (
-                                  <Col xs>
-                                    <div
-                                      style={{
-                                        marginTop: "80px",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        flexDirection: "column",
-                                      }}
-                                    >
-                                      <BsFillPlusCircleFill />
-                                      <Link
-                                        to={`/investor/app/company/${userID}/team`}
-                                        style={{ fontSize: "9px" }}
-                                      >
-                                        See more...
-                                      </Link>
-                                    </div>
-                                  </Col>
-                                ) : null}
                               </div>
                             </Col>
 
-                            <Col sm={6} md={6}>
+                            <Col sm={12} md={12}>
                               <div style={{ display: "flex" }} className="mt-4">
                                 <span>Equity</span>
                               </div>
                               <Row>
                                 <Col>
                                   <div
-                                    style={{ width: "100%", height: "125px" }}
+                                    style={{ width: "100%", height: "225px" }}
                                   >
                                     <Equity data={members} />
                                   </div>
                                 </Col>
                                 <Col>
-                                  <Table hover size="sm">
+                                  <Table hover>
                                     <thead>
                                       <tr>
                                         <th>Name</th>

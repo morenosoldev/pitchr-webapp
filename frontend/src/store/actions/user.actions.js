@@ -118,7 +118,8 @@ function registerInvestor(user) {
 
     userService.registerInvestor(user).then(
       (user) => {
-        dispatch(success(user.data));
+        console.log("user", user);
+        dispatch(success(user));
         history.push("/investor");
         dispatch(alertActions.success("Registration successful"));
       },

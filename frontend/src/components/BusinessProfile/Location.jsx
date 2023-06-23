@@ -70,7 +70,7 @@ export default function Location({ edit }) {
             <Button onClick={() => updateLocation()}>Save</Button>
           </>
         ) : (
-          <p className="text-left">
+          <p className="text-left profile-description-text">
             <Flag
               flagNationCode={user.location ? user.location : "DK"}
               showText={true}

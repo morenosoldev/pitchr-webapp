@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Card, Modal } from "react-bootstrap";
+import { Badge, Button, Card, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import img1 from "../../../assets/images/page-img/profile-bg1.jpg";
 import { teamActions } from "../../../store/actions/team.actions";
@@ -39,12 +39,9 @@ export default function Member({
         </div>
         <div className="group-info pt-3 pb-3">
           <h4>{name}</h4>
-          <p>{jobTitle}</p>
+          <Badge className="job-title-badge">{jobTitle}</Badge>
         </div>
-        <div
-          className="group-details d-inline-block pb-3"
-          style={{ minHeight: 110 }}
-        >
+        <div className="group-details d-inline-block pb-3">
           <ul className="d-flex align-items-center justify-content-between list-inline m-0 p-0">
             <li className="pe-3 ps-3">
               <p className="mb-0">Job description</p>

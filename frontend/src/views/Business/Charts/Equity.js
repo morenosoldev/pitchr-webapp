@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { ResponsiveContainer, Pie, Cell, Tooltip, PieChart } from "recharts";
+import { Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { Cell } from "recharts";
 
 export default function Equity({ data }) {
   const [equity, setEquity] = useState([]);
@@ -24,6 +25,8 @@ export default function Equity({ data }) {
     return entry.name;
   };
 
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#AF19FF"];
+
   return (
     <>
       {equity.length > 0 ? (
@@ -33,9 +36,15 @@ export default function Equity({ data }) {
               isAnimationActive={false}
               dataKey="value"
               data={equity}
-              fill="grey"
               label={renderLabel}
-            />
+            >
+              {equity.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
             <Tooltip />
           </PieChart>
         </ResponsiveContainer>

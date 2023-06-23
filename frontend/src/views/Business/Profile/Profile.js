@@ -41,7 +41,7 @@ export default function Profile() {
   return (
     <Container fluid className="h-100">
       <Row className="h-100">
-        <Col className="h-100" sm={3}>
+        <Col className="h-100" sm={12} md={12} lg={4} xl={4} xxl={4}>
           <Card style={{ overflowY: "scroll" }} className="h-100">
             <Card.Body>
               <div style={{ width: "100%" }} className="user-profile">
@@ -75,7 +75,7 @@ export default function Profile() {
             </Card.Body>
           </Card>
         </Col>
-        <Col sm={9} className="h-100">
+        <Col sm={12} md={12} xl={8} xxl={8} className="h-100">
           <Card className="h-100">
             <Row style={{ display: "flex" }} className="h-100">
               <Tab.Container
@@ -178,7 +178,7 @@ export default function Profile() {
                     </div>
                   </Tab.Pane>
 
-                  <Tab.Pane className="h-100" eventKey="team">
+                  <Tab.Pane eventKey="team">
                     <Groups />
                   </Tab.Pane>
 

@@ -1,11 +1,9 @@
-import React from "react";
-import { Row, Form, Button } from "react-bootstrap";
-import { AiOutlineEdit, AiOutlineClose } from "react-icons/ai";
-import { useSelector } from "react-redux";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { Button, Form, Row } from "react-bootstrap";
+import { AiOutlineClose, AiOutlineEdit } from "react-icons/ai";
+import { MdBusiness } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../store/actions";
-import { BsCpu } from "react-icons/bs";
 
 export default function Industry({ edit }) {
   const user = useSelector((state) => state.authentication.user);
@@ -94,9 +92,12 @@ export default function Industry({ edit }) {
             <Button onClick={() => updateIndustry()}>Save</Button>
           </>
         ) : (
-          <p className="text-left">
+          <p className="text-left profile-description-text">
             {" "}
-            <BsCpu style={{ display: "inline", marginRight: "5px" }} />
+            <MdBusiness
+              size={30}
+              style={{ display: "inline", marginRight: "5px" }}
+            />
             {user.industry ? user.industry : "No industry set yet"}
           </p>
         )}

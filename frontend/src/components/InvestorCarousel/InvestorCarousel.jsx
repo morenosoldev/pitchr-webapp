@@ -1,11 +1,22 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import { BsBriefcase } from "react-icons/bs";
+import ChatService from "../../store/services/chat.service";
+import { history } from "../../util/history";
 
 const InvestorCarousel = ({ items }) => {
+  const addChat = async (userID) => {
+    try {
+      const chats = await ChatService.createChat(userID);
+      history.push("/investor/app/chat");
+    } catch (error) {
+      console.error("Error creating chat:", error);
+    }
+  };
+
   return (
     <>
       <OwlCarousel
@@ -28,40 +39,43 @@ const InvestorCarousel = ({ items }) => {
       >
         {items.map((item) => (
           <div className="item" key={item.id} style={{ padding: "15px" }}>
-            <Card className="p-3 p-md-5 border-0 bg-white rounded-4">
-              <Card.Body className="card-body p-0">
-                <div className="d-flex mb-3 align-items-center">
-                  <div>
-                    <Card.Img
-                      variant="top"
-                      src={item.image}
-                      className="img-fluid rounded-circle"
-                      alt="Image"
-                    />
-                  </div>
-                  <div className="ms-3">
-                    <Card.Title className="font-w-6 text-dark mb-0">
-                      {item.name}
-                    </Card.Title>
-                    <Card.Subtitle className="text-muted fst-italic">
-                      - {item.position}
-                    </Card.Subtitle>
-                  </div>
-                </div>
-
-                <div className="d-flex mt-3 align-items-center justify-content-between">
+            <div className="d-flex mb-3 align-items-center">
+              <div>
+                <Card.Img
+                  variant="top"
+                  src={item.image}
+                  style={{ width: "100px", height: "100px" }}
+                  className="img-fluid rounded-circle"
+                  alt="Image"
+                />
+              </div>
+              <div className="ms-3">
+                <Card.Title className="font-w-6 text-dark mb-0">
+                  {item.name}
+                </Card.Title>
+                <Card.Subtitle className="text-muted fst-italic">
+                  {item.position}
+                </Card.Subtitle>
+              </div>
+              <div>
+                <ul className="list-style-none">
                   {item.industries.map((industry, index) => (
                     <li key={index}>
                       <BsBriefcase className="me-1" /> {industry.name}
                     </li>
                   ))}
-                  <Card.Text className="font-w-5 lead mb-3">
-                    {item.description}
-                  </Card.Text>
-                  <i className="bi bi-quote fs-1 text-dark"></i>
-                </div>
-              </Card.Body>
-            </Card>
+                </ul>
+              </div>
+            </div>
+
+            <div className="d-flex mt-3 align-items-center justify-content-between">
+              <Card.Text className="font-w-5 lead mb-3">
+                {item.description}
+              </Card.Text>
+            </div>
+            <Button>
+              Contact me <BsBriefcase className="ms-1" />
+            </Button>
           </div>
         ))}
       </OwlCarousel>

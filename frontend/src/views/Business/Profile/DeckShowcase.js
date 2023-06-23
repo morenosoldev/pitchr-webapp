@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { AiOutlineVideoCamera } from "react-icons/ai";
+import { AiFillPlaySquare } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import "../../../assets/scss/custom/components/deck/deck-showcase.scss";
 import "../../../assets/scss/custom/components/deck/deck.scss";
 import API from "../../../util/AxiosConfig";
 import Content from "../Deck/Content";
+import { BsPlayCircleFill } from "react-icons/bs";
+import { BsPlayCircle } from "react-icons/bs";
 
 export default function DeckShowcase({ stopVideo }) {
   const { id } = useParams();
@@ -15,13 +17,27 @@ export default function DeckShowcase({ stopVideo }) {
   const [selectedColumn, setSelectedColumn] = useState(
     data[0]?.subItems[0]?.content
   );
-  useEffect(async () => {
-    const lastSaved = (await API.get(`/pitch/${id}`)).data;
-    if (lastSaved?.length > 0) {
-      setData(lastSaved);
-      setSelectedColumn(lastSaved[0].subItems[0]);
-    }
-  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const lastSaved = (await API.get(`/pitch/${id}`)).data;
+        if (lastSaved?.length > 0) {
+          setData(lastSaved);
+          setSelectedColumn(lastSaved[0].subItems[0]);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      // Clean up any ongoing asynchronous tasks or subscriptions here
+      // For example, you can cancel any active requests or clear intervals
+    };
+  }, []); // Empty dependency array ensures the effect runs only once when the component is mounted
+
   const selectColumn = (obj) => {
     setSelectedColumn(obj);
   };
@@ -29,29 +45,36 @@ export default function DeckShowcase({ stopVideo }) {
   return (
     <Container className="h-100" fluid>
       {data.some((obj) => obj.subItems.length > 0) ? (
-        <Row className="h-100">
-          <Col className="container-wrapper-subItems h-100" sm={3}>
-            <Row style={{ height: "100%", overflowY: "scroll" }}>
+        <Row>
+          <Col
+            className="container-wrapper-subItems d-flex flex-column"
+            sm={12}
+            md={12}
+            lg={12}
+            xl={12}
+            xxl={3}
+          >
+            <Row style={{ overflowY: "scroll" }}>
               <div className="subItems-container">
                 {data.map((item) => (
                   <div className="deck-section-show mt-3 mb-3">
                     <h4 className="deck-title-show">{item.title}</h4>
                     {item.subItems.map((deck) => (
                       <div
+                        key={deck.id}
                         onClick={() => selectColumn(deck)}
                         className={`deck-container-show mb-3`}
                       >
                         <div className="deck-image-show">
-                          <AiOutlineVideoCamera
-                            size={"25"}
-                            color={
-                              selectedColumn?.id == deck.id ? "blue" : "black"
-                            }
-                          />
+                          {selectedColumn?.id == deck.id ? (
+                            <BsPlayCircleFill size={30} />
+                          ) : (
+                            <BsPlayCircle size={30} />
+                          )}
                         </div>
                         <div className="deck-content-show">
-                          <h4>{deck.title}</h4>
-                          <span>{deck?.content?.duration}</span>
+                          <span className="deck-title">{deck.title}</span>
+                          <p>{deck?.content?.duration}</p>
                         </div>
                       </div>
                     ))}
@@ -61,7 +84,7 @@ export default function DeckShowcase({ stopVideo }) {
             </Row>
           </Col>
 
-          <Col sm>
+          <Col sm={12} md={12} lg={12} xl={12} xxl={9}>
             <Content
               stopVideo={stopVideo}
               content={data}

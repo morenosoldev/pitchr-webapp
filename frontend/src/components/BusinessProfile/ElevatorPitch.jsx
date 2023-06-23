@@ -73,7 +73,6 @@ export default function ElevatorPitch({ edit }) {
               <p
                 style={{
                   textAlign: "left",
-                  fontSize: "0.6rem",
                 }}
               >
                 {user?.description}

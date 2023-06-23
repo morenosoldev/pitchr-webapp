@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import { BsFillPersonCheckFill, BsPlusCircle } from "react-icons/bs";
+import { Button, Card, Col, Dropdown, Form, Modal, Row } from "react-bootstrap";
+import { BsFillPersonCheckFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import img1 from "../../../assets/images/user/1.jpg";
-import Card from "../../../components/Card";
 import { storage } from "../../../firebase";
 import { teamActions } from "../../../store/actions/team.actions";
 import Equity from "../../Business/Charts/Equity";
 import Member from "../../Business/Team/Member";
+import Select, { components } from "react-select";
+import "./Groups.scss";
+
+const Placeholder = (props) => {
+  return <components.Placeholder {...props} />;
+};
 
 const Groups = () => {
   const { id } = useParams();
@@ -18,6 +23,9 @@ const Groups = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [searchName, setSearchName] = useState("");
+  const [selectedJobTitle, setSelectedJobTitle] = useState("");
+
   const [name, setName] = useState("John Doe");
   const [profilePic, setProfilePic] = useState(
     "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
@@ -36,6 +44,37 @@ const Groups = () => {
       throw error;
     });
     return url;
+  };
+
+  let options = [];
+
+  if (members && members.length > 0) {
+    const jobTitles = members.map((member) => member.jobTitle);
+    const uniqueJobTitles = [...new Set(jobTitles)];
+    options = uniqueJobTitles
+      .filter((jobTitle) => jobTitle !== null)
+      .map((jobTitle) => ({ value: jobTitle, label: jobTitle }));
+  }
+
+  // Filter employees based on searchName and selectedJobTitle
+  const filteredEmployees = members.filter((employee) => {
+    const nameMatch = employee.name
+      .toLowerCase()
+      .includes(searchName.toLowerCase());
+    const jobTitleMatch = selectedJobTitle
+      ? employee.jobTitle === selectedJobTitle
+      : true;
+    return nameMatch && jobTitleMatch;
+  });
+
+  // Handler for search input change
+  const handleSearchNameChange = (e) => {
+    setSearchName(e.target.value);
+  };
+
+  // Handler for dropdown selection change
+  const handleJobTitleChange = (obj) => {
+    setSelectedJobTitle(obj.value);
   };
 
   useEffect(() => {
@@ -209,32 +248,79 @@ const Groups = () => {
         </Modal.Footer>
       </Modal>
 
+      <div className="row p-5">
+        <div>
+          <h3 className="mb-4 fw-bold">
+            Team members <span className="members-size">{members.length}</span>
+          </h3>
+        </div>
+
+        <Row className="mt-3 search-bar-members d-flex">
+          <Col sm={6}>
+            <Row>
+              <Col sm={8}>
+                <div className="d-flex align-items-center position-relative me-3">
+                  <Form.Control
+                    size="md"
+                    className="search-input"
+                    type="text"
+                    value={searchName}
+                    onChange={handleSearchNameChange}
+                    placeholder="Search for a employee"
+                  />
+
+                  <div className="search-icon">
+                    <i className="fas fa-search"></i>
+                  </div>
+                </div>
+              </Col>
+
+              <Col sm={4}>
+                <div className="members-position-dropdown">
+                  <Select
+                    placeholder={"Position"}
+                    value={selectedJobTitle}
+                    onChange={handleJobTitleChange}
+                    styles={{
+                      placeholder: (base) => ({
+                        ...base,
+                        fontSize: "1em",
+                        fontWeight: 400,
+                      }),
+                    }}
+                    options={options}
+                  />
+                </div>
+              </Col>
+            </Row>
+          </Col>
+
+          <Col sm={6} className="d-flex justify-content-end">
+            {user?.user_id == id ? (
+              <Button variant="primary" onClick={handleShow}>
+                Add a new team member
+              </Button>
+            ) : null}
+          </Col>
+        </Row>
+      </div>
+
       <div
-        className="d-grid gap-3 d-grid-template-1fr-19"
-        style={{ overflowY: "scroll", height: "100%" }}
+        className="d-grid p-5 gap-3 d-grid-template-1fr-19"
+        style={{ overflowY: "scroll" }}
       >
         {members.length > 0 ? (
-          <Card className="mb-0">
-            <h4
-              className="mb-3"
-              style={{ color: "black", textAlign: "center" }}
-            >
-              Equity
-            </h4>
-            <Card.Body className=" text-center">
-              <div>
-                <div
-                  style={{
-                    width: "100%",
-                    height: 265,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: "0 auto",
-                  }}
-                >
-                  <Equity data={members} />
-                </div>
+          <Card className="m-0">
+            <Card.Body>
+              <Card.Title>Equity</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">
+                How ownership is distributed
+              </Card.Subtitle>
+              <div
+                className="d-flex justify-content-center align-items-center"
+                style={{ width: "100%", height: 265 }}
+              >
+                <Equity data={members} />
               </div>
             </Card.Body>
           </Card>
@@ -264,7 +350,7 @@ const Groups = () => {
             </Card.Body>
           </Card>
         )}
-        {members?.map((member) => (
+        {filteredEmployees?.map((member) => (
           <Member
             key={member.id}
             urlID={id}
@@ -276,22 +362,6 @@ const Groups = () => {
             id={member.id}
           />
         ))}
-
-        {user?.user_id == id ? (
-          <Card>
-            <Card.Body>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <BsPlusCircle size="40" role="button" onClick={handleShow} />
-              </div>
-            </Card.Body>
-          </Card>
-        ) : null}
       </div>
     </>
   );

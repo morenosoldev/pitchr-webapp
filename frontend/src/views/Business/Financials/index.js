@@ -50,7 +50,7 @@ export default function FinancialIndex() {
   };
 
   return (
-    <Container className="h-100">
+    <Container fluid>
       <Col sm>
         <Modal size="xl" show={showBlank} onHide={handleBlankClose}>
           <Modal.Header closeButton>
@@ -82,13 +82,7 @@ export default function FinancialIndex() {
 
       <Row className="h-100">
         <Col className="h-100">
-          <div
-            className="h-100 d-grid"
-            style={{
-              gridTemplateColumns: "500px 500px",
-              gridTemplateRows: "50% 50%",
-            }}
-          >
+          <div className="h-100 d-grid p-5 gap-3 d-grid-template-1fr-19">
             {user?.user_id == id ? (
               <Col style={{ display: "flex", alignItems: "center" }} sm>
                 <Card.Body>

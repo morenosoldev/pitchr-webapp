@@ -81,9 +81,9 @@ export default function DevelopmentStage({ edit }) {
             <Button onClick={() => updateDevelopmentStage()}>Save</Button>
           </>
         ) : (
-          <p className="mt-2 d-flex align-items-center text-left">
+          <p className="mt-2 d-flex profile-description-text align-items-center text-left">
             {" "}
-            <AiOutlineAreaChart style={{ display: "inline" }} />{" "}
+            <AiOutlineAreaChart size={30} style={{ display: "inline" }} />{" "}
             {user.development_stage
               ? user.development_stage
               : "No development stage set yet"}{" "}
