@@ -17,7 +17,6 @@ const addProfileView = async (req, res) => {
 
     res.status(200).json("tilføjet");
   } catch (error) {
-    console.log("error", error);
     res.status(500).json(error);
   }
 };
@@ -33,8 +32,6 @@ const addDeckView = async (req, res) => {
 
     res.status(200).json("tilføjet");
   } catch (error) {
-    console.log("error", error);
-
     res.status(500).json(error);
   }
 };
@@ -122,7 +119,6 @@ const getPitchViews = async (req, res) => {
           (item) => item.updatedAt == new Date(createdAt).toDateString()
         );
         if (index > 0) {
-          console.log(preFilled[index]);
           preFilled[index].count = current.count;
         }
 
@@ -141,8 +137,8 @@ const getPitchViews = async (req, res) => {
      for(let i = 0; i < result.length; i++){
         
 
-         console.log(result[i].updatedAt);
-         console.log(preFilled[result[i].id].updatedAt)
+         
+         
          //if(preFilled[result[i].id].updatedAt == result[i].updatedAt)
              preFilled[result[i].id] = result[i];
      }
@@ -232,7 +228,6 @@ const getProfileViews = async (req, res) => {
 
     res.status(200).json(preFilled);
   } catch (error) {
-    console.log(error);
     res.status(500).json(error);
   }
 };

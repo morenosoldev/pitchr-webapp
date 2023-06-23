@@ -34,8 +34,6 @@ const createPitchDeck = async (req, res) => {
 
       // Save each file individually in the PitchDeckFile model
       for (const fileData of files) {
-        console.log("fileData", fileData);
-        console.log("deck", deck.id);
         await PitchDeckFile.create({
           file: await uploadImage(fileData.Url, `files/${fileData.FileName}`),
           pitchDeckId: deck.id,
@@ -53,7 +51,6 @@ const createPitchDeck = async (req, res) => {
 
       // Save each file individually in the PitchDeckFile model
       for (const fileData of files) {
-        console.log("fileData", fileData);
         await PitchDeckFile.create({
           file: await uploadImage(fileData.Url, `files/${fileData.FileName}`),
           pitchDeckId: deck.id,
@@ -61,7 +58,7 @@ const createPitchDeck = async (req, res) => {
       }
     } else {
       // File type is not supported
-      console.log("Unsupported file type");
+
       res.status(400).json({ error: "Unsupported file type" });
       return;
     }
@@ -69,7 +66,6 @@ const createPitchDeck = async (req, res) => {
     // Return the deck and files as a response
     res.status(200).json({ deck, files });
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 };
@@ -89,8 +85,6 @@ const getPitchDeck = async (req, res) => {
       },
     });
 
-    console.log("dekc", deck);
-
     if (deck) {
       const files = deck.pitchDeckFiles.map((file) => file.file);
       res.status(200).json({ deck, files });
@@ -98,7 +92,6 @@ const getPitchDeck = async (req, res) => {
       res.status(200).json(deck);
     }
   } catch (err) {
-    console.log("fejl", err);
     res.status(500).json(err);
   }
 };
@@ -120,7 +113,6 @@ const getFileType = async (url) => {
       return "unknown";
     }
   } catch (err) {
-    console.log("Error determining file type:", err);
     return "unknown";
   }
 };
@@ -152,7 +144,6 @@ const getPitchDecks = async (req, res) => {
         },
       ],
     });
-    console.log("data", data);
 
     if (!data) {
       // No PitchDecks found, return an empty array
@@ -161,7 +152,6 @@ const getPitchDecks = async (req, res) => {
       res.status(200).json(data);
     }
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 };

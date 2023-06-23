@@ -64,9 +64,7 @@ export default function InvestmentDetails() {
         setWriteMarkets(false);
         setMarkets(temporaryMarkets);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   const addInvestmentInterest = () => {
@@ -95,9 +93,7 @@ export default function InvestmentDetails() {
         setWriteInvestmentInterest(false);
         setInvestmentInterests(temporaryInterests);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   const addPreviousInvestment = () => {
@@ -124,9 +120,7 @@ export default function InvestmentDetails() {
         setWritePreviousInvestments(false);
         setPreviousInvestments(temporaryInvestments);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   const addIndustry = (selectedOption) => {
@@ -151,9 +145,7 @@ export default function InvestmentDetails() {
         setWriteIndustry(false);
         setIndustrys(temporaryIndustrys);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   return (

@@ -99,9 +99,7 @@ export default function ChartWide({ metric, data, deleteChart }) {
 
   const formatter = (value) => abbreviateNumber(value);
 
-  useEffect(() => {
-    console.log(newData);
-  }, [newData]);
+  useEffect(() => {}, [newData]);
 
   return (
     <div

@@ -19,7 +19,6 @@ const addMember = async (req, res) => {
 
     res.status(200).json(newEmployee);
   } catch (error) {
-    console.log(error);
     res.status(500).json(error);
   }
 };
@@ -51,7 +50,6 @@ const getTeamMembers = async (req, res) => {
 
     res.status(200).json(employees);
   } catch (error) {
-    console.log(error);
     res.status(500).json(error);
   }
 };

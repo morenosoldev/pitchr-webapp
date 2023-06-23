@@ -122,17 +122,13 @@ export default function AboutUs() {
     };
 
     e.preventDefault();
-    console.log(competences);
+
     await API.put(`/updateCompetences/${user?.user_id}`, { data: payload })
       .then((res) => {
         setWriteCompetences(false);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
-
-  console.log(edit);
 
   return (
     <>

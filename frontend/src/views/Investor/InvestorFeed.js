@@ -24,7 +24,6 @@ const InvestorFeed = () => {
   }, []);
 
   const handleKeyDown = (event) => {
-    console.log(event.key);
     if (event.key == "ArrowUp") {
       goUp();
     }
@@ -51,7 +50,6 @@ body{
     }
 
     setCurrentID((state) => {
-      console.log(state);
       refs[currentID > 0 ? state : pitches[0].id].current.scrollIntoView({
         block: "start",
       });
@@ -66,7 +64,6 @@ body{
       setCurrentID(id);
       document.getElementById("feed-pitch").focus();
     }
-    console.log(`Pitch med id is ${id}`, isVisible ? "visible" : "hidden");
   }
 
   const handleUp = () => {
@@ -74,7 +71,6 @@ body{
       setCurrentID(currentID - 1);
     }
     setCurrentID((state) => {
-      console.log(state);
       refs[currentID > 0 ? state : pitches[0].id].current.scrollIntoView({
         block: "start",
       });

@@ -14,6 +14,9 @@ module.exports = {
       type: {
         type: Sequelize.STRING,
       },
+      deckId: {
+        type: Sequelize.INTEGER,
+      },
       video: {
         type: Sequelize.STRING,
       },

@@ -67,7 +67,6 @@ export default function DevelopmentStage({ edit }) {
               aria-label="Development stage"
               value={stage}
               onChange={(e) => {
-                console.log("e.target.value", e.target.value);
                 setState((prevState) => ({
                   ...prevState,
                   stage: e.target.value,

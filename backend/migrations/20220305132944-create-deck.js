@@ -11,6 +11,9 @@ module.exports = {
       index: {
         type: Sequelize.INTEGER,
       },
+      sectionId: {
+        type: Sequelize.INTEGER,
+      },
       title: {
         type: Sequelize.STRING,
       },

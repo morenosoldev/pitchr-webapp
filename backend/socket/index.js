@@ -31,8 +31,6 @@ const SocketServer = (server) => {
 
       const chatters = await getChatters(user.user_id); // query
 
-      console.log(chatters);
-
       // notify his friends that user is now online
       for (let i = 0; i < chatters.length; i++) {
         if (users.has(chatters[i])) {
@@ -56,21 +54,14 @@ const SocketServer = (server) => {
 
     socket.on("message", async (message) => {
       let sockets = [];
-      console.log("message from user", message.fromUser);
-      console.log("users", users);
+
       if (users.has(message.fromUser.user_id)) {
-        console.log(message.fromUser);
         sockets = users.get(message.fromUser.user_id).sockets;
       }
 
-      console.log("message to user", message.toUserId);
       message.toUserId.forEach((id) => {
-        console.log("users loop", users);
         if (users.has(id)) {
-          console.log("now", sockets);
           //sockets = [...sockets, ...users.get(id).sockets]
-
-          console.log("after", sockets);
         }
       });
 
@@ -228,7 +219,6 @@ const SocketServer = (server) => {
 
 const getChatters = async (userId) => {
   try {
-    console.log(userId);
     const [results, metadata] = await sequelize.query(
       `
         select cu.userId from ChatUsers as cu
@@ -245,8 +235,6 @@ const getChatters = async (userId) => {
       { replacements: [userId, userId], type: QueryTypes.SELECT }
     );
 
-    console.log("resultater", results);
-
     // Check if results is null or undefined
     if (!results) {
       return [];
@@ -254,7 +242,6 @@ const getChatters = async (userId) => {
 
     return results.length > 0 ? results.map((el) => el.userId) : [];
   } catch (e) {
-    console.log(e);
     return [];
   }
 };

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import user6 from "../../assets/images/user/06.jpg";
 
 export default function ChatHeader({ chat }) {
-  console.log(chat);
   return (
     <div className="chat-head">
       <header className="d-flex justify-content-between align-items-center bg-white pt-3  ps-3 pe-3 pb-3">

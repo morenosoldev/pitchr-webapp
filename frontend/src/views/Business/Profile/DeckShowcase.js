@@ -20,7 +20,6 @@ export default function DeckShowcase() {
   useEffect(async () => {
     const lastSaved = (await API.get(`/pitch/${id}`)).data;
     if (lastSaved?.length > 0) {
-      console.log("data", lastSaved);
       setData(lastSaved);
       setSelectedColumn(lastSaved[0].subItems[0]);
     }

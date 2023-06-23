@@ -16,7 +16,6 @@ export default function Industry({ edit }) {
   });
 
   const updateIndustry = () => {
-    console.log("updateIndustry", state.industry);
     dispatch(userActions.updateIndustry(state.industry, user?.user_id));
     setState((prevState) => ({
       ...prevState,

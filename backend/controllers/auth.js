@@ -203,9 +203,7 @@ exports.signin = (req, res) => {
         );
       }
     })
-    .catch((err) => {
-      console.log("error", err);
-    });
+    .catch((err) => {});
 };
 
 exports.hasFileAccess = async (req, res, next) => {
@@ -226,74 +224,71 @@ exports.hasFileAccess = async (req, res, next) => {
   }
 };
 
-exports.verifyUser = (req, res, next) => {
-  Invitation.findOne({
-    where: {
-      token: req.params.confirmationCode,
-    },
-  })
-    .then((invitation) => {
-      if (!invitation) {
-        return res.status(404).send({ message: "User Not found." });
-      }
-      invitation.access = 1;
-      invitation.save((err) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send({ message: err });
-          return;
-        }
-      });
-      nodemailer.sendRegistrationEmail(invitation.email);
+exports.verifyUser = async (req, res, next) => {
+  try {
+    const invitation = await Invitation.findOne({
+      where: {
+        token: req.params.confirmationCode,
+      },
+    });
 
-      res
-        .status(200)
-        .send("Brugeren har nu fået en mail, med link til registration");
-    })
-    .catch((e) => console.log("error", e));
+    if (!invitation) {
+      return res.status(404).send({ message: "User Not found." });
+    }
+
+    invitation.access = 1;
+    await invitation.save();
+
+    nodemailer.sendRegistrationEmail(invitation.email);
+
+    res
+      .status(200)
+      .send("Brugeren har nu fået en mail, med link til registration");
+  } catch (error) {
+    console.error("Error verifying user:", error);
+    res.status(500).send({ message: error.message });
+  }
 };
 
-exports.verifyFileAccess = (req, res, next) => {
-  FileRequest.findOne({
-    where: {
-      token: req.params.confirmationCode,
-    },
-  })
-    .then(async (invitation) => {
-      if (!invitation) {
-        return res.status(404).send({ message: "User Not found." });
-      }
-      invitation.access = 1;
-      invitation.save(async (err) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send({ message: err });
-          return;
-        }
-      });
+exports.verifyFileAccess = async (req, res, next) => {
+  try {
+    const invitation = await FileRequest.findOne({
+      where: {
+        token: req.params.confirmationCode,
+      },
+    });
 
-      const receiver = await User.findOne({
-        where: {
-          id: invitation.user_id,
-        },
-        raw: true,
-      });
+    if (!invitation) {
+      return res.status(404).send({ message: "User Not found." });
+    }
 
-      const sender = await User.findOne({
-        where: {
-          id: invitation.request_user_id,
-        },
-        raw: true,
-      });
+    invitation.access = 1;
+    await invitation.save();
 
-      nodemailer.sendAccessConfirmedMail(
-        receiver.email,
-        receiver.name,
-        sender.name,
-        sender.id
-      );
+    const receiver = await User.findOne({
+      where: {
+        id: invitation.user_id,
+      },
+      raw: true,
+    });
 
-      res.status(200).send("You can now close this window.");
-    })
-    .catch((e) => console.log("error", e));
+    const sender = await User.findOne({
+      where: {
+        id: invitation.request_user_id,
+      },
+      raw: true,
+    });
+
+    nodemailer.sendAccessConfirmedMail(
+      receiver.email,
+      receiver.name,
+      sender.name,
+      sender.id
+    );
+
+    res.status(200).send("You can now close this window.");
+  } catch (error) {
+    console.error("Error verifying file access:", error);
+    res.status(500).send({ message: error.message });
+  }
 };

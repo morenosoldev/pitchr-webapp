@@ -75,7 +75,6 @@ export default function UploadDeck() {
   useEffect(async () => {
     const lastSaved = await API.get(`/developmentPitch/${user?.user_id}`);
 
-    console.log("lets goo", lastSaved);
     if (lastSaved.data?.length > 0) {
       if (lastSaved[0]?.public == true) {
         setPublished(true);
@@ -93,7 +92,6 @@ export default function UploadDeck() {
     let result2 = data.every((item) => item.subItems.length > 0);
 
     if (!result || !result2) {
-      console.log("VIS MODAL");
       setModalShow(true);
     } else {
       await API.post(`/publish/${user?.user_id}`).data;
@@ -126,7 +124,6 @@ export default function UploadDeck() {
       return { ...item, subItems: newsubItems }; //gets everything that was already in item, and updates "done"
     });
 
-    console.log(updatedList);
     setData(updatedList); // set state to new object with updated list
   };
 
@@ -135,7 +132,6 @@ export default function UploadDeck() {
       return item.id != id;
     });
 
-    console.log(updatedList);
     setData(updatedList); // set state to new object with updated list
   };
 
@@ -153,7 +149,7 @@ export default function UploadDeck() {
     });
 
     //API KALD OG GEM
-    console.log(updatedList);
+
     setData(updatedList); // set state to new object with updated list
   };
 
@@ -161,13 +157,12 @@ export default function UploadDeck() {
     // loop over the todos list and find the provided id.
     let updatedList = data.map((item) => {
       const newsubItems = item.subItems.filter((item) => item.id !== itemId);
-      console.log(newsubItems);
+
       return { ...item, subItems: newsubItems }; //gets everything that was already in item, and updates "done"
     });
 
     //API KALD OG GEM
 
-    console.log(updatedList);
     setData(updatedList); // set state to new object with updated list
   };
 
@@ -190,7 +185,6 @@ export default function UploadDeck() {
       }
     });
 
-    console.log(updatedList);
     setData(updatedList); // set state to new object with updated list
   };
 
@@ -207,7 +201,7 @@ export default function UploadDeck() {
 
   const changeTitle = (title, itemId) => {
     // loop over the todos list and find the provided id.
-    console.log(data);
+
     let updatedList = data.map((item) => {
       if (item.id == itemId) {
         return { ...item, title: title }; //gets everything that was already in item, and updates "done"
@@ -229,7 +223,6 @@ export default function UploadDeck() {
       return { ...item, subItems: newsubItems }; //gets everything that was already in item, and updates "done"
     });
 
-    console.log(updatedList);
     setData(updatedList); // set state to new object with updated list
   };
 
@@ -242,54 +235,33 @@ export default function UploadDeck() {
       <Row className="h-100">
         <Col className="container-wrapper-subItems h-100" sm={5}>
           <Row style={{ height: "100%", overflowY: "scroll" }}>
-            <div>
-              <div className="tw-hidden sm:tw-block">
-                <div className="tw-border-b tw-border-gray-200 tw-border-b tw-border-gray-200 tw-py-4">
-                  <nav
-                    className="tw--mb-px tw-flex tw-space-x-3"
-                    aria-label="Tabs"
-                  >
-                    <div className="jt-tab-option-pill">
-                      <div className="tw-inline-flex">
-                        {loading ? (
-                          <Button className="float-end" variant="flat" disabled>
-                            <Spinner
-                              as="span"
-                              animation="border"
-                              size="sm"
-                              role="status"
-                              aria-hidden="true"
-                            />
-                            <span className="visually-hidden">Saving...</span>
-                          </Button>
-                        ) : (
-                          <Button
-                            variant="flat"
-                            type="button"
-                            className="float-end"
-                            onClick={savePitch}
-                          >
-                            {" "}
-                            <span>Save </span>{" "}
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                    <div className="jt-tab-option-pill">
-                      <div className="tw-inline-flex">
-                        {published ? (
-                          <Button>Published</Button>
-                        ) : (
-                          <Button onClick={publishPitch}>Publish</Button>
-                        )}
-                      </div>
-
-                      <MyVerticallyCenteredModal
-                        show={modalShow}
-                        onHide={() => setModalShow(false)}
+            <div class="container">
+              <div class="row">
+                <div class="col-auto">
+                  {published ? (
+                    <Button>Published</Button>
+                  ) : (
+                    <Button onClick={publishPitch}>Publish</Button>
+                  )}
+                </div>
+                <MyVerticallyCenteredModal
+                  show={modalShow}
+                  onHide={() => setModalShow(false)}
+                  class="col-auto ml-auto"
+                />
+                <div class="col-auto d-flex align-items-center">
+                  {loading ? (
+                    <>
+                      <span>Saving...</span>
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
                       />
-                    </div>
-                  </nav>
+                    </>
+                  ) : null}
                 </div>
               </div>
             </div>
@@ -306,6 +278,7 @@ export default function UploadDeck() {
                 changeColumnTitle={changeColumnTitle}
                 selectedColumn={selectedColumn}
                 selectColumn={selectColumn}
+                savePitch={savePitch}
                 data={data}
                 setData={setData}
               />

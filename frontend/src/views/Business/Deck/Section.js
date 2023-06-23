@@ -15,10 +15,8 @@ import {
   BsTrash,
   BsUpload,
 } from "react-icons/bs";
-import { useSelector } from "react-redux";
 import Loom from "../../../assets/images/loom.png";
 import { uploadVideo } from "../../../firebase";
-import API from "../../../util/AxiosConfig";
 
 export default function Section({
   uploadData,
@@ -27,13 +25,13 @@ export default function Section({
   data,
   changeTitle,
   removeRow,
+  savePitch,
   selected,
   move,
   select,
 }) {
   const [edit, setEdit] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const user = useSelector((state) => state.authentication.user);
   const [progress, setProgress] = useState(false);
   const handleEdit = () => setEdit(true);
   const handleEditClose = () => setEdit(false);
@@ -48,15 +46,14 @@ export default function Section({
   };
 
   const saveVideo = async () => {
-    //Lav funktion som gemmer den nuværende struktur af den her journey
-    await API.post(`/pitch/${user?.user_id}`, { data: items });
+    savePitch();
     setEdit(false);
   };
 
   const removeColumn = async () => {
     setSubmitted(false);
     removeRow(data.id);
-    await API.post(`/pitch/${user?.user_id}`, { data: items });
+    savePitch();
   };
 
   useEffect(() => {
@@ -77,7 +74,6 @@ export default function Section({
       const sdkButton = configureButton({ element: button });
       sdkButton.on("insert-click", async (video) => {
         setSubmitted(true);
-        console.log(video);
 
         uploadData(video.sharedUrl, video.duration, "loom", data.id);
         //const { html } = await oembed(video.sharedUrl, { width: 400 });

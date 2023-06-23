@@ -5,9 +5,7 @@ const Flag = ({ flagNationCode, showText }) => {
   const Flag = flagNationCode?.length ? Flags[flagNationCode] : "US";
   let getCountryNames = new Intl.DisplayNames(["en"], { type: "region" });
 
-  useEffect(() => {
-    console.log(flagNationCode);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <li className="mb-1" style={{ display: "inline" }}>

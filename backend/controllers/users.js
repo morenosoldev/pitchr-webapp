@@ -28,7 +28,6 @@ INNER JOIN Users ON Investors.user_id=Users.id;
 
     return res.status(200).json([...businesses, ...investors]);
   } catch (error) {
-    console.log(error);
     return res.status(500).json(error);
   }
 };
@@ -55,7 +54,6 @@ const updateMarkets = async (req, res) => {
       res.status(200).json(req.body.markets);
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json("Can't find user");
   }
 };
@@ -74,7 +72,6 @@ const updateBusinessMarkets = async (req, res) => {
     await user.save();
     res.status(200).json(user);
   } catch (error) {
-    console.log(error);
     res.status(500).json("Can't find user");
   }
 };
@@ -100,7 +97,6 @@ const updatePreviousInvestments = async (req, res) => {
       res.status(200).json(req.body.previousInvestments);
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json("Can't find user");
   }
 };
@@ -147,9 +143,7 @@ const getUser = async (req, res) => {
         });
       }
     })
-    .catch((err) => {
-      console.log("error", err);
-    });
+    .catch((err) => {});
 };
 
 const getBusiness = async (req, res) => {
@@ -174,7 +168,6 @@ const getBusiness = async (req, res) => {
     });
     res.status(200).json(Profile);
   } catch (err) {
-    console.log("error", err);
     res.status(500).json(err);
   }
 };
@@ -204,9 +197,7 @@ const getInvestor = async (req, res) => {
         });
       }
     })
-    .catch((err) => {
-      console.log("error", err);
-    });
+    .catch((err) => {});
 };
 
 const updateInvestmentInterest = async (req, res) => {
@@ -231,7 +222,6 @@ const updateInvestmentInterest = async (req, res) => {
       res.status(200).json(investmentInterests);
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json("Can't find user");
   }
 };
@@ -257,7 +247,6 @@ const updateIndustrys = async (req, res) => {
       res.status(200).json(req.body.industry);
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json("Can't find user");
   }
 };
@@ -271,14 +260,11 @@ const updateBusinessIndustrys = async (req, res) => {
       },
     });
 
-    console.log("req.body.industry", req.body.industry);
-
     user.industry = req.body.industry;
 
     await user.save();
     res.status(200).json(user);
   } catch (error) {
-    console.log(error);
     res.status(500).json("Can't find user");
   }
 };
@@ -304,7 +290,6 @@ const updateInvestorCompetences = async (req, res) => {
       res.status(200).json(req.body.competences);
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json("Can't find user");
   }
 };
@@ -330,7 +315,6 @@ const updateCompetences = async (req, res) => {
       res.status(200).json(req.body.competences);
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json("Can't find user");
   }
 };
@@ -349,7 +333,6 @@ const updateCalendly = async (req, res) => {
 
     res.status(200).json(user);
   } catch (error) {
-    console.log(error);
     res.status(500).json("Can't find user");
   }
 };
@@ -368,7 +351,6 @@ const updateProfilePicture = async (req, res) => {
 
     res.status(200).json(user);
   } catch (error) {
-    console.log(error);
     res.status(500).json("Can't find user");
   }
 };
@@ -387,7 +369,6 @@ const updateDescription = async (req, res) => {
 
     res.status(200).json(user);
   } catch (error) {
-    console.log(error);
     res.status(500).json("Can't find user");
   }
 };
@@ -407,7 +388,6 @@ const updateLocation = async (req, res) => {
 
     res.status(200).json(user);
   } catch (error) {
-    console.log(error);
     res.status(500).json("Can't find user");
   }
 };
@@ -422,13 +402,11 @@ const updateCapital = async (req, res) => {
       },
     });
 
-    console.log("req.body.capital", capital);
     business.goal = capital;
     await business.save();
 
     res.status(200).json(business);
   } catch (error) {
-    console.log(error);
     res.status(500).json("Can't find user");
   }
 };
@@ -448,7 +426,6 @@ const updateDevelopmentStage = async (req, res) => {
 
     res.status(200).json(business);
   } catch (error) {
-    console.log(error);
     res.status(500).json("Can't find user");
   }
 };
@@ -470,7 +447,6 @@ const updateCapitalGoal = async (req, res) => {
 
     res.status(200).json(business);
   } catch (error) {
-    console.log(error);
     res.status(500).json("Can't find user");
   }
 };

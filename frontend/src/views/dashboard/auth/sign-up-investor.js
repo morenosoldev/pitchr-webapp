@@ -23,7 +23,7 @@ const SignUpInvestor = () => {
     if (!email || !name || !password) {
       // Check if any of the fields is empty
       // You can display an error message or perform any other necessary actions
-      console.log("Please fill in all fields.");
+
       return;
     }
 

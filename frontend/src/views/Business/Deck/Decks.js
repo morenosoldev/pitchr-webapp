@@ -42,6 +42,7 @@ export default class Decks extends React.Component {
                         removeRow={this.props.removeRow}
                         data={item}
                         items={this.props.data}
+                        savePitch={this.props.savePitch}
                         changeTitle={this.props.changeColumnTitle}
                         selected={this.props.selectedColumn}
                         select={this.props.changeSelected}

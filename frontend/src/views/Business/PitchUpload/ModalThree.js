@@ -31,7 +31,6 @@ export default function ModalTwo({
   const upload = () => {
     document.getElementById("selectImage").click();
   };
-  console.log(video);
 
   const uploadPitch = () => {
     dispatch(pitchActions.createPitch(video));
@@ -46,11 +45,9 @@ export default function ModalTwo({
         const progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        console.log(progress);
       },
       (error) => {
         // file upload failed
-        console.log(error);
       },
       () => {
         // file upload completed
@@ -65,7 +62,6 @@ export default function ModalTwo({
             },
             (error) => {
               // failed to get download URL
-              console.log(error);
             }
           );
       }
@@ -74,7 +70,6 @@ export default function ModalTwo({
 
   const changeCanvas = () => {};
 
-  console.log(video);
   return (
     <>
       <Modal.Header closeButton>

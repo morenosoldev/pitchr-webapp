@@ -4,14 +4,12 @@ import { oembed } from "@loomhq/loom-embed";
 
 export default function Content({ content, selectedColumn }) {
   const [videoHTML, setVideoHTML] = useState("");
-  console.log(selectedColumn);
 
   useEffect(() => {
     async function getLoom() {
       if (selectedColumn?.content?.type == "loom") {
-        console.log("heey");
         const { html } = await oembed(selectedColumn?.content?.video);
-        console.log(html);
+
         setVideoHTML(html);
       }
     }

@@ -17,11 +17,9 @@ export default function TopBanner() {
         const progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        console.log(progress);
       },
       (error) => {
         // file upload failed
-        console.log(error);
       },
       () => {
         // file upload completed
@@ -30,12 +28,10 @@ export default function TopBanner() {
           .getDownloadURL()
           .then(
             async (url) => {
-              console.log(url);
               dispatch(userActions.updateProfilePicture(url, user?.user_id));
             },
             (error) => {
               // failed to get download URL
-              console.log(error);
             }
           );
       }

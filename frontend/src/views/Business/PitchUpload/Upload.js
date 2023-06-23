@@ -36,7 +36,6 @@ export default function Upload() {
 
   const addVideoPitch = async () => {
     const video = await uploadVideo(video);
-    console.log(video);
   };
 
   const startUpload = () => {

@@ -61,7 +61,6 @@ function requestAccess(email) {
         dispatch(alertActions.success(data.message));
       },
       (error) => {
-        console.log("error", error);
         dispatch(
           alertActions.error("You have already requested access, please wait.")
         );
@@ -91,13 +90,11 @@ function registerBusiness(user) {
 
     userService.registerBusiness(user).then(
       (user) => {
-        console.log(user);
         dispatch(success(user));
         history.push("/business");
         dispatch(alertActions.success("Registration successful"));
       },
       (error) => {
-        console.log(error);
         dispatch(failure(error.toString()));
         dispatch(alertActions.error(error.toString()));
       }
@@ -121,7 +118,6 @@ function registerInvestor(user) {
 
     userService.registerInvestor(user).then(
       (user) => {
-        console.log(user.data);
         dispatch(success(user.data));
         history.push("/investor");
         dispatch(alertActions.success("Registration successful"));
@@ -152,7 +148,6 @@ function updateDescription(description, id) {
         dispatch(success(description));
       },
       (error) => {
-        console.log("error", error);
         dispatch(failure(error.message));
         dispatch(alertActions.error(error.message));
       }
@@ -178,7 +173,6 @@ function updateCompetences(competences, id) {
         dispatch(success(competences));
       },
       (error) => {
-        console.log("error", error);
         dispatch(failure(error.message));
         dispatch(alertActions.error(error.message));
       }
@@ -203,7 +197,6 @@ function updateLocation(location, id) {
         dispatch(success(location));
       },
       (error) => {
-        console.log("error", error);
         dispatch(failure(error.message));
         dispatch(alertActions.error(error.message));
       }
@@ -223,15 +216,12 @@ function updateLocation(location, id) {
 
 function updateProfilePicture(picture, id) {
   return (dispatch) => {
-    console.log("her");
     dispatch(request({ picture }));
     userService.updateProfilePicture(picture, id).then(
       ({ data }) => {
-        console.log("lets gooo");
         dispatch(success(picture));
       },
       (error) => {
-        console.log("error", error);
         dispatch(failure(error.message));
         dispatch(alertActions.error(error.message));
       }
@@ -257,7 +247,6 @@ function updateCapital(capital, id) {
         dispatch(success(capital));
       },
       (error) => {
-        console.log("error", error);
         dispatch(failure(error.message));
         dispatch(alertActions.error(error.message));
       }
@@ -283,7 +272,6 @@ function updateIndustry(industry, id) {
         dispatch(success(industry));
       },
       (error) => {
-        console.log("error", error);
         dispatch(failure(error.message));
         dispatch(alertActions.error(error.message));
       }
@@ -306,11 +294,9 @@ function updateCalendly(calendly, id) {
     dispatch(request({ calendly }));
     userService.updateCalendly(calendly, id).then(
       ({ data }) => {
-        console.log(data);
         dispatch(success(data));
       },
       (error) => {
-        console.log("error", error);
         dispatch(failure(error.message));
         dispatch(alertActions.error(error.message));
       }
@@ -333,11 +319,9 @@ function updateGoal(goal, percentage, id) {
     dispatch(request());
     userService.updateGoal(goal, percentage, id).then(
       ({ data }) => {
-        console.log(data);
         dispatch(success({ goal: goal, percentage: percentage }));
       },
       (error) => {
-        console.log("error", error);
         dispatch(failure(error.message));
         dispatch(alertActions.error(error.message));
       }
@@ -360,11 +344,9 @@ function updateDevelopmentStage(stage, id) {
     dispatch(request());
     userService.updateDevelopmentStage(stage, id).then(
       ({ data }) => {
-        console.log(data);
         dispatch(success(stage));
       },
       (error) => {
-        console.log("error", error);
         dispatch(failure(error.message));
         dispatch(alertActions.error(error.message));
       }
@@ -387,11 +369,9 @@ function updateInvestmentPreference(preferences, id) {
     dispatch(request({ preferences }));
     userService.updateInvestmentPreference(preferences, id).then(
       ({ data }) => {
-        console.log(data);
         dispatch(success(data));
       },
       (error) => {
-        console.log("error", error);
         dispatch(failure(error.message));
         dispatch(alertActions.error(error.message));
       }

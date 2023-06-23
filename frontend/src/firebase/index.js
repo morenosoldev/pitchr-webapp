@@ -14,7 +14,7 @@ const formatVideoDuration = (duration) => {
 const uploadVideo = async (video, setProgress) => {
   try {
     const videoRef = await storage.ref(`videos/${video.name}`);
-    await videoRef.put(video).on(
+    videoRef.put(video).on(
       "state_changed",
       (snapshot) => {
         const progress = Math.round(
@@ -25,7 +25,6 @@ const uploadVideo = async (video, setProgress) => {
       (error) => setProgress({ error: error.message })
     );
 
-    // Introduce a delay to ensure the file is available for download
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     const url = await videoRef.getDownloadURL();
@@ -55,60 +54,34 @@ const uploadVideo = async (video, setProgress) => {
     throw error;
   }
 };
-
 const uploadFile = async (file) => {
-  const FileRef = await storage.ref(`files/${file.name}`);
+  try {
+    const fileRef = storage.ref(`files/${file.name}`);
+    await fileRef.put(file);
 
-  const image = await FileRef.put(file)
-    .then((snapshot) => {
-      return snapshot.ref.getDownloadURL(); // Will return a promise with the download link
-    })
+    const downloadURL = await fileRef.getDownloadURL();
 
-    .then((downloadURL) => {
-      console.log(
-        `Successfully uploaded file and got download link - ${downloadURL}`
-      );
-      return downloadURL;
-    })
-
-    .catch((error) => {
-      // Use to signal error if something goes wrong.
-      console.log(`Failed to upload file and get link - ${error}`);
-    });
-
-  return image;
+    return downloadURL;
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    throw error;
+  }
 };
 
 const uploadImage = async (image) => {
-  const imageRef = await storage.ref(`images/${image.name}`);
-  await imageRef.put(image).on(
-    "state_changed",
-    (snapshot) => {
-      const progress = Math.round(
-        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      );
-      console.log(progress);
-    },
-    (error) => {
-      // file upload failed
-      console.log(error);
-    },
-    () => {
-      // file upload completed
-      storage
-        .ref(`images/${image.name}`)
-        .getDownloadURL()
-        .then(
-          (url) => {
-            // got download URL
-          },
-          (error) => {
-            // failed to get download URL
-            console.log(error);
-          }
-        );
-    }
-  );
+  try {
+    const imageRef = storage.ref(`images/${image.name}`);
+    await imageRef.put(image);
+
+    const downloadURL = await storage
+      .ref(`images/${image.name}`)
+      .getDownloadURL();
+
+    return downloadURL;
+  } catch (error) {
+    console.error("File upload failed:", error);
+    throw error;
+  }
 };
 
 export { uploadImage, uploadVideo, uploadFile, storage };

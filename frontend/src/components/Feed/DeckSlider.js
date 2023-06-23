@@ -33,7 +33,6 @@ export default function DeckSlider({ userID }) {
 
   const onDrop = (files) => {
     if (files.length > 0) {
-      console.log(files);
       setSelectedFiles(files);
     }
   };
@@ -56,7 +55,7 @@ export default function DeckSlider({ userID }) {
     setCurrentFile(currentFile);
     const fileUrl = await uploadFile(currentFile);
     const deck = await API.post(`/deck/${user?.user_id}`, { file: fileUrl });
-    console.log("deck", deck);
+
     setLoading(false);
     setDeck(deck.data);
   };
@@ -70,11 +69,9 @@ export default function DeckSlider({ userID }) {
     }
 
     const getDeck = async () => {
-      console.log(userID);
       const deck = await API.get(`/deck/${userID}`);
-      console.log("deckll", deck);
+
       if (deck.data) {
-        console.log("deck", deck.data);
         setDeck(deck.data);
       }
       setLoading(false);

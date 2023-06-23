@@ -29,16 +29,11 @@ export default function Pitch({
   const dispatch = useDispatch();
   const [viewCounted, setViewCounted] = useState(false);
 
-  console.log(pitchDeck);
-
   const AddNewFriend = () => {
-    console.log(businessID);
-    ChatService.createChat(businessID)
-      .then((chats) => {
-        //socket.emit('add-friend', chats)
-        history.push("/investor/app/chat");
-      })
-      .catch((err) => console.log(err));
+    ChatService.createChat(businessID).then((chats) => {
+      //socket.emit('add-friend', chats)
+      history.push("/investor/app/chat");
+    });
   };
 
   let hoverTime = 10000;
@@ -47,7 +42,6 @@ export default function Pitch({
   function start() {
     //setTimeout(showTooltip(), 5000);
     t = setTimeout(() => {
-      console.log("Skift væk fra videoen");
       setPlaying(false);
     }, hoverTime);
   }

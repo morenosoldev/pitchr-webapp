@@ -29,8 +29,7 @@ class NewGrid extends Component {
 
   onDragEnd(result) {
     // dropped outside the list
-    console.log(result);
-    console.log("innner drag");
+
     if (!result.destination) {
       return;
     }
@@ -62,7 +61,6 @@ class NewGrid extends Component {
         );
         newItems = newItems.map((item) => {
           if (item.id == sourceParentId) {
-            console.log("yessir");
             item.subItems = reorderedSubItems;
           }
           return item;
@@ -128,6 +126,7 @@ class NewGrid extends Component {
                           changeColumnTitle={this.props.changeColumnTitle}
                           selectedColumn={this.props.selectedColumn}
                           changeSelected={this.props.selectColumn}
+                          savePitch={this.props.savePitch}
                           removeRow={this.props.removeRow}
                           subItems={item.subItems}
                           type={item.id}

@@ -71,7 +71,6 @@ const createPitch = async (req, res) => {
     await deleteData();
     res.status(200).json("Video pitch has been created!");
   } catch (err) {
-    console.log("error", err);
     res.status(500).json(err);
   }
 };
@@ -91,7 +90,6 @@ const publishPitch = async (req, res) => {
 
     res.status(200).json("Nu er den public");
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 };
@@ -125,7 +123,6 @@ const getPitch = async (req, res) => {
 
     res.status(200).json(data);
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 };
@@ -158,7 +155,6 @@ const getDevelopmentPitch = async (req, res) => {
 
     res.status(200).json(data);
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 };
@@ -213,7 +209,6 @@ const fetchPitches = async (req, res) => {
       res.status(200).json(allPitches);
     }
   } catch (error) {
-    console.log(error);
     res.status(500).json("Hov noget gik galt.");
   }
 };
@@ -267,7 +262,6 @@ const getSavedPitches = async (req, res) => {
 
     res.status(200).json([results]);
   } catch (error) {
-    console.log(error);
     res.status(500).json("Hov noget gik galt.");
   }
 };
@@ -282,7 +276,6 @@ const savePitch = async (req, res) => {
     });
     res.status(200).json(savedPitch);
   } catch (error) {
-    console.log(error);
     res.status(500).json("Hov noget gik galt.");
   }
 };

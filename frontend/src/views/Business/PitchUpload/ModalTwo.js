@@ -40,7 +40,7 @@ export default function ModalOne({
       const sdkButton = configureButton({ element: button });
       sdkButton.on("insert-click", async (video) => {
         const { html } = await oembed(video.sharedUrl, { width: 400 });
-        console.log(video.sharedUrl);
+
         publishLoomVideo(video.sharedUrl);
         setVideoHTML(html);
         uploadLoomVideo(html);
@@ -61,7 +61,6 @@ export default function ModalOne({
       },
       (error) => {
         // file upload failed
-        console.log(error);
       },
       () => {
         // file upload completed
@@ -76,7 +75,6 @@ export default function ModalOne({
             },
             (error) => {
               // failed to get download URL
-              console.log(error);
             }
           );
       }

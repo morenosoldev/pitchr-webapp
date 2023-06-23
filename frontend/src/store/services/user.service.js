@@ -30,7 +30,6 @@ function login(email, password) {
       return data;
     })
     .catch((err) => {
-      console.log("Auth service err", err);
       throw err;
     });
 }

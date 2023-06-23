@@ -7,7 +7,6 @@ const Header = () => {
   const user = useSelector((state) => state.authentication.user);
   let location = useLocation();
 
-  console.log(location);
   return (
     <>
       <div className="iq-top-navbar">

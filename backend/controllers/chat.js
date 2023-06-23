@@ -7,7 +7,6 @@ const sequelize = require("../utils/database");
 const { Op } = require("sequelize");
 
 const getChatsFromUser = async (req, res) => {
-  console.log("getChatsFromUser", req.user.email);
   try {
     const user = await User.findOne({
       where: {
@@ -42,7 +41,6 @@ const getChatsFromUser = async (req, res) => {
       res.status(200).json(user.Chats);
     }
   } catch (err) {
-    console.log("Error in getChatsFromUser: ", err);
     res.status(500).json(err);
   }
 };

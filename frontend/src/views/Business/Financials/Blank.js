@@ -22,7 +22,6 @@ const EditableCell = ({
 
   const onChange = (value) => {
     if (!isNaN(value)) {
-      console.log("setting to number");
       var integer = parseInt(value, 10);
       if (isNaN(integer)) {
         setValue("");
@@ -32,7 +31,6 @@ const EditableCell = ({
         setValue(integer);
       }
     } else {
-      console.log("setting to string");
       setValue(value);
     }
   };
@@ -328,7 +326,7 @@ function Blank({ addChart }) {
                     /^(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)$/i;
                   setFailedColumns([]);
                   let fail = false;
-                  console.log("data", data);
+
                   const arr = data.map((obj) => ({
                     ...obj,
                     user_id: user?.user_id,
@@ -337,9 +335,7 @@ function Blank({ addChart }) {
 
                   arr.map((obj, i) => {
                     if (obj.month.match(monthRegex) || [].length > 0) {
-                      console.log("true");
                     } else {
-                      console.log("fejl " + i, obj.month);
                       setShowError(true);
                       addError(obj.month);
                       fail = true;
@@ -347,9 +343,7 @@ function Blank({ addChart }) {
                     }
 
                     if (typeof obj.amount == "number") {
-                      console.log("det er en gyldig værdi");
                     } else {
-                      console.log("fejl", obj.amount + typeof obj.amount);
                       addError(obj.amount);
                       fail = true;
                       setShowError(true);
@@ -358,7 +352,6 @@ function Blank({ addChart }) {
                   });
 
                   if (fail) {
-                    console.log("der er fejl");
                   } else {
                     setShowError(false);
                     await API.post(`/financial/${user?.user_id}`, finalObj);

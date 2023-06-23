@@ -34,9 +34,7 @@ export default function Competences({ writeCompetences, setWriteCompetences }) {
       .then((res) => {
         setWriteCompetences(false);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   return (

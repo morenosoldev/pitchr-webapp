@@ -7,7 +7,6 @@ const initialState = {
 };
 
 function filesReducer(state = initialState, action) {
-  console.log("her", action);
   switch (action.type) {
     case fileConstants.UPLOAD_FILE_REQUEST:
       return {
@@ -65,7 +64,7 @@ function filesReducer(state = initialState, action) {
       };
     case fileConstants.DELETE_PITCH_FILES_SUCCESS:
       const newArr = state.pitchFiles.filter((file) => file.id !== action.id);
-      console.log(newArr);
+
       return {
         ...state,
         loading: false,
@@ -81,7 +80,7 @@ function filesReducer(state = initialState, action) {
       };
     case fileConstants.DELETE_FILES_SUCCESS:
       const newFileArr = state.files.filter((file) => file.id !== action.id);
-      console.log(newFileArr);
+
       return {
         ...state,
         loading: false,

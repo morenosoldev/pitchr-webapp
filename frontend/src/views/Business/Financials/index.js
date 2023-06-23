@@ -31,7 +31,7 @@ export default function FinancialIndex() {
   useEffect(async () => {
     const getData = async () => {
       const res = await API.get(`/financials/${id}`);
-      console.log("charts", res.data);
+
       setCharts(res.data);
     };
     getData();

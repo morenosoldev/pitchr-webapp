@@ -42,7 +42,6 @@ const createFinancial = async (req, res) => {
     );
     res.status(200).json("Data has been uploaded");
   } catch (err) {
-    console.log("fejl", err);
     res.status(500).json(err);
   }
 };
@@ -54,7 +53,6 @@ const deleteFinancial = async (req, res) => {
     Metric.destroy({ where: { id: id } });
     res.status(200).json("Data has been deleted");
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 };

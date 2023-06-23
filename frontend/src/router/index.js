@@ -13,9 +13,7 @@ const IndexRouters = () => {
   );
   const user = useSelector((state) => state.authentication.user);
 
-  useEffect(() => {
-    console.log("user", user);
-  }, [user]);
+  useEffect(() => {}, [user]);
   return (
     <>
       <Switch>

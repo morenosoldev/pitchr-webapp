@@ -47,7 +47,7 @@ const Groups = () => {
     if (!name || !jobTitle || !jobDescription || !percentage) {
       // Check if any of the required fields are empty
       // You can display an error message or perform any other necessary actions
-      console.log("Please fill in all required fields.");
+
       return;
     }
 
@@ -71,8 +71,6 @@ const Groups = () => {
     setJobDescription("");
     handleClose();
   };
-
-  console.log(members);
 
   return (
     <>

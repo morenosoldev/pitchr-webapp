@@ -29,7 +29,7 @@ userId: user.user_id,
  // Proceed to next step
  const nextStep = () => {
     const { step } = video;
-    console.log(step);
+    
     setVideo(prevState => ({
         ...prevState,
         step: step + 1
@@ -159,7 +159,7 @@ const {step} = video;
            </>
          )
         default:
-          (console.log('This is a multi-step form built with React.'))
+          (
     }
     
     }

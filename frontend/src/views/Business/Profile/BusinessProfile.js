@@ -45,11 +45,9 @@ export default function BusinessProfile() {
         const progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        console.log(progress);
       },
       (error) => {
         // file upload failed
-        console.log(error);
       },
       () => {
         // file upload completed
@@ -58,12 +56,10 @@ export default function BusinessProfile() {
           .getDownloadURL()
           .then(
             async (url) => {
-              console.log(url);
               dispatch(userActions.updateProfilePicture(url, profile?.user_id));
             },
             (error) => {
               // failed to get download URL
-              console.log(error);
             }
           );
       }

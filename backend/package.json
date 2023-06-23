@@ -25,6 +25,7 @@
     "node-cache": "^5.1.2",
     "nodemailer": "^6.7.2",
     "query-string": "^7.1.1",
+    "react-snap-carousel": "^0.3.2",
     "sequelize": "^6.7.0",
     "socket.io": "^4.3.1"
   },

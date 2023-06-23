@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import { AiFillVideoCamera } from "react-icons/ai";
 import {
   BsBullseye,
   BsCpu,
@@ -7,39 +8,29 @@ import {
   BsFillPlusCircleFill,
 } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import Card from "../Card";
-import { history } from "../../util/history";
-import Flag from "../Flag/Flag";
 import ChatService from "../../store/services/chat.service";
+import { history } from "../../util/history";
 import Equity from "../../views/Business/Charts/Equity";
+import Card from "../Card";
 import DeckSlider from "../Feed/DeckSlider";
-import MRR from "../Financials/MRR";
+import Flag from "../Flag/Flag";
 import "./style.css";
-import { AiFillVideoCamera, AiOutlineVideoCamera } from "react-icons/ai";
 
 const PitchDeck = ({
-  savedPitch,
-  addSavedPitch,
-  isVisible,
   company,
-  pitchDeck,
   logo,
   calendly,
-  deck,
   location,
   members,
-  description,
-  charts,
   userID,
+  description,
   pitchID,
 }) => {
   const addChat = () => {
-    ChatService.createChat(userID)
-      .then((chats) => {
-        //socket.emit("add-friend", chats);
-        history.push("/investor/app/chat");
-      })
-      .catch((err) => console.log(err));
+    ChatService.createChat(userID).then((chats) => {
+      //socket.emit("add-friend", chats);
+      history.push("/investor/app/chat");
+    });
   };
 
   return (

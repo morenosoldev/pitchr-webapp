@@ -14,7 +14,6 @@ export default function ModalOne({ nextStep, publishPitchDeck, progress }) {
       },
       (error) => {
         // file upload failed
-        console.log(error);
       },
       () => {
         // file upload completed
@@ -29,7 +28,6 @@ export default function ModalOne({ nextStep, publishPitchDeck, progress }) {
             },
             (error) => {
               // failed to get download URL
-              console.log(error);
             }
           );
       }

@@ -40,6 +40,4 @@ SocketServer(server);
 
 conn.sync();
 
-server.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+server.listen(port, () => {});
