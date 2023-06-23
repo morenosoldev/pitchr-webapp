@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import "../../../assets/scss/custom/components/deck/deck.scss";
-import { Col, Row, Container, Button } from "react-bootstrap";
-import NewGrid from "../Deck/NewGrid";
-import Content from "../Deck/Content";
-import { pitchActions } from "../../../store/actions/pitch.actions";
-import { useSelector } from "react-redux";
-import API from "../../../util/AxiosConfig";
-import "../../../assets/scss/custom/components/deck/deck-showcase.scss";
-import { Link, useParams } from "react-router-dom";
+import { Col, Container, Row } from "react-bootstrap";
 import { AiOutlineVideoCamera } from "react-icons/ai";
+import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import "../../../assets/scss/custom/components/deck/deck-showcase.scss";
+import "../../../assets/scss/custom/components/deck/deck.scss";
+import API from "../../../util/AxiosConfig";
+import Content from "../Deck/Content";
 
-export default function DeckShowcase() {
+export default function DeckShowcase({ stopVideo }) {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const user = useSelector((state) => state.authentication.user);
@@ -64,7 +62,11 @@ export default function DeckShowcase() {
           </Col>
 
           <Col sm>
-            <Content content={data} selectedColumn={selectedColumn} />
+            <Content
+              stopVideo={stopVideo}
+              content={data}
+              selectedColumn={selectedColumn}
+            />
           </Col>
         </Row>
       ) : (

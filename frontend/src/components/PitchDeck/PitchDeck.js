@@ -22,9 +22,9 @@ const PitchDeck = ({
   calendly,
   location,
   members,
-  userID,
   description,
   pitchID,
+  userID,
 }) => {
   const addChat = () => {
     ChatService.createChat(userID).then((chats) => {

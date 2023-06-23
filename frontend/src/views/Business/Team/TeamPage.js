@@ -23,6 +23,7 @@ export default function TeamPage({ urlID }) {
             {members.length > 0 ? (
               members?.map((member) => (
                 <Member
+                  key={member.id}
                   urlID={urlID}
                   linkedIn={member.linkedIn}
                   name={member.name}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import { oembed } from "@loomhq/loom-embed";
 
-export default function Content({ content, selectedColumn }) {
+export default function Content({ stopVideo, selectedColumn }) {
   const [videoHTML, setVideoHTML] = useState("");
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function Content({ content, selectedColumn }) {
             />
           ) : (
             <ReactPlayer
-              playing={true}
+              playing={!stopVideo}
               width={"100%"}
               height={"100%"}
               controls={true}

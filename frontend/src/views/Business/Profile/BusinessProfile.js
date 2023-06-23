@@ -22,13 +22,17 @@ export default function BusinessProfile() {
   const dispatch = useDispatch();
   const [key, setKey] = useState("all");
   const pitch = useSelector((state) => state.pitch.video);
+  const [stopVideo, setStopVideo] = useState(null);
   const loading = false;
 
   //FØRSTE API KALD, HENT BUSINESS PROFIL UDFRA ID. SÅ HENT LOGO, NAVN, BESKRIVELSE.
   useEffect(async () => {
+    if (key !== "pitch") {
+      setStopVideo(true);
+    }
     await API.get(`/getUser/${id}`).then(async (res) => {
       setProfile(res.data.user);
-      dispatch(await pitchActions.getPitch(res.data.user?.id));
+      dispatch(pitchActions.getPitch(res.data.user?.id));
       setKey(type);
 
       if (user?.user_id !== Number(id)) {
@@ -66,7 +70,6 @@ export default function BusinessProfile() {
     );
   };
 
-  //PASS ID TIL TEAM OG FILES, ÆNDR I DE OBJEKTER
   return (
     <Container fluid>
       <Row>
@@ -212,17 +215,13 @@ export default function BusinessProfile() {
                     {pitch ? (
                       <PitchDeck
                         pitchID={pitch.id}
-                        pitchDeck={pitch.pitchDeck}
-                        loom={pitch.loom}
-                        calendly={pitch.calendly}
-                        businessID={pitch.BusinessId}
-                        userID={pitch.user_id}
                         company={pitch.companyName}
                         logo={pitch.companyLogo}
-                        undertitle={pitch.title}
+                        calendly={pitch.calendly}
+                        location={pitch.location}
+                        members={pitch.members}
+                        userID={pitch.user_id}
                         description={pitch.description}
-                        thumbnail={pitch.thumbnail}
-                        videoSrc={pitch.videoUrl}
                       />
                     ) : (
                       <Container>

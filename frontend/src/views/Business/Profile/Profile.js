@@ -21,6 +21,7 @@ import "./profile.scss";
 export default function Profile() {
   const user = useSelector((state) => state.authentication.user);
   const dispatch = useDispatch();
+  const [stopVideo, setStopVideo] = useState(false);
   const { id } = useParams();
   const [key, setKey] = useState("deck");
 
@@ -28,7 +29,14 @@ export default function Profile() {
     if (user?.user_id !== Number(id)) {
       dispatch(viewActions.addProfileViews(id, user?.user_id));
     }
-  }, [user]);
+    console.log(key);
+
+    if (key !== "pitch") {
+      setStopVideo(true);
+    } else {
+      setStopVideo(false);
+    }
+  }, [user, key]);
 
   return (
     <Container fluid className="h-100">
@@ -175,7 +183,7 @@ export default function Profile() {
                   </Tab.Pane>
 
                   <Tab.Pane className="h-100" eventKey="pitch">
-                    <DeckShowcase />
+                    <DeckShowcase stopVideo={stopVideo} />
                   </Tab.Pane>
 
                   <Tab.Pane eventKey="files">

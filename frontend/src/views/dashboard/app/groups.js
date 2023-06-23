@@ -266,6 +266,7 @@ const Groups = () => {
         )}
         {members?.map((member) => (
           <Member
+            key={member.id}
             urlID={id}
             name={member.name}
             jobTitle={member.jobTitle}
