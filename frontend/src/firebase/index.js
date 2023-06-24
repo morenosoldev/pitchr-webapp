@@ -11,49 +11,48 @@ const formatVideoDuration = (duration) => {
   return moment.duration(duration, "seconds").format();
 };
 
-const uploadVideo = async (video, setProgress) => {
-  try {
-    const videoRef = await storage.ref(`videos/${video.name}`);
-    videoRef.put(video).on(
-      "state_changed",
-      (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(progress);
-      },
-      (error) => setProgress({ error: error.message })
-    );
+const uploadVideo = (video, setProgress) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const videoRef = storage.ref(`videos/${video.name}`);
+      const uploadTask = videoRef.put(video);
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setProgress(progress);
+        },
+        (error) => {
+          reject(error);
+        },
+        () => {
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            const videoElement = document.createElement("video");
+            videoElement.src = downloadURL;
 
-    const url = await videoRef.getDownloadURL();
+            videoElement.onloadedmetadata = () => {
+              const duration = formatVideoDuration(videoElement.duration);
+              resolve({
+                duration,
+                url: downloadURL,
+              });
+            };
 
-    // Get video duration using HTML5 video element
-    const videoElement = document.createElement("video");
-    videoElement.src = url;
-
-    const durationPromise = new Promise((resolve, reject) => {
-      videoElement.onloadedmetadata = () => {
-        const duration = formatVideoDuration(videoElement.duration);
-        resolve(duration);
-      };
-
-      videoElement.onerror = (error) => {
-        reject(error);
-      };
-    });
-
-    const duration = await durationPromise;
-
-    return {
-      duration,
-      url,
-    };
-  } catch (error) {
-    throw error;
-  }
+            videoElement.onerror = (error) => {
+              reject(error);
+            };
+          });
+        }
+      );
+    } catch (error) {
+      reject(error);
+    }
+  });
 };
+
 const uploadFile = async (file) => {
   try {
     const fileRef = storage.ref(`files/${file.name}`);

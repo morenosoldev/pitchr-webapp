@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { AiFillPlaySquare } from "react-icons/ai";
+import { Col, Container, Row, Button } from "react-bootstrap";
+import { BsPlayCircle, BsPlayCircleFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import "../../../assets/scss/custom/components/deck/deck-showcase.scss";
 import "../../../assets/scss/custom/components/deck/deck.scss";
 import API from "../../../util/AxiosConfig";
 import Content from "../Deck/Content";
-import { BsPlayCircleFill } from "react-icons/bs";
-import { BsPlayCircle } from "react-icons/bs";
 
 export default function DeckShowcase({ stopVideo }) {
   const { id } = useParams();
   const [data, setData] = useState([]);
+  const [underDevelopment, setUnderDevelopment] = useState(false); // TODO: [DEV] Remove this when development is done
   const user = useSelector((state) => state.authentication.user);
   const [selectedColumn, setSelectedColumn] = useState(
     data[0]?.subItems[0]?.content
@@ -29,6 +28,22 @@ export default function DeckShowcase({ stopVideo }) {
         console.error("Error fetching data:", error);
       }
     };
+
+    const fetchDevelopmentPitch = async () => {
+      try {
+        const lastSaved = (await API.get(`/developmentPitch/${id}`)).data;
+        console.log("lastSaved: ", lastSaved);
+        if (lastSaved?.length > 0) {
+          setUnderDevelopment(true);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (user.id == id) {
+      fetchDevelopmentPitch();
+    }
 
     fetchData();
 
@@ -55,6 +70,11 @@ export default function DeckShowcase({ stopVideo }) {
             xxl={3}
           >
             <Row style={{ overflowY: "scroll" }}>
+              {user.id == id ? (
+                <Link to="/business/app/upload">
+                  <Button>Edit pitch</Button>
+                </Link>
+              ) : null}
               <div className="subItems-container">
                 {data.map((item) => (
                   <div className="deck-section-show mt-3 mb-3">
@@ -110,19 +130,40 @@ export default function DeckShowcase({ stopVideo }) {
                   style={{ display: "flex", flexDirection: "column" }}
                   className="content-icon"
                 >
-                  <h2 className="text-center">
-                    You have not created your first pitch yet!
-                  </h2>
-                  <p className="text-center">
-                    Get started, click the button down below.
-                  </p>
-                  <Link
-                    to="/business/app/upload"
-                    className="mt-3"
-                    style={{ margin: "0 auto" }}
-                  >
-                    Create pitch
-                  </Link>
+                  {underDevelopment ? (
+                    <div className="text-center">
+                      <h2 className="text-center mb-3">
+                        You are still developing your pitch!
+                      </h2>
+                      <p className="text-center">
+                        Continue where you left off, click the button down
+                        below.
+                      </p>
+                      <Link
+                        to="/business/app/upload"
+                        className="mt-3"
+                        style={{ margin: "0 auto" }}
+                      >
+                        <Button>Edit pitch</Button>
+                      </Link>
+                    </div>
+                  ) : (
+                    <div className="text-center">
+                      <h2 className="text-center">
+                        You have not created your first pitch yet!
+                      </h2>
+                      <p className="text-center">
+                        Get started, click the button down below.
+                      </p>
+                      <Link
+                        to="/business/app/upload"
+                        className="mt-3"
+                        style={{ margin: "0 auto" }}
+                      >
+                        <Button>Create pitch</Button>
+                      </Link>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

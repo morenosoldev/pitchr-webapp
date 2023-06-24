@@ -5,7 +5,7 @@ export default function Message({ user, chat, index, message }) {
   return (
     <div
       className={`chat ${
-        message.fromUserId === user.user_id ? "chat-left" : "d-flex other-user"
+        message.fromUserId === user.user_id ? "d-flex other-user" : "chat-left"
       }`}
     >
       <div className="chat-user">

@@ -61,7 +61,8 @@ const SocketServer = (server) => {
 
       message.toUserId.forEach((id) => {
         if (users.has(id)) {
-          //sockets = [...sockets, ...users.get(id).sockets]
+          console.log("users.get(id).sockets", users.get(id));
+          sockets = [...sockets, ...users.get(id).sockets];
         }
       });
 

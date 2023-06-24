@@ -53,7 +53,6 @@ export default function Section({
   const removeColumn = async () => {
     setSubmitted(false);
     removeRow(data.id);
-    savePitch();
   };
 
   useEffect(() => {

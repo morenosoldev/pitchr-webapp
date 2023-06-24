@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Dropdown, Form, Modal, Row } from "react-bootstrap";
-import { BsFillPersonCheckFill } from "react-icons/bs";
+import { Button, Card, Col, Form, Modal, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import Select from "react-select";
 import img1 from "../../../assets/images/user/1.jpg";
 import { storage } from "../../../firebase";
 import { teamActions } from "../../../store/actions/team.actions";
 import Equity from "../../Business/Charts/Equity";
 import Member from "../../Business/Team/Member";
-import Select, { components } from "react-select";
 import "./Groups.scss";
-
-const Placeholder = (props) => {
-  return <components.Placeholder {...props} />;
-};
 
 const Groups = () => {
   const { id } = useParams();
@@ -325,29 +320,10 @@ const Groups = () => {
             </Card.Body>
           </Card>
         ) : (
-          <Card className="mb-0">
-            <h4
-              className="mb-3"
-              style={{ color: "#CBCFD3", textAlign: "center" }}
-            >
+          <Card className="mb-0 d-flex p-3 align-items-center">
+            <h4 style={{ color: "#CBCFD3", textAlign: "center" }}>
               No employees added yet
             </h4>
-            <Card.Body className=" text-center">
-              <div>
-                <div
-                  style={{
-                    width: "100%",
-                    height: 265,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: "0 auto",
-                  }}
-                >
-                  <BsFillPersonCheckFill size="40" />
-                </div>
-              </div>
-            </Card.Body>
           </Card>
         )}
         {filteredEmployees?.map((member) => (

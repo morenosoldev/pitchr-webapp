@@ -6,6 +6,7 @@ import Content from "./Content";
 import { useSelector } from "react-redux";
 import API from "../../../util/AxiosConfig";
 import Modal from "react-bootstrap/Modal";
+import { v4 as uuidv4 } from "uuid";
 
 function MyVerticallyCenteredModal(props) {
   return (
@@ -43,29 +44,32 @@ export default function UploadDeck() {
 
   const [data, setData] = useState([
     {
-      id: "1",
+      id: uuidv4(),
+      index: 1,
       title: "Intro",
       subItems: [
-        { id: "10", title: "Introduction of company", content: null },
-        { id: "11", title: "Vision", content: null },
-        { id: "12", title: "Meet the founders", content: null },
+        { id: uuidv4(), title: "Introduction of company", content: null },
+        { id: uuidv4(), title: "Vision", content: null },
+        { id: uuidv4(), title: "Meet the founders", content: null },
       ],
     },
     {
-      id: "2",
+      id: uuidv4(),
+      index: 2,
       title: "Development",
       subItems: [
-        { id: "20", title: "Demo of product", content: "" },
-        { id: "21", title: "Upcoming plan", content: "" },
-        { id: "22", title: "Marketing plan", content: "" },
+        { id: uuidv4(), title: "Demo of product", content: "" },
+        { id: uuidv4(), title: "Upcoming plan", content: "" },
+        { id: uuidv4(), title: "Marketing plan", content: "" },
       ],
     },
     {
-      id: "3",
+      id: uuidv4(),
+      index: 3,
       title: "End",
       subItems: [
-        { id: "30", title: "Sales projection 2023", content: "" },
-        { id: "31", title: "Contact us", content: "" },
+        { id: uuidv4(), title: "Sales projection 2023", content: "" },
+        { id: uuidv4(), title: "Contact us", content: "" },
       ],
     },
   ]);
@@ -94,6 +98,7 @@ export default function UploadDeck() {
     if (!result || !result2) {
       setModalShow(true);
     } else {
+      savePitch();
       await API.post(`/publish/${user?.user_id}`).data;
       setPublished(true);
     }
@@ -101,7 +106,8 @@ export default function UploadDeck() {
 
   const savePitch = async () => {
     setLoading(true);
-    await API.post(`/pitch/${user?.user_id}`, { data: data });
+    const res = await API.post(`/pitch/${user?.user_id}`, { data: data });
+    console.log("res", res);
     setLoading(false);
   };
 
@@ -168,33 +174,39 @@ export default function UploadDeck() {
 
   const addColumn = (row) => {
     let updatedList = data.map((item, index) => {
-      if (index == row) {
-        const newSubItems = [
-          ...item.subItems,
-          {
-            id: (
-              parseInt(item.subItems[item.subItems.length - 1].id) + 1
-            ).toString(),
-            title: "",
-            content: "",
-          },
-        ];
-        return { ...item, subItems: newSubItems }; //gets everything that was already in item, and updates "done"
+      if (index === row) {
+        const newSubItems = item.subItems
+          ? [
+              ...item.subItems,
+              {
+                id: uuidv4(),
+                title: "",
+                content: "",
+              },
+            ]
+          : [
+              {
+                id: uuidv4(),
+                title: "",
+                content: "",
+              },
+            ];
+        return { ...item, subItems: newSubItems };
       } else {
-        return { ...item }; //gets everything that was already in item, and updates "done"
+        return { ...item };
       }
     });
 
-    setData(updatedList); // set state to new object with updated list
+    setData(updatedList);
   };
 
   const addSection = () => {
     setData((data) => [
       ...data,
       {
-        id: data.length > 0 ? Number(data[data.length - 1].id) + 1 : 1,
+        id: uuidv4(),
         title: "New section",
-        subItems: [{ id: "44", title: "New column", content: null }],
+        subItems: [{ id: uuidv4(), title: "New column", content: null }],
       },
     ]);
   };

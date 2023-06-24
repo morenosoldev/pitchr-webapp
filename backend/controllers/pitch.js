@@ -1,13 +1,11 @@
 const models = require("../models");
 const Business = models.Business;
 const Pitch = models.Pitch;
-const User = models.User;
 const Market = models.Market;
 const Industry = models.Industry;
 const Section = models.Section;
 const Deck = models.Deck;
 const Video = models.Video;
-const Employee = models.Employee;
 const savedPitches = models.savedPitch;
 const sequelize = require("../utils/database");
 const { Op } = require("sequelize");
@@ -18,57 +16,54 @@ const createPitch = async (req, res) => {
   const { data } = req.body;
 
   try {
-    const deleteData = async () => {
-      await Section.findAll({
-        where: { userId: id },
-      }).then((result) => {
-        return Section.destroy({ where: { userId: id } }).then((u) => {
-          const sectionID = result.map((item) => item.dataValues.id);
-          Deck.findAll({
-            where: {
-              sectionId: sectionID,
-            },
-          })
-            .then((deck) => {
-              Deck.destroy({ where: { sectionId: sectionID } });
-              const deckID = deck.map((item) => item.dataValues.id);
-              Video.destroy({ where: { deckId: deckID } });
-            })
-            .then(() => {
-              insertData();
-            });
-        });
-      });
-    };
+    const destroyOperations = [];
 
-    const insertData = async () => {
-      data.map((section, index) => {
-        Section.create({
-          id: section.id,
-          title: section.title,
-          index: index,
-          userId: id,
+    // Delete existing decks and collect destroy promises
+    const existingSections = await Section.findAll({ where: { userId: id } });
+    for (const section of existingSections) {
+      const destroyPromise = Deck.destroy({ where: { sectionId: section.id } });
+      destroyOperations.push(destroyPromise);
+    }
+
+    // Wait for all destruction operations to complete
+    await Promise.all(destroyOperations);
+
+    // Delete existing sections
+    await Section.destroy({ where: { userId: id } });
+
+    const sectionIds = [];
+
+    for (const section of data) {
+      const { index, title, subItems } = section;
+
+      const createdSection = await Section.create({ index, title, userId: id });
+      const sectionId = createdSection.null;
+      console.log("sectioId", sectionId);
+      sectionIds.push(sectionId);
+
+      for (let i = 0; i < subItems.length; i++) {
+        const { title: deckTitle, content } = subItems[i];
+        const deckIndex = i;
+
+        const createdDeck = await Deck.create({
+          index: deckIndex,
+          title: deckTitle,
+          sectionId: sectionId, // Assign the correct sectionId
         });
-        section.subItems.map((deck, index) => {
-          Deck.create({
-            id: deck.id,
-            title: deck.title,
-            index: index,
-            sectionId: section.id,
+
+        if (content) {
+          await Video.create({
+            duration: content.duration,
+            video: content.video,
+            type: content.type,
+            deckId: createdDeck.id,
           });
-          if (deck.content) {
-            Video.create({
-              duration: deck.content.duration,
-              video: deck.content.video,
-              type: deck.content.type,
-              deckId: deck.id,
-            });
-          }
-        });
-      });
-    };
+        }
+      }
+    }
 
-    await deleteData();
+    //await Video.destroy({ where: { deckId: { $in: sectionIds } } }); // Delete videos associated with deleted decks
+
     res.status(200).json("Video pitch has been created!");
   } catch (err) {
     res.status(500).json(err);

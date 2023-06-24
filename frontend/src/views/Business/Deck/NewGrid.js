@@ -28,8 +28,6 @@ class NewGrid extends Component {
   }
 
   onDragEnd(result) {
-    // dropped outside the list
-
     if (!result.destination) {
       return;
     }
@@ -44,8 +42,8 @@ class NewGrid extends Component {
         return acc;
       }, {});
 
-      const sourceParentId = parseInt(result.source.droppableId);
-      const destParentId = parseInt(result.destination.droppableId);
+      const sourceParentId = result.source.droppableId;
+      const destParentId = result.destination.droppableId;
 
       const sourceSubItems = itemSubItemMap[sourceParentId];
       const destSubItems = itemSubItemMap[destParentId];

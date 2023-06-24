@@ -51,18 +51,18 @@ const SignUpInvestor = () => {
               <div className="sign-in-detail text-white"></div>
             </Col>
             <Col md="6" className="bg-white pt-5 pt-5 pb-lg-0 pb-5">
-              <Link className="ms-3" to="#">
-                <span
-                  style={{
-                    fontSize: "4rem",
-                    fontWeight: "bold",
-                    color: "black",
-                  }}
-                >
-                  pitchr
-                </span>
-              </Link>
               <div className="sign-in-from">
+                <Link to="/auth/sign-in">
+                  <span
+                    style={{
+                      fontSize: "4rem",
+                      fontWeight: "bold",
+                      color: "black",
+                    }}
+                  >
+                    pitchr
+                  </span>
+                </Link>
                 <h3 className="mb-0">Sign Up as Investor</h3>
                 <p>
                   Enter your email address and password to access admin panel.

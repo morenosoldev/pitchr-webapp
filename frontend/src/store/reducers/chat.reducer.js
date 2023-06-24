@@ -139,6 +139,7 @@ const chatReducer = (state = initialState, action) => {
 
     case RECEIVED_MESSAGE: {
       const { userId, message } = payload;
+      console.log("payload", payload);
       let currentChatCopy = { ...state.currentChat };
       let newMessage = { ...state.newMessage };
       let scrollBottom = state.scrollBottom;

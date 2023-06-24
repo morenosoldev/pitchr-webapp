@@ -15,7 +15,7 @@ export default function ChatHeader({ chat }) {
             <img
               src={chat?.Users[0].profile_pic}
               alt="avatar"
-              className="rounded-circle avatar-50 "
+              className="rounded-circle avatar-50"
             />
           </div>
           <h5 className="mb-0">{chat?.Users[0].name}</h5>
