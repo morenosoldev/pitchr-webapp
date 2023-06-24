@@ -85,6 +85,7 @@ const publishPitch = async (req, res) => {
 
     res.status(200).json("Nu er den public");
   } catch (err) {
+    console.log("err", err);
     res.status(500).json(err);
   }
 };

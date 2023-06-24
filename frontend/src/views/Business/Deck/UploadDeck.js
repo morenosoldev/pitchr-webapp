@@ -98,8 +98,7 @@ export default function UploadDeck() {
     if (!result || !result2) {
       setModalShow(true);
     } else {
-      savePitch();
-      await API.post(`/publish/${user?.user_id}`).data;
+      await API.post(`/publish/${user?.user_id}`);
       setPublished(true);
     }
   };

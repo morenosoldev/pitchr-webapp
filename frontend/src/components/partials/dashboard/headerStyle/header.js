@@ -2,8 +2,11 @@ import React from "react";
 import { Button, Card, Dropdown, Image, Nav, Navbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { userActions } from "../../../../store/actions";
+import { useDispatch } from "react-redux";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.authentication.user);
   let location = useLocation();
 
@@ -147,14 +150,14 @@ const Header = () => {
                         </Link>
 
                         <div className="d-inline-block w-100 text-center p-3">
-                          <Link
+                          <Button
                             className="btn btn-primary iq-sign-btn"
-                            to="/auth/sign-in"
+                            onClick={() => dispatch(userActions.logout())}
                             role="button"
                           >
                             Sign out
                             <i className="ri-login-box-line ms-2"></i>
-                          </Link>
+                          </Button>
                         </div>
                       </Card.Body>
                     </Card>
