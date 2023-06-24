@@ -132,7 +132,7 @@ const getPitchDecks = async (req, res) => {
             { model: PitchDeck, required: true, include: ["pitchDeckFiles"] },
             {
               model: Metrics,
-              required: true,
+              required: false,
               include: [
                 {
                   model: Row,

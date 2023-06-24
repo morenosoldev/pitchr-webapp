@@ -57,7 +57,7 @@ const PitchDeck = ({
                       <div style={{ width: "100%" }} className="user-profile">
                         <div className="user  mb-4">
                           <Row className="mb-4">
-                            <Col sm={3}>
+                            <Col sm={5}>
                               <div
                                 style={{
                                   display: "flex",
@@ -80,9 +80,9 @@ const PitchDeck = ({
                                     flexDirection: "column",
                                   }}
                                 >
-                                  <h3 className="fw-bold m-0 text-left">
+                                  <h4 className="fw-bold m-0 text-left">
                                     {company}
-                                  </h3>
+                                  </h4>
 
                                   <span>
                                     <Flag
@@ -119,7 +119,7 @@ const PitchDeck = ({
                               </div>
                             </Col>
 
-                            <Col sm={6}>
+                            <Col sm={4}>
                               <Row>
                                 <Button
                                   className="mb-3"
@@ -173,40 +173,38 @@ const PitchDeck = ({
                                 ))}
                               </div>
                             </Col>
+                          </Row>
 
-                            <Col sm={12} md={12}>
-                              <div style={{ display: "flex" }} className="mt-4">
-                                <span>Equity</span>
-                              </div>
-                              <Row>
-                                <Col>
-                                  <div
-                                    style={{ width: "100%", height: "225px" }}
-                                  >
-                                    <Equity data={members} />
-                                  </div>
-                                </Col>
-                                <Col>
-                                  <Table hover>
-                                    <thead>
+                          <Row>
+                            <div style={{ display: "flex" }} className="mt-4">
+                              <span>Equity</span>
+                            </div>
+                            <Row>
+                              <Col sm={6}>
+                                <div style={{ width: "100%", height: "225px" }}>
+                                  <Equity data={members} />
+                                </div>
+                              </Col>
+                              <Col sm={6}>
+                                <Table hover>
+                                  <thead>
+                                    <tr>
+                                      <th>Name</th>
+                                      <th>Equity</th>
+                                    </tr>
+                                  </thead>
+
+                                  <tbody>
+                                    {members.map((member) => (
                                       <tr>
-                                        <th>Name</th>
-                                        <th>Equity</th>
+                                        <td>{member?.name}</td>
+                                        <td>{member?.equity}%</td>
                                       </tr>
-                                    </thead>
-
-                                    <tbody>
-                                      {members.map((member) => (
-                                        <tr>
-                                          <td>{member?.name}</td>
-                                          <td>{member?.equity}%</td>
-                                        </tr>
-                                      ))}
-                                    </tbody>
-                                  </Table>
-                                </Col>
-                              </Row>
-                            </Col>
+                                    ))}
+                                  </tbody>
+                                </Table>
+                              </Col>
+                            </Row>
                           </Row>
                         </div>
                       </div>
