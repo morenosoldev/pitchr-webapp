@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../store/actions";
 
-export default function ElevatorPitch({ edit }) {
+export default function ElevatorPitch({ edit, profile }) {
   const user = useSelector((state) => state.authentication.user);
   const dispatch = useDispatch();
   const [state, setState] = useState({
@@ -69,13 +69,15 @@ export default function ElevatorPitch({ edit }) {
           </>
         ) : (
           <div>
-            {user?.description ? (
+            {profile ? (
+              profile?.description
+            ) : user?.description ? (
               <p
                 style={{
                   textAlign: "left",
                 }}
               >
-                {user?.description}
+                {profile ? profile?.description : user?.description}
               </p>
             ) : (
               <p className="text-left">No elevator pitch</p>

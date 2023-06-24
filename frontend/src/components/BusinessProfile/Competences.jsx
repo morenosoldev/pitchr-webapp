@@ -8,11 +8,11 @@ import { userActions } from "../../store/actions";
 import { Badge } from "react-bootstrap";
 import { BsTrash } from "react-icons/bs";
 
-export default function Competences({ edit }) {
+export default function Competences({ edit, profile }) {
   const user = useSelector((state) => state.authentication.user);
   const [state, setState] = useState({
     editCompetences: false,
-    competences: user?.competences || [],
+    competences: profile ? profile.competences : user?.competences || [],
     competence: "",
   });
   const dispatch = useDispatch();
@@ -105,7 +105,15 @@ export default function Competences({ edit }) {
         </>
       ) : (
         <>
-          {user?.competences ? (
+          {profile ? (
+            <ul className="text-left suggestions-lists m-0 p-0">
+              {profile.competences.map((competence, index) => (
+                <Badge key={index}>
+                  <p>{competence.name}</p>
+                </Badge>
+              ))}
+            </ul>
+          ) : user?.competences ? (
             <ul className="text-left suggestions-lists m-0 p-0">
               {user.competences.map((competence, index) => (
                 <Badge key={index}>

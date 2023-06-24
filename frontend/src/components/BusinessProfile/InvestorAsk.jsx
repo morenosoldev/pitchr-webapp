@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../store/actions";
 
-export default function InvestorAsk({ edit }) {
+export default function InvestorAsk({ edit, profile }) {
   const user = useSelector((state) => state.authentication.user);
   const [state, setState] = useState({
     editCapital: false,
@@ -110,7 +110,8 @@ export default function InvestorAsk({ edit }) {
             >
               $
             </span>
-            {user.goal} for {user.percentage}%
+            {profile ? profile?.goal : user.goal} for{" "}
+            {profile ? profile?.percentage : user.percentage}%
           </p>
         )}
       </div>

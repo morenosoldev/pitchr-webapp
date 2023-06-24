@@ -21,7 +21,7 @@ export default function InvestmentDetails() {
   const user = useSelector((state) => state.authentication.user);
   const [investmentInterest, setInvestmentInterest] = useState("");
   const [investmentInterests, setInvestmentInterests] = useState([]);
-  const [temporaryInterests, setTemporaryInterests] = useState();
+  const [temporaryInterests, setTemporaryInterests] = useState([]);
   const [writeInvestmentInterest, setWriteInvestmentInterest] = useState(false);
   const [selected, setSelected] = useState("");
 
@@ -68,13 +68,12 @@ export default function InvestmentDetails() {
   };
 
   const addInvestmentInterest = () => {
-    if (investmentInterest.length > 0) {
-      setTemporaryInterests((oldArray) => [
-        ...oldArray,
-        { name: investmentInterest },
-      ]);
-      //setInvestmentInterests(oldArray => [...oldArray, {"name": investmentInterest}]);
-    }
+    setTemporaryInterests((oldArray) => [
+      ...oldArray,
+      { name: investmentInterest },
+    ]);
+    console.log("her", temporaryInterests);
+    //setInvestmentInterests(oldArray => [...oldArray, {"name": investmentInterest}]);
   };
 
   const removeInvestmentInterest = (key) => {
@@ -128,6 +127,9 @@ export default function InvestmentDetails() {
       ...oldArray,
       { name: selectedOption.value },
     ]);
+
+    console.log("selectedOption", selectedOption);
+    console.log("temporaryIndustrys", temporaryIndustrys);
   };
 
   const removeIndustry = (key) => {

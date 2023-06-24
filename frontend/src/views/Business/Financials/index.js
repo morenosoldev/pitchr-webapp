@@ -31,7 +31,6 @@ export default function FinancialIndex() {
   useEffect(async () => {
     const getData = async () => {
       const res = await API.get(`/financials/${id}`);
-
       setCharts(res.data);
     };
     getData();
@@ -134,7 +133,7 @@ export default function FinancialIndex() {
               </Col>
             ) : null}
 
-            {charts?.length == 0 && user?.type == "investor" ? (
+            {charts?.length == 0 && user?.type == "Investor" ? (
               <div className="mx-auto">
                 <h4>No metrics yet...</h4>
               </div>

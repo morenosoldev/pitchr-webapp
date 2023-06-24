@@ -6,7 +6,7 @@ import { uploadFile } from "../../firebase";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../store/actions";
 
-export default function ProfileTop({ edit }) {
+export default function ProfileTop({ edit, profile }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authentication.user);
 
@@ -24,8 +24,11 @@ export default function ProfileTop({ edit }) {
           justifyContent: "space-evenly",
         }}
       >
-        <div style={{ position: "relative" }}>
-          <img className="rounded-circle avatar-50" src={user?.profile_pic} />
+        <div className="position-relative text-center">
+          <img
+            className="rounded-circle avatar-50"
+            src={profile ? profile?.profile_pic : user?.profile_pic}
+          />
 
           {edit ? (
             <label htmlFor="file-upload" className="custom-file-upload">
@@ -42,7 +45,9 @@ export default function ProfileTop({ edit }) {
             onChange={(e) => updatePicture(e.target.files[0])}
           />
 
-          <p style={{ fontWeight: "bold" }}>{user?.name}</p>
+          <p style={{ fontWeight: "bold" }}>
+            {profile ? profile?.name : user?.name}
+          </p>
         </div>
       </div>
       <hr></hr>

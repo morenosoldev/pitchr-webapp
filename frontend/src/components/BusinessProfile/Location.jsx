@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Flag from "../Flag/Flag";
 import { userActions } from "../../store/actions";
 
-export default function Location({ edit }) {
+export default function Location({ edit, profile }) {
   const user = useSelector((state) => state.authentication.user);
   const [state, setState] = useState({
     editCountry: false,
@@ -72,7 +72,13 @@ export default function Location({ edit }) {
         ) : (
           <p className="text-left profile-description-text">
             <Flag
-              flagNationCode={user.location ? user.location : "DK"}
+              flagNationCode={
+                profile
+                  ? profile.location
+                  : user.location
+                  ? user.location
+                  : "DK"
+              }
               showText={true}
             />
           </p>

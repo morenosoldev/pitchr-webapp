@@ -5,7 +5,7 @@ import { MdBusiness } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../store/actions";
 
-export default function Industry({ edit }) {
+export default function Industry({ edit, profile }) {
   const user = useSelector((state) => state.authentication.user);
   const dispatch = useDispatch();
   const [state, setState] = useState({
@@ -98,7 +98,11 @@ export default function Industry({ edit }) {
               size={30}
               style={{ display: "inline", marginRight: "5px" }}
             />
-            {user.industry ? user.industry : "No industry set yet"}
+            {profile?.industry
+              ? profile.industry
+              : user.industry
+              ? user.industry
+              : "No industry set yet"}
           </p>
         )}
       </div>

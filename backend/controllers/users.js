@@ -119,31 +119,51 @@ const getChatProfile = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
+    const dbUser = await User.findOne({ where: { id }, raw: true });
 
-  User.findOne({
-    where: {
-      id: id,
-    },
-    raw: true,
-  })
-    .then(async (dbUser) => {
-      if (!dbUser) {
-        return res.status(500).json({ message: "User not found" });
-      } else {
-        const bussiness = await Business.findOne({
-          where: {
-            user_id: dbUser.id,
-          },
-          raw: true,
-        });
+    if (!dbUser) {
+      return res.status(500).json({ message: "User not found" });
+    }
 
-        return res.status(200).json({
-          user: { ...bussiness, ...dbUser, id: bussiness.id, user_id: id },
-        });
-      }
-    })
-    .catch((err) => {});
+    const user = await User.findOne({
+      where: {
+        id: dbUser.id,
+      },
+      include: [
+        {
+          model: Business,
+          include: [
+            {
+              model: Competence,
+              as: "competences",
+            },
+          ],
+        },
+      ],
+    });
+    const business = {
+      ...user.Business.dataValues,
+      competences: user.Business.competences.map(
+        (competence) => competence.dataValues
+      ),
+    };
+
+    const formattedUser = {
+      ...user.dataValues,
+      ...business,
+      id: business.user_id,
+      user_id: user.id,
+    };
+
+    return res.status(200).json({
+      user: formattedUser,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 const getBusiness = async (req, res) => {

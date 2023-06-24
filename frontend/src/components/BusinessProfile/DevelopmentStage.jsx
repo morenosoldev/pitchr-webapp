@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../store/actions";
 
-export default function DevelopmentStage({ edit }) {
+export default function DevelopmentStage({ edit, profile }) {
   const user = useSelector((state) => state.authentication.user);
   const [state, setState] = useState({
     editStage: false,
@@ -84,7 +84,9 @@ export default function DevelopmentStage({ edit }) {
           <p className="mt-2 d-flex profile-description-text align-items-center text-left">
             {" "}
             <AiOutlineAreaChart size={30} style={{ display: "inline" }} />{" "}
-            {user.development_stage
+            {profile
+              ? profile.development_stage
+              : user.development_stage
               ? user.development_stage
               : "No development stage set yet"}{" "}
           </p>

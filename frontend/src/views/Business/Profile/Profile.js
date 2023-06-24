@@ -17,19 +17,24 @@ import FinancialIndex from "../Financials";
 import DeckShowcase from "./DeckShowcase";
 import { useState } from "react";
 import "./profile.scss";
+import { userService } from "../../../store/services";
 
 export default function Profile() {
   const user = useSelector((state) => state.authentication.user);
   const dispatch = useDispatch();
   const [stopVideo, setStopVideo] = useState(false);
+  const [profile, setProfile] = useState(null);
   const { id } = useParams();
   const [key, setKey] = useState("deck");
 
   useEffect(() => {
     if (user?.user_id !== Number(id)) {
+      userService.getById(id).then((res) => {
+        setProfile(res.data.user);
+      });
       dispatch(viewActions.addProfileViews(id, user?.user_id));
     }
-    console.log(key);
+    console.log("profile", profile);
 
     if (key !== "pitch") {
       setStopVideo(true);
@@ -47,11 +52,17 @@ export default function Profile() {
               <div style={{ width: "100%" }} className="user-profile">
                 <div className="user">
                   <Row>
-                    <ProfileTop edit={user.user_id == id} />
-                    <ElevatorPitch edit={user.user_id == id} />
-                    <Industry edit={user.user_id == id} />
-                    <Location edit={user.user_id == id} />
-                    <DevelopmentStage edit={user.user_id == id} />
+                    <ProfileTop edit={user.user_id == id} profile={profile} />
+                    <ElevatorPitch
+                      edit={user.user_id == id}
+                      profile={profile}
+                    />
+                    <Industry edit={user.user_id == id} profile={profile} />
+                    <Location edit={user.user_id == id} profile={profile} />
+                    <DevelopmentStage
+                      edit={user.user_id == id}
+                      profile={profile}
+                    />
 
                     <Row>
                       <div className="mt-2">
@@ -65,8 +76,14 @@ export default function Profile() {
                           Investor ask
                         </h5>
 
-                        <InvestorAsk edit={user.user_id == id} />
-                        <Competences edit={user.user_id == id} />
+                        <InvestorAsk
+                          edit={user.user_id == id}
+                          profile={profile}
+                        />
+                        <Competences
+                          edit={user.user_id == id}
+                          profile={profile}
+                        />
                       </div>
                     </Row>
                   </Row>
