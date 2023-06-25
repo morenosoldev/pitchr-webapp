@@ -175,7 +175,7 @@ const PitchDeck = ({
                             </Col>
                           </Row>
 
-                          <Row>
+                          <Row className="equity-container">
                             <div style={{ display: "flex" }} className="mt-4">
                               <span>Equity</span>
                             </div>
@@ -210,7 +210,12 @@ const PitchDeck = ({
                       </div>
                     </Col>
 
-                    <Col sm={12} md={12} xxl={8} className="h-100 ">
+                    <Col
+                      sm={12}
+                      md={12}
+                      xxl={8}
+                      className="h-100 pitch-deck-pdf"
+                    >
                       <Row className="h-100">
                         <DeckSlider userID={userID} />
                       </Row>
