@@ -15,14 +15,14 @@ import { BsCoin, BsGraphUp, BsShare } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import Card from "../../../components/Card";
-import { storage } from "../../../firebase";
-import { fileActions } from "../../../store/actions/file.actions";
-import API from "../../../util/AxiosConfig";
-import BusinessPlan from "../../Business/Files/BusinessPlan";
-import CapTable from "../../Business/Files/CapTable";
-import Financials from "../../Business/Files/Financials";
-import Reports from "../../Business/Files/Reports";
+import Card from "../../components/Card";
+import { storage } from "../../firebase";
+import { fileActions } from "../../store/actions/file.actions";
+import API from "../../util/AxiosConfig";
+import BusinessPlan from "../Business/Files/BusinessPlan";
+import CapTable from "../Business/Files/CapTable";
+import Financials from "../Business/Files/Financials";
+import Reports from "../Business/Files/Reports";
 
 const File = () => {
   const [search, setSearch] = useState("");

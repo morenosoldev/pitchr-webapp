@@ -1,9 +1,9 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Chat from "../views/dashboard/app/chat";
+import Chat from "../views/Global/chat";
 import InvestorProfile from "../views/Investor/InvestorProfile";
 import InvestorFeed from "../views/Investor/InvestorFeed";
-import File from "../views/dashboard/app/file";
+import File from "../views/Global/file";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import SavedPitches from "../views/Investor/SavedPitches";
 import Profile from "../views/Business/Profile/Profile";

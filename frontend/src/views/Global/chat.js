@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Nav, Row, Tab } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Card from "../../../components/Card";
-import ChatUser from "../../../components/Chat/ChatUser";
-import Messenger from "../../../components/Chat/Messenger";
-import { fetchChats, setCurrentChat } from "../../../store/actions/chat.action";
-import useSocket from "../../../util/socketConnect";
+import Card from "../../components/Card";
+import ChatUser from "../../components/Chat/ChatUser";
+import Messenger from "../../components/Chat/Messenger";
+import { fetchChats, setCurrentChat } from "../../store/actions/chat.action";
+import useSocket from "../../util/socketConnect";
 
 const Chat = () => {
   const [show, setShow] = useState("");

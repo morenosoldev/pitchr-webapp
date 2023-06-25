@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { userActions } from "../../../store/actions";
+import { userActions } from "../../store/actions";
 
 const SignIn = () => {
   const [inputs, setInputs] = useState({
@@ -33,7 +33,7 @@ const SignIn = () => {
 
   return (
     <>
-      <section className="sign-in-page">
+      <section>
         <div id="container-inside">
           <div id="circle-small"></div>
           <div id="circle-medium"></div>
@@ -41,12 +41,12 @@ const SignIn = () => {
           <div id="circle-xlarge"></div>
           <div id="circle-xxlarge"></div>
         </div>
-        <Container className="p-0">
-          <Row className="no-gutters">
-            <Col md className="text-center pt-5">
+        <Container fluid className="p-0">
+          <Row className="no-gutters login-container">
+            <Col md className="text-center d-none d-md-block pt-5">
               <div className="sign-in-detail text-white"></div>
             </Col>
-            <Col md="6" className="bg-white pt-5 pt-5 pb-lg-0 pb-5">
+            <Col md="6" className="pt-5 login-form pt-5 pb-lg-0 pb-5">
               <div className="sign-in-from">
                 <Link to="#">
                   <span
@@ -60,12 +60,12 @@ const SignIn = () => {
                   </span>
                 </Link>
                 <h3 className="mb-0">Sign in</h3>
-                <p>
-                  Enter your email address and password to access admin panel.
-                </p>
+
                 <Form className="mt-4">
                   <Form.Group className="form-group">
-                    <Form.Label>Email address</Form.Label>
+                    <Form.Label style={{ color: "black" }}>
+                      Email address
+                    </Form.Label>
                     <Form.Control
                       name="email"
                       type="email"
@@ -77,7 +77,7 @@ const SignIn = () => {
                     />
                   </Form.Group>
                   <Form.Group className="form-group">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label style={{ color: "black" }}>Password</Form.Label>
                     <Link to="#" className="float-end">
                       Forgot password?
                     </Link>

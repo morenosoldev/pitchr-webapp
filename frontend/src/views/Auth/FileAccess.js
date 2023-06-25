@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { verifyFileAccess } from "../../../store/services/auth.service";
+import { verifyFileAccess } from "../../store/services/auth.service";
 
 const FileAccess = () => {
   let token = useParams();

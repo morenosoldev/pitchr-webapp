@@ -1,13 +1,13 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import ConfirmMail from "../views/dashboard/auth/confirm-mail";
-import LockScreen from "../views/dashboard/auth/lock-screen";
-import Recoverpw from "../views/dashboard/auth/recoverpw";
-import SignIn from "../views/dashboard/auth/sign-in";
-import FileAccess from "../views/dashboard/auth/FileAccess";
-import Welcome from "../views/dashboard/auth/welcome";
-import SignUpBusiness from "../views/dashboard/auth/sign-up-business";
-import SignUpInvestor from "../views/dashboard/auth/sign-up-investor";
+import ConfirmMail from "../views/Auth/confirm-mail";
+import LockScreen from "../views/Auth/lock-screen";
+import Recoverpw from "../views/Auth/recoverpw";
+import SignIn from "../views/Auth/sign-in";
+import FileAccess from "../views/Auth/FileAccess";
+import Welcome from "../views/Auth/welcome";
+import SignUpBusiness from "../views/Auth/sign-up-business";
+import SignUpInvestor from "../views/Auth/sign-up-investor";
 
 const AuthRouter = () => {
   return (

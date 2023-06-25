@@ -1,13 +1,13 @@
-import React,{useEffect} from "react";
-import { verifyUser } from "../../../store/services/auth.service";
+import React, { useEffect } from "react";
+import { verifyUser } from "../../store/services/auth.service";
 import { useParams } from "react-router-dom";
 
 const Welcome = () => {
   let token = useParams();
 
   useEffect(() => {
-      verifyUser(token.confirmationCode);
-  }, [])
+    verifyUser(token.confirmationCode);
+  }, []);
 
   return (
     <div className="container">
@@ -17,7 +17,6 @@ const Welcome = () => {
           <p>Btw det kun ogs der kan se den her side. </p>
         </h3>
       </header>
-
     </div>
   );
 };

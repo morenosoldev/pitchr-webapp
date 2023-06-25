@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
+import { userActions } from "../../store/actions";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/swiper-bundle.min.css";
-import { userActions } from "../../../store/actions";
 
 SwiperCore.use([Navigation, Autoplay]);
 
-const SignUpBusiness = () => {
+const SignUpInvestor = () => {
   const dispatch = useDispatch();
   const message = useSelector((state) => state.alert.message);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-  const registerBusiness = (e) => {
+  const registerInvestor = (e) => {
     e.preventDefault();
 
     // Validation logic
@@ -32,7 +32,7 @@ const SignUpBusiness = () => {
       email: email,
       password: password,
     };
-    dispatch(userActions.registerBusiness(user));
+    dispatch(userActions.registerInvestor(user));
   };
 
   return (
@@ -63,20 +63,20 @@ const SignUpBusiness = () => {
                     pitchr
                   </span>
                 </Link>
-                <h3 className="mb-0">Sign Up as Business</h3>
+                <h3 className="mb-0">Sign Up as Investor</h3>
                 <p>
                   Enter your email address and password to access admin panel.
                 </p>
                 <Form className="mt-4">
                   <Form.Group className="form-group">
-                    <Form.Label>Your Company Name</Form.Label>
+                    <Form.Label>Your Full Name</Form.Label>
                     <Form.Control
                       type="email"
                       className="mb-0"
                       onChange={(e) => setName(e.target.value)}
                       value={name}
                       id="emailInput"
-                      placeholder="Your Company Name"
+                      placeholder="Your Full Name"
                     />
                   </Form.Group>
                   <Form.Group className="form-group">
@@ -115,12 +115,11 @@ const SignUpBusiness = () => {
                     <Button
                       type="button"
                       className="btn-primary float-end"
-                      onClick={(e) => registerBusiness(e)}
+                      onClick={(e) => registerInvestor(e)}
                     >
                       Sign Up
                     </Button>
                   </div>
-                  <p>{message}</p>
                   {message ? (
                     <div className="bad-feedback">{message}</div>
                   ) : null}
@@ -140,4 +139,4 @@ const SignUpBusiness = () => {
   );
 };
 
-export default SignUpBusiness;
+export default SignUpInvestor;

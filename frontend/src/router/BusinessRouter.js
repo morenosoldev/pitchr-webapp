@@ -1,9 +1,9 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Chat from "../views/dashboard/app/chat";
+import Chat from "../views/Global/chat";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import Groups from "../views/dashboard/app/groups";
-import FileWrapper from "../views/dashboard/app/FileWrapper";
+import Groups from "../views/Global/groups";
+import FileWrapper from "../views/Global/FileWrapper";
 import UploadMRR from "../views/Business/Financials/UploadExcel/UploadMRR";
 import UploadMAU from "../views/Business/Financials/UploadExcel/UploadMAU";
 import UploadBURN from "../views/Business/Financials/UploadExcel/UploadBURN";

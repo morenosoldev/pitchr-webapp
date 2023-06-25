@@ -3,11 +3,11 @@ import { Button, Card, Col, Form, Modal, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import Select from "react-select";
-import img1 from "../../../assets/images/user/1.jpg";
-import { storage } from "../../../firebase";
-import { teamActions } from "../../../store/actions/team.actions";
-import Equity from "../../Business/Charts/Equity";
-import Member from "../../Business/Team/Member";
+import img1 from "../../assets/images/user/1.jpg";
+import { storage } from "../../firebase";
+import { teamActions } from "../../store/actions/team.actions";
+import Equity from "../Business/Charts/Equity";
+import Member from "../Business/Team/Member";
 import "./Groups.scss";
 
 const Groups = () => {

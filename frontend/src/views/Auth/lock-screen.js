@@ -1,9 +1,10 @@
 import React from "react";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
-import logo from "../../../assets/images/logo-full.png";
+import logo from "../../assets/images/logo-full.png";
+import user1 from "../../assets/images/user/1.jpg";
 
-const Recoverpw = () => {
+const LockScreen = () => {
   let history = useHistory();
   return (
     <>
@@ -22,34 +23,32 @@ const Recoverpw = () => {
                 <Link className="sign-in-logo mb-5" to="#">
                   <Image src={logo} className="img-fluid" alt="logo" />
                 </Link>
-                <div className="sign-slider overflow-hidden"></div>
+                <div className="sign-slider overflow-hidden "></div>
               </div>
             </Col>
             <Col md="6" className="bg-white pt-5 pt-5 pb-lg-0 pb-5">
               <div className="sign-in-from">
-                <h1 className="mb-0">Reset Password</h1>
-                <p>
-                  Enter your email address and we'll send you an email with
-                  instructions to reset your password.
-                </p>
+                <Image src={user1} alt="userimage" className="rounded-circle" />
+                <h4 className="mt-3 mb-0">Hi ! Michael Smith</h4>
+                <p>Enter your password to access the admin.</p>
                 <Form className="mt-4">
                   <Form.Group>
-                    <Form.Label>Email address</Form.Label>
+                    <Form.Label>Password</Form.Label>
                     <Form.Control
-                      type="email"
+                      type="Password"
                       className="mb-0"
                       id="exampleInputEmail1"
-                      placeholder="Enter email"
+                      placeholder="Password"
                     />
                   </Form.Group>
                   <div className="d-inline-block w-100">
                     <Button
                       variant="primary"
-                      type="button"
+                      type="submit"
                       className="float-right mt-3"
-                      onClick={() => history.push("/auth/sign-in")}
+                      onClick={() => history.push("/")}
                     >
-                      Reset Password
+                      Log In
                     </Button>
                   </div>
                 </Form>
@@ -62,4 +61,4 @@ const Recoverpw = () => {
   );
 };
 
-export default Recoverpw;
+export default LockScreen;
