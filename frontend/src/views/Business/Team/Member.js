@@ -26,9 +26,6 @@ export default function Member({
 
   return (
     <Card className="mb-0">
-      <div className="top-bg-image" style={{ visibility: "hidden" }}>
-        <img src={img1} className="img-fluid w-100" alt="group-bg" />
-      </div>
       <Card.Body className=" text-center">
         <div className="group-icon">
           <img

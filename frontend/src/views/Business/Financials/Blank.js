@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import { useTable, usePagination } from "react-table";
+import { Alert, Button, Col, Form, Row } from "react-bootstrap";
 import BTable from "react-bootstrap/Table";
-import { BsTrash } from "react-icons/bs";
-import { Alert, Badge, Button, Col, Form, Modal, Row } from "react-bootstrap";
-import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
-import { BsChevronDoubleRight, BsChevronDoubleLeft } from "react-icons/bs";
-import { useSelector } from "react-redux";
 import CurrencyInput from "react-currency-input-field";
-import { AiOutlinePlus, AiOutlineUpload } from "react-icons/ai";
+import { AiOutlinePlus } from "react-icons/ai";
+import {
+  BsChevronDoubleLeft,
+  BsChevronDoubleRight,
+  BsChevronLeft,
+  BsChevronRight,
+  BsTrash,
+} from "react-icons/bs";
+import { useSelector } from "react-redux";
+import { usePagination, useTable } from "react-table";
 import API from "../../../util/AxiosConfig";
 
 // Create an editable cell renderer

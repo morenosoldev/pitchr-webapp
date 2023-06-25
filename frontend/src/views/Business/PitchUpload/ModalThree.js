@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import {
-  Modal,
-  Col,
-  Form,
   Button,
-  FloatingLabel,
+  Col,
   Container,
+  FloatingLabel,
+  Form,
+  Modal,
   Row,
 } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import "../../../assets/scss/custom/components/upload/_upload.scss";
 import { storage } from "../../../firebase";
-import { useDispatch, useSelector } from "react-redux";
 import { pitchActions } from "../../../store/actions/pitch.actions";
 
 export default function ModalTwo({

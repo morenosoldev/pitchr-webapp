@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Spinner, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
-import { userActions } from "../../store/actions";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/swiper-bundle.min.css";
+import { userActions } from "../../store/actions";
 
 SwiperCore.use([Navigation, Autoplay]);
 
 const SignUpInvestor = () => {
   const dispatch = useDispatch();
   const message = useSelector((state) => state.alert.message);
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -37,7 +38,7 @@ const SignUpInvestor = () => {
 
   return (
     <>
-      <section className="sign-in-page">
+      <section>
         <div id="container-inside">
           <div id="circle-small"></div>
           <div id="circle-medium"></div>
@@ -45,14 +46,14 @@ const SignUpInvestor = () => {
           <div id="circle-xlarge"></div>
           <div id="circle-xxlarge"></div>
         </div>
-        <Container className="p-0">
-          <Row className="no-gutters">
-            <Col md="6" className="text-center pt-5">
+        <Container fluid className="p-0">
+          <Row className="no-gutters login-container">
+            <Col md className="text-center d-none d-md-block pt-5">
               <div className="sign-in-detail text-white"></div>
             </Col>
-            <Col md="6" className="bg-white pt-5 pt-5 pb-lg-0 pb-5">
+            <Col md="6" className="pt-5 login-form pt-5 pb-lg-0 pb-5">
               <div className="sign-in-from">
-                <Link to="/auth/sign-in">
+                <Link to="#">
                   <span
                     style={{
                       fontSize: "4rem",
@@ -63,71 +64,79 @@ const SignUpInvestor = () => {
                     pitchr
                   </span>
                 </Link>
-                <h3 className="mb-0">Sign Up as Investor</h3>
-                <p>
-                  Enter your email address and password to access admin panel.
-                </p>
+                <h3 className="mb-0">Sign up as a Investor</h3>
+
                 <Form className="mt-4">
                   <Form.Group className="form-group">
-                    <Form.Label>Your Full Name</Form.Label>
+                    <Form.Label style={{ color: "black" }}>
+                      Full Name
+                    </Form.Label>
                     <Form.Control
-                      type="email"
-                      className="mb-0"
-                      onChange={(e) => setName(e.target.value)}
+                      name="name"
+                      type="text"
                       value={name}
-                      id="emailInput"
-                      placeholder="Your Full Name"
-                    />
-                  </Form.Group>
-                  <Form.Group className="form-group">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={setName}
                       className="mb-0"
-                      id="emailInput"
+                      id="exampleInputEmail1"
                       placeholder="Enter email"
                     />
                   </Form.Group>
                   <Form.Group className="form-group">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label style={{ color: "black" }}>
+                      Email address
+                    </Form.Label>
                     <Form.Control
-                      type="password"
+                      name="email"
+                      type="email"
+                      value={email}
+                      onChange={setEmail}
                       className="mb-0"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      id="passwordInput"
-                      placeholder="Password"
+                      id="exampleInputEmail1"
+                      placeholder="Enter email"
                     />
                   </Form.Group>
+                  <Form.Group className="form-group">
+                    <Form.Label style={{ color: "black" }}>Password</Form.Label>
+                    <Link to="#" className="float-end">
+                      Forgot password?
+                    </Link>
+                    <Form.Control
+                      name="password"
+                      type="password"
+                      value={password}
+                      onChange={setPassword}
+                      className="mb-0"
+                      id="exampleInputPassword1"
+                      placeholder="Password"
+                    />
+
+                    {message ? (
+                      <div className="bad-feedback">{message.toString()}</div>
+                    ) : null}
+                  </Form.Group>
                   <div className="d-inline-block w-100">
-                    <Form.Check className="d-inline-block mt-2 pt-1">
-                      <Form.Check.Input
-                        type="checkbox"
-                        className="me-2"
-                        id="customCheck1"
-                      />
-                      <Form.Check.Label>
-                        I accept <Link to="#">Terms and Conditions</Link>
-                      </Form.Check.Label>
-                    </Form.Check>
-                    <Button
-                      type="button"
-                      className="btn-primary float-end"
-                      onClick={(e) => registerInvestor(e)}
-                    >
-                      Sign Up
-                    </Button>
-                  </div>
-                  {message ? (
-                    <div className="bad-feedback">{message}</div>
-                  ) : null}
-                  <div className="sign-info">
-                    <span className="dark-color d-inline-block line-height-2">
-                      Already Have Account ?{" "}
-                      <Link to="/auth/sign-in">Log In</Link>
-                    </span>
+                    {loading ? (
+                      <Button className="float-end" variant="dark" disabled>
+                        <Spinner
+                          as="span"
+                          animation="border"
+                          size="sm"
+                          role="status"
+                          aria-hidden="true"
+                        />
+                        <span className="visually-hidden">Loading...</span>
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="dark"
+                        type="button"
+                        className="float-end"
+                        onClick={registerInvestor}
+                      >
+                        {" "}
+                        <span>Sign up</span>{" "}
+                      </Button>
+                    )}
                   </div>
                 </Form>
               </div>

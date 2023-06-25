@@ -92,16 +92,6 @@ export default function NewBusiness() {
           <ProfileViewsCard />
         </Col>
       </Row>
-
-      <Row>
-        <Col>
-          <Card>
-            <Card.Body>
-              <Investors />
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
     </Container>
   );
 }

@@ -12,9 +12,9 @@ import CreateMAU from "../views/Business/Financials/CreateSheet/CreateMAU";
 import CreateBURN from "../views/Business/Financials/CreateSheet/CreateBURN";
 import Profile from "../views/Business/Profile/Profile";
 import "../assets/scss/socialv.scss";
-import NewBusiness from "../views/Business/NewBusiness";
 import UploadDeck from "../views/Business/Deck/UploadDeck";
 import InvestorProfile from "../views/Investor/InvestorProfile";
+import NewBusiness from "../views/Business/Business";
 
 const BusinessRouter = () => {
   return (

@@ -96,7 +96,7 @@ const SignIn = () => {
                   </Form.Group>
                   <div className="d-inline-block w-100">
                     {loading ? (
-                      <Button className="float-end" variant="flat" disabled>
+                      <Button className="float-end" variant="dark" disabled>
                         <Spinner
                           as="span"
                           animation="border"
@@ -108,13 +108,13 @@ const SignIn = () => {
                       </Button>
                     ) : (
                       <Button
-                        variant="flat"
+                        variant="dark"
                         type="button"
                         className="float-end"
                         onClick={handleSubmit}
                       >
                         {" "}
-                        <span>Sign in </span>{" "}
+                        <span>Log In </span>{" "}
                       </Button>
                     )}
                   </div>

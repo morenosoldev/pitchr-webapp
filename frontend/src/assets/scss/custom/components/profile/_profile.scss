@@ -561,6 +561,26 @@ ul.request-list {
       margin: 0.625rem;
     }
   }
+  .nav {
+    overflow: scroll;
+  }
+
+  .col-xxl-8 {
+    margin-top: 30px;
+  }
+
+  #left-tabs-example-tabpane-team > div {
+    padding: 0 !important;
+  }
+
+  .card-body {
+    overflow: scroll;
+  }
+
+  .card {
+    overflow: hidden;
+  }
+
   .post-item {
     img.profile-img {
       height: 18.75rem;

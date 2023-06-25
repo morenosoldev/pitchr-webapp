@@ -94,125 +94,127 @@ export default function Profile() {
         </Col>
         <Col sm={12} md={12} xl={8} xxl={8} className="h-100">
           <Card className="h-100">
-            <Row style={{ display: "flex" }} className="h-100">
-              <Tab.Container
-                activeKey={key}
-                onSelect={(k) => setKey(k)}
-                id="left-tabs-example"
-                defaultActiveKey="deck"
-              >
-                <Nav
-                  as="ul"
-                  variant="tabs"
-                  style={{ height: "65px", borderBottom: "none" }}
-                  className="d-flex align-items-center justify-content-center profile-feed-items p-0 m-0 mb-2"
+            <Card.Body className="h-100">
+              <Row style={{ display: "flex" }} className="h-100">
+                <Tab.Container
+                  activeKey={key}
+                  onSelect={(k) => setKey(k)}
+                  id="left-tabs-example"
+                  defaultActiveKey="deck"
                 >
-                  <Nav.Item
-                    as="li"
-                    className={`banner ${
-                      key == "deck" ? "activeMenu" : ""
-                    } col-12 col-sm-2 p-0`}
+                  <Nav
+                    as="ul"
+                    variant="tabs"
+                    style={{ height: "65px", borderBottom: "none" }}
+                    className="d-flex align-items-center justify-content-center profile-feed-items p-0 m-0 mb-2"
                   >
-                    <Nav.Link
-                      href="#deck"
-                      eventKey="deck"
-                      role="button"
-                      className="text-center"
+                    <Nav.Item
+                      as="li"
+                      className={`banner ${
+                        key == "deck" ? "activeMenu" : ""
+                      } col-12 col-sm-2 p-0`}
                     >
-                      Deck
-                    </Nav.Link>
-                  </Nav.Item>
+                      <Nav.Link
+                        href="#deck"
+                        eventKey="deck"
+                        role="button"
+                        className="text-center"
+                      >
+                        Deck
+                      </Nav.Link>
+                    </Nav.Item>
 
-                  <Nav.Item
-                    as="li"
-                    className={`banner ${
-                      key == "pitch" ? "activeMenu" : ""
-                    } col-12 col-sm-2 p-0`}
-                  >
-                    <Nav.Link
-                      href="#pitch"
-                      eventKey="pitch"
-                      role="button"
-                      className="text-center"
+                    <Nav.Item
+                      as="li"
+                      className={`banner ${
+                        key == "pitch" ? "activeMenu" : ""
+                      } col-12 col-sm-2 p-0`}
                     >
-                      Pitch
-                    </Nav.Link>
-                  </Nav.Item>
+                      <Nav.Link
+                        href="#pitch"
+                        eventKey="pitch"
+                        role="button"
+                        className="text-center"
+                      >
+                        Pitch
+                      </Nav.Link>
+                    </Nav.Item>
 
-                  <Nav.Item
-                    as="li"
-                    className={`banner ${
-                      key == "team" ? "activeMenu" : ""
-                    } col-12 col-sm-2 p-0`}
-                  >
-                    <Nav.Link
-                      href="#team"
-                      eventKey="team"
-                      role="button"
-                      className="text-center"
+                    <Nav.Item
+                      as="li"
+                      className={`banner ${
+                        key == "team" ? "activeMenu" : ""
+                      } col-12 col-sm-2 p-0`}
                     >
-                      Team
-                    </Nav.Link>
-                  </Nav.Item>
+                      <Nav.Link
+                        href="#team"
+                        eventKey="team"
+                        role="button"
+                        className="text-center"
+                      >
+                        Team
+                      </Nav.Link>
+                    </Nav.Item>
 
-                  <Nav.Item
-                    as="li"
-                    className={`banner ${
-                      key == "financials" ? "activeMenu" : ""
-                    } col-12 col-sm-2 p-0`}
-                  >
-                    <Nav.Link
-                      href="#financials"
-                      eventKey="financials"
-                      role="button"
-                      className="text-center"
+                    <Nav.Item
+                      as="li"
+                      className={`banner ${
+                        key == "financials" ? "activeMenu" : ""
+                      } col-12 col-sm-2 p-0`}
                     >
-                      Metrics
-                    </Nav.Link>
-                  </Nav.Item>
+                      <Nav.Link
+                        href="#financials"
+                        eventKey="financials"
+                        role="button"
+                        className="text-center"
+                      >
+                        Metrics
+                      </Nav.Link>
+                    </Nav.Item>
 
-                  <Nav.Item
-                    as="li"
-                    className={`banner ${
-                      key == "files" ? "activeMenu" : ""
-                    } col-12 col-sm-2 p-0`}
-                  >
-                    <Nav.Link
-                      href="#files"
-                      eventKey="files"
-                      role="button"
-                      className="text-center"
+                    <Nav.Item
+                      as="li"
+                      className={`banner ${
+                        key == "files" ? "activeMenu" : ""
+                      } col-12 col-sm-2 p-0`}
                     >
-                      Document Room
-                    </Nav.Link>
-                  </Nav.Item>
-                </Nav>
+                      <Nav.Link
+                        href="#files"
+                        eventKey="files"
+                        role="button"
+                        className="text-center"
+                      >
+                        Document Room
+                      </Nav.Link>
+                    </Nav.Item>
+                  </Nav>
 
-                <Tab.Content style={{ height: "calc(100% - 65px)" }}>
-                  <Tab.Pane className="h-100 " eventKey="deck">
-                    <div className="d-flex h-100 align-items-center justify-content-center">
-                      <DeckSlider userID={id} />
-                    </div>
-                  </Tab.Pane>
+                  <Tab.Content style={{ height: "calc(100% - 65px)" }}>
+                    <Tab.Pane className="h-100 " eventKey="deck">
+                      <div className="d-flex h-100 align-items-center justify-content-center">
+                        <DeckSlider userID={id} />
+                      </div>
+                    </Tab.Pane>
 
-                  <Tab.Pane eventKey="team">
-                    <Groups />
-                  </Tab.Pane>
+                    <Tab.Pane eventKey="team">
+                      <Groups />
+                    </Tab.Pane>
 
-                  <Tab.Pane className="h-100" eventKey="pitch">
-                    <DeckShowcase stopVideo={stopVideo} />
-                  </Tab.Pane>
+                    <Tab.Pane className="h-100" eventKey="pitch">
+                      <DeckShowcase stopVideo={stopVideo} />
+                    </Tab.Pane>
 
-                  <Tab.Pane eventKey="files">
-                    <File />
-                  </Tab.Pane>
+                    <Tab.Pane eventKey="files">
+                      <File />
+                    </Tab.Pane>
 
-                  <Tab.Pane className="h-100" eventKey="financials">
-                    <FinancialIndex />
-                  </Tab.Pane>
-                </Tab.Content>
-              </Tab.Container>
-            </Row>
+                    <Tab.Pane className="h-100" eventKey="financials">
+                      <FinancialIndex />
+                    </Tab.Pane>
+                  </Tab.Content>
+                </Tab.Container>
+              </Row>
+            </Card.Body>
           </Card>
         </Col>
       </Row>

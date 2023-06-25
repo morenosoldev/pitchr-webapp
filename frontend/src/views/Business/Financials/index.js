@@ -1,32 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { Container, Col, Row, Card } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { Modal } from "react-bootstrap";
-import "./style.css";
-import API from "../../../util/AxiosConfig";
-import ChartWide from "../../../components/Financials/Wide/ChartWide";
-import { BsFillFileSpreadsheetFill } from "react-icons/bs";
+import { Card, Col, Container, Modal, Row } from "react-bootstrap";
 import { AiFillPlusCircle, AiOutlineFileExcel } from "react-icons/ai";
+import { BsFillFileSpreadsheetFill } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import ChartWide from "../../../components/Financials/Wide/ChartWide";
+import API from "../../../util/AxiosConfig";
 import Blank from "./Blank";
 import Template from "./Template";
 import Upload from "./Upload";
-import { useParams } from "react-router-dom";
+import "./style.css";
 
 export default function FinancialIndex() {
   const user = useSelector((state) => state.authentication.user);
   const [charts, setCharts] = useState([]);
   const [showInsert, setShowInsert] = useState(false);
   const handleInsertClose = () => setShowInsert(false);
-  const handleInsertShow = () => setShowInsert(true);
 
   const [showBlank, setShowBlank] = useState(false);
   const handleBlankClose = () => setShowBlank(false);
-  const handleBlankShow = () => setShowBlank(true);
 
   const [showUpload, setShowUpload] = useState(false);
   const handleUploadClose = () => setShowUpload(false);
-  const handleUploadShow = () => setShowUpload(true);
-  const { type, id } = useParams();
+  const { id } = useParams();
 
   useEffect(async () => {
     const getData = async () => {

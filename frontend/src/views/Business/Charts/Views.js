@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { BsChevronDown } from "react-icons/bs";
+import { useSelector } from "react-redux";
 import {
-  AreaChart,
   Area,
+  AreaChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
 } from "recharts";
 import ViewsService from "../../../store/services/views.service";
-import { useSelector } from "react-redux";
 import "./style.css";
 
 export default function Views() {

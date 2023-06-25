@@ -1,10 +1,8 @@
-import React from "react";
-import * as XLSX from "xlsx/xlsx.mjs";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import { Alert, Col, Form, Row } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import * as XLSX from "xlsx/xlsx.mjs";
 import API from "../../../util/AxiosConfig";
-import { history } from "../../../util/history";
 function Upload({ addChart }) {
   const [data, setData] = React.useState([]);
   const [cols, setCols] = React.useState([]);
@@ -32,15 +30,6 @@ function Upload({ addChart }) {
       setCols(make_cols(ws["!ref"]));
     };
     reader.readAsArrayBuffer(file);
-  };
-
-  const exportFile = () => {
-    /* convert state to workbook */
-    const ws = XLSX.utils.aoa_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "SheetJS");
-    /* generate XLSX file and send to client */
-    XLSX.writeFile(wb, "sheetjs.xlsx");
   };
 
   return (
