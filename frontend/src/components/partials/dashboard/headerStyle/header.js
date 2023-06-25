@@ -21,7 +21,6 @@ const Header = () => {
                 style={{ position: "relative" }}
               >
                 <span className="logo-text">pitchr</span>
-                <span className="beta-mark">BETA</span>
               </Link>
             </div>
             <div>

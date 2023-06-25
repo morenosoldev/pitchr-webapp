@@ -1,108 +1,115 @@
-.deck-btns{
-    padding: 1rem 1rem;
-    display: flex;
+.deck-btns {
+  padding: 1rem 1rem;
+  display: flex;
 }
 
-.deck-btn{
-    padding: 6px;
-    border-radius: 10px;
+.deck-btn {
+  padding: 6px;
+  border-radius: 10px;
 }
-.container-wrapper-deck{
-    overflow: hidden;
-    overflow-y: scroll;
+.container-wrapper-deck {
+  overflow: hidden;
+  overflow-y: scroll;
 }
 .deck-childs:last-child {
-    margin: 0px !important; 
-  }
-.upload-status{
-    display: flex;
-    flex-direction: column;
+  margin: 0px !important;
+}
+.upload-status {
+  display: flex;
+  flex-direction: column;
 }
 
-.upload-status > p{
-    font-weight: bold;
+.upload-status > p {
+  font-weight: bold;
 }
 
-.upload-status > a{
-    color: rgb(211, 13, 13);
-    text-align: left;
+.upload-status > a {
+  color: rgb(211, 13, 13);
+  text-align: left;
 }
 
-.deck-section{
-    margin-top: 12px;
-    background-color: white;
+.deck-section {
+  margin-top: 12px;
+  background-color: white;
 }
-.deck-section-container{
-    display: flex;
-    justify-content: space-between;
+.deck-section-container {
+  display: flex;
+  justify-content: space-between;
 }
-.deck-left{
-    display: flex;
-    align-items: center;
+.deck-left {
+  display: flex;
+  align-items: center;
 }
-.deck-title{
-    font-size: 1rem;
-}
-
-.content-parent{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+.deck-title {
+  font-size: 1rem;
 }
 
-.content-container{
-    padding: 1rem;
-    display: flex;
-    justify-content: center;
-    max-width: 28rem;
-    flex-direction: column;
+.content-parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
-.deck-action-btns{
-    display: flex;
-}
-.deck-upload-btn{
-    display: flex;
-    align-items: center;
-    color: rgb(66, 66, 66);
-    margin-right: 5px;
-    border-radius: 10px;
-    justify-content: center;
-    background-color: #f5f5f5;
-    padding: .5rem;
-}
-.btn-text{
-    margin-left: 5px;
+.react-player {
+  height: auto !important;
 }
 
-.deck-icons{
-    display: flex;
-    align-items: center;
-    width: 100px;
-    color: #ababab;
-    justify-content: space-evenly;
-}
-.deck-section{
-    padding: 1rem;
-    border: 0.5px solid lightgray;
-    border-radius: 10px;
-}
-.deck-title{
-    margin-left: 10px;
+video {
+  border-radius: 8px;
 }
 
-.deck-content-text{
-    margin-left: 10px;
-    color: #EF4444;
+.content-container {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  max-width: 28rem;
+  flex-direction: column;
 }
-.deck-duration{
-    margin-left: 10px;
-    font-weight: 606;
+.deck-action-btns {
+  display: flex;
 }
-.btn-add-deck{
+.deck-upload-btn {
+  display: flex;
+  align-items: center;
+  color: rgb(66, 66, 66);
+  margin-right: 5px;
+  border-radius: 10px;
+  justify-content: center;
+  background-color: #f5f5f5;
+  padding: 0.5rem;
+}
+.btn-text {
+  margin-left: 5px;
+}
+
+.deck-icons {
+  display: flex;
+  align-items: center;
+  width: 100px;
+  color: #ababab;
+  justify-content: space-evenly;
+}
+.deck-section {
+  padding: 1rem;
+  border: 0.5px solid lightgray;
+  border-radius: 10px;
+}
+.deck-title {
+  margin-left: 10px;
+}
+
+.deck-content-text {
+  margin-left: 10px;
+  color: #ef4444;
+}
+.deck-duration {
+  margin-left: 10px;
+  font-weight: 606;
+}
+.btn-add-deck {
   border-radius: 50%;
-  color: #F9FAFB;
+  color: #f9fafb;
   height: 40px;
   width: 40px;
   margin: 0 auto;
@@ -113,15 +120,15 @@
 }
 
 .vl {
-    border-left: 2px solid rgb(0, 0, 0);
-    height: 15px;
-  }
-.selected{
-background-color: orange;
-color: white;
+  border-left: 2px solid rgb(0, 0, 0);
+  height: 15px;
+}
+.selected {
+  background-color: orange;
+  color: white;
 }
 
-.activeDeck{
-    border: 1px solid #939191;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+.activeDeck {
+  border: 1px solid #939191;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }

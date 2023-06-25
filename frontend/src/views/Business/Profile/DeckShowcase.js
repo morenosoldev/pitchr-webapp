@@ -76,8 +76,8 @@ export default function DeckShowcase({ stopVideo }) {
                 </Link>
               ) : null}
               <div className="subItems-container">
-                {data.map((item) => (
-                  <div className="deck-section-show mt-3 mb-3">
+                {data.map((item, i) => (
+                  <div key={i} className="deck-section-show mt-3 mb-3">
                     <h4 className="deck-title-show">{item.title}</h4>
                     {item.subItems.map((deck) => (
                       <div

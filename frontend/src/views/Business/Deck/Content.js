@@ -29,7 +29,7 @@ export default function Content({ stopVideo, selectedColumn }) {
             <ReactPlayer
               playing={!stopVideo}
               width={"100%"}
-              height={"100%"}
+              className="react-player"
               controls={true}
               url={selectedColumn?.content?.video}
             />

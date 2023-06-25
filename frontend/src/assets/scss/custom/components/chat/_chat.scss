@@ -385,84 +385,13 @@ div.sidebar-toggle {
 }
 
 @include media-breakpoint-down(lg) {
-  .chat-data-left {
-    position: absolute;
-    left: 0;
-    max-width: 320px;
-    top: 0;
-    z-index: 9;
-    background: $white;
-    transform: translateX(-100%);
-    opacity: 0;
-    @if $enable-transitions == true {
-      @include transition-mixin(all 0.45s ease-in-out);
-    }
-    @if $enable-shadows == true {
-      @include shadow-mixin(0px 0px 12px 0px rgba(55, 73, 72, 0.06));
-    }
-    overflow-y: scroll;
-    height: 100%;
-  }
   .chat-sidebar-channel {
-    overflow: auto;
     height: auto;
-    padding-left: 0 !important;
-  }
-  .chat-search {
-    padding-left: 0 !important;
-  }
-  .chat-data-left.show {
-    transform: translateX(0);
-    opacity: 1;
-    @if $enable-transitions == true {
-      @include transition-mixin(all 0.45s ease-in-out);
-    }
-  }
-  button.close-btn-res {
-    display: block;
-    background: transparent;
-    border: none;
-    font-size: 1.25rem;
-    font-weight: 600;
-    position: absolute;
-    top: 0.625rem;
-    left: auto;
-    right: 0;
   }
   .chat-head {
-    header {
-      padding-left: 0.938rem;
-    }
-  }
-  div.sidebar-toggle {
-    display: block;
-  }
-  .sidebar-toggle {
-    background: rgba($primary, 0.2);
-    padding: 0.938rem 0.625rem;
-    margin-right: 0.938rem;
-    @if $enable-rounded == true {
-      @include radius-mixin($border-radius);
-    }
-    height: 2.5rem;
-    width: 2.5rem;
-    line-height: 0.625rem;
-    text-align: center;
-    color: $primary;
-  }
-  #chat-user-detail-popup {
-    overflow-y: scroll;
-    padding-bottom: 1.25rem;
-  }
-  #user-detail-popup {
-    overflow: scroll;
+    padding: 15px;
   }
 }
 
 @include media-breakpoint-down(sm) {
-  .chat-head {
-    header {
-      overflow-x: scroll;
-    }
-  }
 }

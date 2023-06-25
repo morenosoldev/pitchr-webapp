@@ -155,6 +155,7 @@ body{
                   {pitches?.map((pitch) => {
                     return (
                       <VisibilitySensor
+                        key={pitch.id}
                         onChange={(isVisible) => onChange(isVisible, pitch.id)}
                       >
                         {({ isVisible }) => (

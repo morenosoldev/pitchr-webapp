@@ -1,9 +1,9 @@
-.metric-upload{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.metric-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
 }
-.metric-header{
-    font-weight: 700;
+.metric-header {
+  font-weight: 700;
 }

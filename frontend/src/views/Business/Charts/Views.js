@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BsChevronDown } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import {
   Area,
@@ -55,14 +54,6 @@ export default function Views() {
           <a href="#" className="chart-btn chart-btn-active">
             Views
           </a>
-        </div>
-
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <span className="font-weight-light">Weekly</span>
-          <BsChevronDown
-            className="font-weight-light"
-            style={{ marginLeft: 5 }}
-          />
         </div>
       </div>
 
