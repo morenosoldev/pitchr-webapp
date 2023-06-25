@@ -18,13 +18,14 @@ const SignUpInvestor = () => {
   const [password, setPassword] = useState("");
 
   const registerInvestor = (e) => {
+    setLoading(true);
     e.preventDefault();
 
     // Validation logic
     if (!email || !name || !password) {
       // Check if any of the fields is empty
       // You can display an error message or perform any other necessary actions
-
+      setLoading(false);
       return;
     }
 
@@ -34,6 +35,7 @@ const SignUpInvestor = () => {
       password: password,
     };
     dispatch(userActions.registerInvestor(user));
+    setLoading(false);
   };
 
   return (
@@ -75,10 +77,10 @@ const SignUpInvestor = () => {
                       name="name"
                       type="text"
                       value={name}
-                      onChange={setName}
+                      onChange={(e) => setName(e.target.value)}
                       className="mb-0"
-                      id="exampleInputEmail1"
-                      placeholder="Enter email"
+                      id="exampleInputNamel1"
+                      placeholder="Enter your name"
                     />
                   </Form.Group>
                   <Form.Group className="form-group">
@@ -89,7 +91,7 @@ const SignUpInvestor = () => {
                       name="email"
                       type="email"
                       value={email}
-                      onChange={setEmail}
+                      onChange={(e) => setEmail(e.target.value)}
                       className="mb-0"
                       id="exampleInputEmail1"
                       placeholder="Enter email"
@@ -104,7 +106,7 @@ const SignUpInvestor = () => {
                       name="password"
                       type="password"
                       value={password}
-                      onChange={setPassword}
+                      onChange={(e) => setPassword(e.target.value)}
                       className="mb-0"
                       id="exampleInputPassword1"
                       placeholder="Password"

@@ -77,10 +77,10 @@ const SignUpBusiness = () => {
                       name="company"
                       type="text"
                       value={name}
-                      onChange={setName}
+                      onChange={(e) => setName(e.target.value)}
                       className="mb-0"
                       id="exampleInputEmail1"
-                      placeholder="Enter email"
+                      placeholder="Enter name of company"
                     />
                   </Form.Group>
                   <Form.Group className="form-group">
@@ -91,7 +91,7 @@ const SignUpBusiness = () => {
                       name="email"
                       type="email"
                       value={email}
-                      onChange={setEmail}
+                      onChange={(e) => setEmail(e.target.value)}
                       className="mb-0"
                       id="exampleInputEmail1"
                       placeholder="Enter email"
@@ -106,7 +106,7 @@ const SignUpBusiness = () => {
                       name="password"
                       type="password"
                       value={password}
-                      onChange={setPassword}
+                      onChange={(e) => setPassword(e.target.value)}
                       className="mb-0"
                       id="exampleInputPassword1"
                       placeholder="Password"
