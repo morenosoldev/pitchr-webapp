@@ -106,7 +106,6 @@ export default function UploadDeck() {
   const savePitch = async () => {
     setLoading(true);
     const res = await API.post(`/pitch/${user?.user_id}`, { data: data });
-    console.log("res", res);
     setLoading(false);
   };
 

@@ -75,8 +75,6 @@ export default function Section({
         setSubmitted(true);
 
         uploadData(video.sharedUrl, video.duration, "loom", data.id);
-        //const { html } = await oembed(video.sharedUrl, { width: 400 });
-        //setVideoHTML(html);
       });
     }
     if (edit) {

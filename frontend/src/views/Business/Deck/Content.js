@@ -9,7 +9,6 @@ export default function Content({ stopVideo, selectedColumn }) {
     async function getLoom() {
       if (selectedColumn?.content?.type == "loom") {
         const { html } = await oembed(selectedColumn?.content?.video);
-
         setVideoHTML(html);
       }
     }

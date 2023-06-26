@@ -1,41 +1,16 @@
 import React from "react";
-import { Col, Card } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { Card, Col } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { uploadImage } from "../../firebase";
 import { userActions } from "../../store/actions";
-import { useDispatch } from "react-redux";
-import { storage } from "../../firebase";
 
 export default function TopBanner() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authentication.user);
 
-  const uploadImage = async (image) => {
-    const imageRef = storage.ref(`images/${image.name}`);
-    await imageRef.put(image).on(
-      "state_changed",
-      (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-      },
-      (error) => {
-        // file upload failed
-      },
-      () => {
-        // file upload completed
-        storage
-          .ref(`images/${image.name}`)
-          .getDownloadURL()
-          .then(
-            async (url) => {
-              dispatch(userActions.updateProfilePicture(url, user?.user_id));
-            },
-            (error) => {
-              // failed to get download URL
-            }
-          );
-      }
-    );
+  const uploadImageFB = async (image) => {
+    const downloadUrl = await uploadImage(image);
+    dispatch(userActions.updateProfilePicture(downloadUrl, user?.user_id));
   };
 
   return (
@@ -65,7 +40,7 @@ export default function TopBanner() {
                   style={{ display: "none" }}
                   id="file-input-cover"
                   type="file"
-                  onChange={async (e) => await uploadImage(e.target.files[0])}
+                  onChange={async (e) => await uploadImageFB(e.target.files[0])}
                 />
               </div>
 

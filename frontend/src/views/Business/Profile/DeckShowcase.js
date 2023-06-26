@@ -47,11 +47,8 @@ export default function DeckShowcase({ stopVideo }) {
 
     fetchData();
 
-    return () => {
-      // Clean up any ongoing asynchronous tasks or subscriptions here
-      // For example, you can cancel any active requests or clear intervals
-    };
-  }, []); // Empty dependency array ensures the effect runs only once when the component is mounted
+    return () => {};
+  }, []);
 
   const selectColumn = (obj) => {
     setSelectedColumn(obj);

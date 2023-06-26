@@ -1,12 +1,7 @@
 import React from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import { AiFillVideoCamera } from "react-icons/ai";
-import {
-  BsBullseye,
-  BsCpu,
-  BsFillEnvelopeFill,
-  BsFillPlusCircleFill,
-} from "react-icons/bs";
+import { BsBullseye, BsCpu, BsFillEnvelopeFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import ChatService from "../../store/services/chat.service";
 import { history } from "../../util/history";
