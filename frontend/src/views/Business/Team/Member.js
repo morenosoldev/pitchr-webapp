@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Badge, Button, Card, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import img1 from "../../../assets/images/page-img/profile-bg1.jpg";
 import { teamActions } from "../../../store/actions/team.actions";
 
 export default function Member({

@@ -7,7 +7,7 @@ export default function Equity({ data }) {
 
   useEffect(() => {
     let value = 0;
-    const newData = data.map((item, index) => {
+    const newData = data.map((item) => {
       value += Number(item.equity);
 
       const nameArr = item.name.split(" ");

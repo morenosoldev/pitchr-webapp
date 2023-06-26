@@ -22,7 +22,7 @@ export const userService = {
   delete: _delete,
 };
 
-function login(email, password) {
+async function login(email, password) {
   return config
     .post("/login", { email: email, password: password })
     .then(({ data }) => {

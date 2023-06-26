@@ -85,6 +85,7 @@ const BusinessIndex = () => {
     dispatch(await teamActions.getMembers(user?.user_id));
     const files = await FilesService.fetchFiles(user?.user_id);
     setFiles(files);
+
     const res = await API.get(`/hasPitch/${user.user_id}`);
     setHasPitch(res.data);
 

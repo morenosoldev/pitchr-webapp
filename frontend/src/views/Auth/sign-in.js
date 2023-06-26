@@ -3,6 +3,7 @@ import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { userActions } from "../../store/actions";
+import Circles from "../../components/Circles/Circles";
 
 const SignIn = () => {
   const [inputs, setInputs] = useState({
@@ -34,13 +35,7 @@ const SignIn = () => {
   return (
     <>
       <section>
-        <div id="container-inside">
-          <div id="circle-small"></div>
-          <div id="circle-medium"></div>
-          <div id="circle-large"></div>
-          <div id="circle-xlarge"></div>
-          <div id="circle-xxlarge"></div>
-        </div>
+        <Circles />
         <Container fluid className="p-0">
           <Row className="no-gutters login-container">
             <Col md className="text-center d-none d-md-block pt-5">

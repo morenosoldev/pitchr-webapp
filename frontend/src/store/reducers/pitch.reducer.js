@@ -4,6 +4,8 @@ const initialState = {
   video: null,
   videos: [],
   loading: false,
+  underDevelopment: false,
+  published: false,
 };
 
 export function pitchReducer(state = initialState, action) {
@@ -35,6 +37,23 @@ export function pitchReducer(state = initialState, action) {
       };
     case pitchConstants.FETCH_VIDEO_FAILURE:
       return { ...state };
+    case pitchConstants.GET_DEVELOPMENT_PITCH_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case pitchConstants.GET_DEVELOPMENT_PITCH_SUCCESS:
+      return {
+        ...state,
+        underDevelopment: action.pitch ? true : false,
+        loading: false,
+      };
+    case pitchConstants.GET_DEVELOPMENT_PITCH_FAILURE:
+      return {
+        ...state,
+        loading: false,
+      };
 
     case pitchConstants.GET_PITCH_REQUEST:
       return {

@@ -3,19 +3,14 @@ import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import logo from "../../assets/images/logo-full.png";
 import user1 from "../../assets/images/user/1.jpg";
+import Circles from "../../components/Circles/Circles";
 
 const LockScreen = () => {
   let history = useHistory();
   return (
     <>
       <section className="sign-in-page">
-        <div id="container-inside">
-          <div id="circle-small"></div>
-          <div id="circle-medium"></div>
-          <div id="circle-large"></div>
-          <div id="circle-xlarge"></div>
-          <div id="circle-xxlarge"></div>
-        </div>
+        <Circles />
         <Container className="p-0">
           <Row className="no-gutters">
             <Col md="6" className="text-center pt-5">

@@ -1,10 +1,10 @@
-import { authHeader } from "../../util/authHeader";
 import config from "../../util/AxiosConfig";
 
 export const pitchService = {
   createPitch,
   fetchPitches,
   fetchSavedPitches,
+  getDevelopmentPitch,
   savePitch,
   getPitch,
 };
@@ -17,6 +17,12 @@ function createPitch(data) {
   };
 
   return config.post("/pitch", requestOptions).then((res) => {
+    return res.data;
+  });
+}
+
+function getDevelopmentPitch(id) {
+  return config.get(`/developmentPitch/${id}`).then((res) => {
     return res.data;
   });
 }

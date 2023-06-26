@@ -5,6 +5,7 @@ import { pitchService } from "../services/pitch.service";
 export const pitchActions = {
   createPitch,
   fetchPitches,
+  getDevelopmentPitch,
   getPitch,
 };
 
@@ -31,6 +32,31 @@ function createPitch(video) {
   }
   function failure(error) {
     return { type: pitchConstants.ADD_VIDEO_FAILURE, error };
+  }
+}
+
+function getDevelopmentPitch() {
+  return (dispatch) => {
+    dispatch(request());
+    pitchService.getDevelopmentPitch().then(
+      (data) => {
+        dispatch(success(data));
+      },
+      (error) => {
+        dispatch(failure(error.toString()));
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
+
+  function request() {
+    return { type: pitchConstants.FETCH_VIDEOS_REQUEST };
+  }
+  function success(videos) {
+    return { type: pitchConstants.FETCH_VIDEO_SUCCESS, videos };
+  }
+  function failure(error) {
+    return { type: pitchConstants.FETCH_VIDEO_FAILURE, error };
   }
 }
 

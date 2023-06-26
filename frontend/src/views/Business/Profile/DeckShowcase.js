@@ -11,7 +11,7 @@ import Content from "../Deck/Content";
 export default function DeckShowcase({ stopVideo }) {
   const { id } = useParams();
   const [data, setData] = useState([]);
-  const [underDevelopment, setUnderDevelopment] = useState(false); // TODO: [DEV] Remove this when development is done
+  const [underDevelopment, setUnderDevelopment] = useState(false);
   const user = useSelector((state) => state.authentication.user);
   const [selectedColumn, setSelectedColumn] = useState(
     data[0]?.subItems[0]?.content

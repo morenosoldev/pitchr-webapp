@@ -11,6 +11,7 @@ import logo from "../../assets/images/logo-full.png";
 import login1 from "../../assets/images/login/1.png";
 import login2 from "../../assets/images/login/2.png";
 import login3 from "../../assets/images/login/3.png";
+import Circles from "../../components/Circles/Circles";
 
 // install Swiper modules
 SwiperCore.use([Navigation, Autoplay]);
@@ -20,13 +21,7 @@ const ConfirmMail = () => {
   return (
     <>
       <section className="sign-in-page">
-        <div id="container-inside">
-          <div id="circle-small"></div>
-          <div id="circle-medium"></div>
-          <div id="circle-large"></div>
-          <div id="circle-xlarge"></div>
-          <div id="circle-xxlarge"></div>
-        </div>
+        <Circles />
         <Container className="p-0">
           <Row className="no-gutters">
             <Col md="6" className="text-center pt-5">

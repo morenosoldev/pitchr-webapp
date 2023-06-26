@@ -80,8 +80,11 @@ function requestAccess(email) {
 }
 
 function logout() {
-  userService.logout();
-  return { type: userConstants.LOGOUT };
+  return (dispatch) => {
+    dispatch(alertActions.clear());
+    userService.logout();
+    return { type: userConstants.LOGOUT };
+  };
 }
 
 function registerBusiness(user) {
