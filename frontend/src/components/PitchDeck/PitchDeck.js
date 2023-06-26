@@ -190,8 +190,8 @@ const PitchDeck = ({
                                   </thead>
 
                                   <tbody>
-                                    {members.map((member) => (
-                                      <tr>
+                                    {members.map((member, key) => (
+                                      <tr key={key}>
                                         <td>{member?.name}</td>
                                         <td>{member?.equity}%</td>
                                       </tr>

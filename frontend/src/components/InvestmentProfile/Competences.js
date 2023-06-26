@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 
 export default function Competences({ writeCompetences, setWriteCompetences }) {
   const user = useSelector((state) => state.authentication.user);
+  const [error, setError] = useState(null);
   const [competences, setCompetences] = useState([]);
   const [competence, setCompetence] = useState("");
 
@@ -34,7 +35,9 @@ export default function Competences({ writeCompetences, setWriteCompetences }) {
       .then((res) => {
         setWriteCompetences(false);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setError(err);
+      });
   };
 
   return (
@@ -62,6 +65,11 @@ export default function Competences({ writeCompetences, setWriteCompetences }) {
                     </Button>
                   </InputGroup>
 
+                  {error ? (
+                    <div className="alert alert-danger" role="alert">
+                      {error.message}
+                    </div>
+                  ) : null}
                   {competences ? (
                     <ul className="suggestions-lists m-0 p-0">
                       {competences?.map((market, key) => (
@@ -99,11 +107,11 @@ export default function Competences({ writeCompetences, setWriteCompetences }) {
               {competences.length > 0 ? (
                 <div className="markets">
                   {competences?.map((market, key) => (
-                    <>
+                    <div key={key}>
                       <Badge style={{ padding: "8px" }} pill bg="primary">
                         {market.name}
                       </Badge>{" "}
-                    </>
+                    </div>
                   ))}
                 </div>
               ) : (

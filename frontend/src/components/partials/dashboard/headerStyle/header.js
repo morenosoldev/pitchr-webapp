@@ -125,7 +125,7 @@ const Header = () => {
                         to={
                           user?.cvr > 0
                             ? `/business/app/company/${user?.user_id}/deck`
-                            : "/investor/app/profile"
+                            : `/investor/app/profile/${user?.user_id}`
                         }
                         className="iq-sub-card iq-bg-primary-hover d-flex align-items-center justify-content-between"
                       >

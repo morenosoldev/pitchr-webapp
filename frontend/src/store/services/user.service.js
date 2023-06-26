@@ -63,14 +63,14 @@ function updateCompetences(competences, id) {
   });
 }
 
-function registerInvestor(user) {
+async function registerInvestor(user) {
   return config.post("/investor", user).then((res) => {
     setHeadersAndStorage(res.data);
     return res.data;
   });
 }
 
-function registerBusiness(user) {
+async function registerBusiness(user) {
   return config.post("/business", user).then((res) => {
     setHeadersAndStorage(res.data);
     return res.data;
@@ -110,7 +110,7 @@ function updateInvestmentPreference(preferences, id) {
   });
 }
 
-function update(user) {
+async function update(user) {
   const requestOptions = {
     method: "PUT",
     headers: { ...authHeader(), "Content-Type": "application/json" },
@@ -121,7 +121,7 @@ function update(user) {
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
-function _delete(id) {
+async function _delete(id) {
   const requestOptions = {
     method: "DELETE",
     headers: authHeader(),

@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Container, Row, Tab } from "react-bootstrap";
 import AboutMe from "../../components/InvestmentProfile/AboutMe";
 import CapitalAndCompetences from "../../components/InvestmentProfile/CapitalAndCompetences";
 import InvestmentDetails from "../../components/InvestmentProfile/InvestmentDetails";
 import ProfileNav from "../../components/InvestmentProfile/ProfileNav";
 import TopBanner from "../../components/InvestmentProfile/TopBanner";
+import { userService } from "../../store/services";
+import { useParams } from "react-router-dom";
 
 const InvestorProfile = () => {
+  const { id } = useParams();
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    userService.getById(id).then((res) => {
+      console.log(res);
+      setProfile(res.data);
+    });
+  }, []);
+
   return (
     <>
       <Container fluid>
@@ -18,7 +30,7 @@ const InvestorProfile = () => {
               <Tab.Content>
                 <AboutMe />
                 <InvestmentDetails />
-                <CapitalAndCompetences />
+                <CapitalAndCompetences capital={profile.available_capital} />
               </Tab.Content>
             </Col>
           </Tab.Container>

@@ -127,39 +127,56 @@ const getUser = async (req, res) => {
       return res.status(500).json({ message: "User not found" });
     }
 
-    const user = await User.findOne({
-      where: {
-        id: dbUser.id,
-      },
-      include: [
-        {
-          model: Business,
-          include: [
-            {
-              model: Competence,
-              as: "competences",
-            },
-          ],
+    let user = null;
+    let formattedUser = null;
+
+    if (dbUser.type === "Business") {
+      user = await User.findOne({
+        where: {
+          id: dbUser.id,
         },
-      ],
-    });
-    const business = {
-      ...user.Business.dataValues,
-      competences: user.Business.competences.map(
-        (competence) => competence.dataValues
-      ),
-    };
+        include: [
+          {
+            model: Business,
+            include: [
+              {
+                model: Competence,
+                as: "competences",
+              },
+            ],
+          },
+        ],
+      });
 
-    const formattedUser = {
-      ...user.dataValues,
-      ...business,
-      id: business.user_id,
-      user_id: user.id,
-    };
+      const business = {
+        ...user.Business.dataValues,
+        competences: user.Business.competences.map(
+          (competence) => competence.dataValues
+        ),
+      };
 
-    return res.status(200).json({
-      user: formattedUser,
-    });
+      formattedUser = {
+        ...user.dataValues,
+        ...business,
+        id: business.user_id,
+        user_id: user.id,
+      };
+    } else if (dbUser.type === "Investor") {
+      user = await User.findOne({
+        where: {
+          id: dbUser.id,
+        },
+        include: [
+          {
+            model: Investor,
+          },
+        ],
+      });
+    } else {
+      return res.status(400).json({ message: "Invalid user type" });
+    }
+
+    return res.status(200).json({ ...user.Investor.dataValues });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Internal server error" });
@@ -416,18 +433,51 @@ const updateCapital = async (req, res) => {
   const { id } = req.params;
   const { capital } = req.body;
   try {
-    const business = await Business.findOne({
+    const user = await User.findOne({
       where: {
-        user_id: id,
+        id: id,
       },
     });
 
-    business.goal = capital;
-    await business.save();
+    if (!user) {
+      return res.status(404).json("User not found");
+    }
 
-    res.status(200).json(business);
+    if (user.id !== authenticatedUserId) {
+      return res.status(401).json("Unauthorized"); // Return unauthorized if the authenticated user is not the same as the ID provided
+    }
+
+    if (user.type === "business") {
+      const business = await Business.findOne({
+        where: {
+          user_id: id,
+        },
+      });
+
+      if (!business) {
+        return res.status(404).json("Business not found");
+      }
+
+      business.goal = capital;
+      await business.save();
+
+      return res.status(200).json(business);
+    } else if (user.type === "Investor") {
+      const investor = await Investor.findOne({
+        where: {
+          user_id: id,
+        },
+      });
+      investor.available_capital = capital;
+      await investor.save();
+
+      return res.status(200).json("Investor profile updated");
+    } else {
+      return res.status(400).json("Invalid user type");
+    }
   } catch (error) {
-    res.status(500).json("Can't find user");
+    console.log(error);
+    return res.status(500).json("Internal server error");
   }
 };
 

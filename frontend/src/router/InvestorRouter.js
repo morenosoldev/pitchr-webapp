@@ -14,7 +14,7 @@ const InvestorRouter = () => {
       <CSSTransition classNames="fadeUp" timeout={300}>
         <Switch>
           <Route path="/investor" exact component={InvestorFeed} />
-          <Route path="/investor/app/profile" component={InvestorProfile} />
+          <Route path="/investor/app/profile/:id" component={InvestorProfile} />
           <Route path="/investor/app/chat" component={Chat} />
           <Route path="/investor/app/company/:id/:type" component={Profile} />
           <Route path="/investor/app/file" component={File} />

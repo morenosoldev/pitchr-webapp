@@ -137,7 +137,6 @@ body{
               onKeyPress={handleKeyDown}
               id="feed-pitch"
               style={{ outline: "none" }}
-              tabInvestorFeed="0"
               onKeyDown={handleKeyDown}
               fluid
             >
