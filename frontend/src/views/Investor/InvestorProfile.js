@@ -7,6 +7,7 @@ import ProfileNav from "../../components/InvestmentProfile/ProfileNav";
 import TopBanner from "../../components/InvestmentProfile/TopBanner";
 import { userService } from "../../store/services";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 
 const InvestorProfile = () => {
   const { id } = useParams();
