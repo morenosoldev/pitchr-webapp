@@ -2,7 +2,7 @@ const models = require("../models");
 const ProfileViews = models.ProfileViews;
 const PitchViews = models.PitchViews;
 const DeckViews = models.DeckViews;
-const moment = require("moment"); //<es6
+const moment = require("moment");
 const { Op } = require("sequelize");
 
 const addProfileView = async (req, res) => {

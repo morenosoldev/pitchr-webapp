@@ -1,7 +1,5 @@
 require("dotenv").config();
 const nodemailer = require("nodemailer");
-//const config = require("../config/auth.config");
-
 const ourEmail = "info@pitchr.dk";
 
 const transport = nodemailer.createTransport({

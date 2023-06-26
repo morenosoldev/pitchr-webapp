@@ -1,6 +1,5 @@
 const models = require("../models");
 const employee = models.Employee;
-const business = models.Business;
 
 const addMember = async (req, res) => {
   const { id } = req.params;
