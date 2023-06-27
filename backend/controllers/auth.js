@@ -8,6 +8,7 @@ const Competence = db.Competence;
 const FileRequest = db.filerequest;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const { createToken, createAccessToken } = require("../utils/createToken");
 
 exports.request_access = async (req, res) => {
   res.status(200).json({
@@ -24,10 +25,7 @@ exports.request_file_access = async (req, res) => {
   });
 
   if (!requestUser) {
-    const token = jwt.sign(
-      { id: req.body.user_id + " " + req.body.id },
-      "secret"
-    );
+    const token = createAccessToken(req.body.user_id);
 
     const receiverUser = await User.findOne({
       where: {
@@ -70,7 +68,7 @@ exports.request_file_access = async (req, res) => {
 };
 
 exports.investor_signup = async (req, res) => {
-  const token = jwt.sign({ email: req.body.email }, "secret");
+  const token = createToken(req.body.email);
 
   const user = await User.create({
     name: req.body.name,
@@ -91,7 +89,7 @@ exports.investor_signup = async (req, res) => {
 };
 
 exports.business_signup = async (req, res) => {
-  const token = await jwt.sign({ email: req.body.email }, "secret");
+  const token = createToken(req.body.email);
 
   const user = await User.create({
     name: req.body.name,

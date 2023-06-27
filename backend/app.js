@@ -31,7 +31,7 @@ require("./routes/views/view.routes.js")(app);
 
 const server = http.createServer(app, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3000, http://www.pitcha.net/",
     methods: ["GET", "POST"],
   },
 });

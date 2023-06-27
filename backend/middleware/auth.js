@@ -1,3 +1,4 @@
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
 exports.auth = (req, res, next) => {
@@ -8,7 +9,7 @@ exports.auth = (req, res, next) => {
     return res.status(401).json({ error: "Missing token!" });
   }
 
-  jwt.verify(token, "secret", (err, user) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       return res.status(401).json({ error: err });
     }
@@ -26,7 +27,7 @@ exports.isAuthor = (req, res, next) => {
     return res.status(401).json({ error: "Missing token!" });
   }
 
-  jwt.verify(token, "secret", (err, user) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       return res.status(401).json({ error: err });
     }
