@@ -11,3 +11,10 @@ exports.createAccessToken = async (id) => {
   });
   return token;
 };
+
+exports.createUserToken = async (user) => {
+  const token = await jwt.sign(user, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
+  return token;
+};

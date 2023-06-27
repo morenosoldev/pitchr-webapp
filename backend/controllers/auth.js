@@ -8,7 +8,11 @@ const Competence = db.Competence;
 const FileRequest = db.filerequest;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
-const { createToken, createAccessToken } = require("../utils/createToken");
+const {
+  createToken,
+  createAccessToken,
+  createUserToken,
+} = require("../utils/createToken");
 
 exports.request_access = async (req, res) => {
   res.status(200).json({
@@ -132,7 +136,7 @@ exports.signin = (req, res) => {
                 .json({ message: "Error while checking user password" });
             } else if (compareRes) {
               // password match
-              const token = jwt.sign(dbUser, "secret", { expiresIn: "1h" });
+              const token = createUserToken(dbUser);
               const type = dbUser.type;
               if (type == "Investor") {
                 const investor = await User.findOne({
