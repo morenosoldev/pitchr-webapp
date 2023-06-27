@@ -1,19 +1,20 @@
 require("dotenv").config();
+const jwt = require("jsonwebtoken");
 
-exports.createToken = async (email) => {
-  const token = await jwt.sign({ email: email }, process.env.JWT_SECRET);
+exports.createToken = (email) => {
+  const token = jwt.sign({ email: email }, process.env.JWT_SECRET);
   return token;
 };
 
-exports.createAccessToken = async (id) => {
-  const token = await jwt.sign({ id: id }, process.env.JWT_SECRET, {
+exports.createAccessToken = (id) => {
+  const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
     expiresIn: "1d",
   });
   return token;
 };
 
-exports.createUserToken = async (user) => {
-  const token = await jwt.sign(user, process.env.JWT_SECRET, {
+exports.createUserToken = (user) => {
+  const token = jwt.sign(user, process.env.JWT_SECRET, {
     expiresIn: "1d",
   });
   return token;
