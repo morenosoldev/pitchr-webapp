@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 export default function Competences({ writeCompetences, setWriteCompetences }) {
   const user = useSelector((state) => state.authentication.user);
   const [error, setError] = useState(null);
-  const [competences, setCompetences] = useState([]);
+  const [competences, setCompetences] = useState(user.competences);
   const [competence, setCompetence] = useState("");
 
   const addCompetence = () => {
@@ -29,7 +29,7 @@ export default function Competences({ writeCompetences, setWriteCompetences }) {
 
   const submitCompetences = async (e) => {
     e.preventDefault();
-    await API.put(`/updateInvestorCompetences/${user.user_id}`, {
+    await API.put(`/investorcompetences/${user.user_id}`, {
       competences: competences,
     })
       .then((res) => {

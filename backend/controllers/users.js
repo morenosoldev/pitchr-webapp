@@ -3,118 +3,68 @@ const Business = models.Business;
 const User = models.User;
 const Competence = models.Competence;
 const Investor = models.Investor;
-const sequelize = require("../utils/database");
-const { QueryTypes } = require("sequelize");
-
-const getAllUsers = async (req, res) => {
-  try {
-    const businesses = await sequelize.query(
-      `
-    SELECT Businesses.*, Users.profile_pic
-    FROM Businesses
-    INNER JOIN Users ON Businesses.user_id=Users.id;
-`,
-      { type: QueryTypes.SELECT }
-    );
-
-    const investors = await sequelize.query(
-      `
-SELECT Investors.*, Users.profile_pic, Users.name
-FROM Investors
-INNER JOIN Users ON Investors.user_id=Users.id;
-`,
-      { type: QueryTypes.SELECT }
-    );
-
-    return res.status(200).json([...businesses, ...investors]);
-  } catch (error) {
-    return res.status(500).json(error);
-  }
-};
 
 const updateMarkets = async (req, res) => {
   const { id } = req.params;
 
   try {
-    await Investor.findOne({
+    const user = await Investor.findOne({
       where: {
         user_id: id,
       },
-    }).then(async (user) => {
+    });
+
+    if (user) {
       await models.Market.destroy({
         where: {
-          user_id: user.id,
+          user_id: id,
         },
       });
 
-      req.body.markets.map(async (market) => {
-        await user.createMarket(market);
-      });
+      await Promise.all(
+        req.body.markets.map(async (market) => {
+          await user.createMarket(market);
+        })
+      );
 
       res.status(200).json(req.body.markets);
-    });
+    } else {
+      throw new Error("User not found");
+    }
   } catch (error) {
-    res.status(500).json("Can't find user");
-  }
-};
-
-const updateBusinessMarkets = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const user = await Business.findOne({
-      where: {
-        id: id,
-      },
-    });
-
-    user.location = req.body.location;
-
-    await user.save();
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json("Can't find user");
+    res.status(500).json({ message: error.message });
   }
 };
 
 const updatePreviousInvestments = async (req, res) => {
   const { id } = req.params;
+
   try {
-    await Investor.findOne({
+    const user = await Investor.findOne({
       where: {
         user_id: id,
       },
-    }).then(async (user) => {
+    });
+
+    if (user) {
       await models.PreviousInvestment.destroy({
         where: {
-          user_id: user.id,
+          user_id: id,
         },
       });
 
-      req.body.previousInvestments.map(async (market) => {
-        await user.createPreviousInvestment(market);
-      });
+      await Promise.all(
+        req.body.previousInvestments.map(async (market) => {
+          await user.createPreviousInvestment(market);
+        })
+      );
 
       res.status(200).json(req.body.previousInvestments);
-    });
+    } else {
+      throw new Error("User not found");
+    }
   } catch (error) {
-    res.status(500).json("Can't find user");
-  }
-};
-
-const getChatProfile = async (req, res) => {
-  const { id } = req.params;
-
-  const user = await User.findOne({
-    where: {
-      id: id,
-    },
-    raw: true,
-  });
-
-  if (user) {
-    res.status(200).json(user);
-  } else {
-    res.status(500).json("No user found.");
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -128,7 +78,6 @@ const getUser = async (req, res) => {
     }
 
     let user = null;
-    let formattedUser = null;
 
     if (dbUser.type === "Business") {
       user = await User.findOne({
@@ -169,6 +118,20 @@ const getUser = async (req, res) => {
         include: [
           {
             model: Investor,
+            include: [
+              {
+                model: Market,
+                as: "markets",
+              },
+              {
+                model: PreviousInvestment,
+                as: "previousInvestments",
+              },
+              {
+                model: Competence,
+                as: "competences",
+              },
+            ],
           },
         ],
       });
@@ -240,51 +203,66 @@ const getInvestor = async (req, res) => {
 const updateInvestmentInterest = async (req, res) => {
   const { id } = req.params;
   const { investmentInterests } = req.body;
+
   try {
-    await Investor.findOne({
+    const user = await Investor.findOne({
       where: {
         user_id: id,
       },
-    }).then(async (user) => {
+    });
+
+    if (user) {
       await models.InvestmentInterest.destroy({
         where: {
-          user_id: user.id,
+          user_id: id,
         },
       });
 
-      investmentInterests.map(async (market) => {
-        await user.createInvestmentInterest(market);
-      });
+      await Promise.all(
+        investmentInterests.map(async (market) => {
+          await user.createInvestmentInterest(market);
+        })
+      );
 
       res.status(200).json(investmentInterests);
-    });
+    } else {
+      throw new Error("User not found");
+    }
   } catch (error) {
-    res.status(500).json("Can't find user");
+    res.status(500).json({ message: error.message });
   }
 };
 
-const updateIndustrys = async (req, res) => {
+const updateIndustries = async (req, res) => {
   const { id } = req.params;
+  const { industrys } = req.body;
+
   try {
-    await Investor.findOne({
+    const user = await Investor.findOne({
       where: {
         user_id: id,
       },
-    }).then(async (user) => {
+    });
+
+    if (user) {
       await models.Industry.destroy({
         where: {
-          user_id: user.id,
+          user_id: id,
         },
       });
 
-      req.body.industrys.map(async (market) => {
-        await user.createIndustry(market);
-      });
+      await Promise.all(
+        industrys.map(async (industry) => {
+          await user.createIndustry(industry);
+        })
+      );
 
-      res.status(200).json(req.body.industry);
-    });
+      res.status(200).json(industrys);
+    } else {
+      throw new Error("User not found");
+    }
   } catch (error) {
-    res.status(500).json("Can't find user");
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -308,6 +286,7 @@ const updateBusinessIndustrys = async (req, res) => {
 
 const updateInvestorCompetences = async (req, res) => {
   const { id } = req.params;
+
   try {
     await Investor.findOne({
       where: {
@@ -316,7 +295,7 @@ const updateInvestorCompetences = async (req, res) => {
     }).then(async (user) => {
       await models.Competence.destroy({
         where: {
-          user_id: user.id,
+          user_id: id,
         },
       });
 
@@ -327,6 +306,7 @@ const updateInvestorCompetences = async (req, res) => {
       res.status(200).json(req.body.competences);
     });
   } catch (error) {
+    console.log("err", error);
     res.status(500).json("Can't find user");
   }
 };
@@ -432,6 +412,8 @@ const updateLocation = async (req, res) => {
 const updateCapital = async (req, res) => {
   const { id } = req.params;
   const { capital } = req.body;
+  const authenticatedUserId = req.user.id;
+
   try {
     const user = await User.findOne({
       where: {
@@ -525,21 +507,18 @@ module.exports = {
   getInvestor,
   getBusiness,
   updateBusinessIndustrys,
-  updateBusinessMarkets,
   updateLocation,
-  getChatProfile,
   updateProfilePicture,
   updateCalendly,
   updateCapital,
   updateInvestorCompetences,
   updateInvestmentInterest,
-  updateIndustrys,
+  updateIndustries,
   updatePreviousInvestments,
   updateMarkets,
   getUser,
   updateCapitalGoal,
   updateCompetences,
   updateDevelopmentStage,
-  getAllUsers,
   updateDescription,
 };

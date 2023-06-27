@@ -24,7 +24,7 @@ const Header = () => {
               </Link>
             </div>
             <div>
-              {user?.type == "Business" ? (
+              {user?.type === "Business" ? (
                 <ul className="topbar-nav">
                   <li
                     className={`me-3 ${
@@ -123,7 +123,7 @@ const Header = () => {
                     <Card.Body className="p-0 ">
                       <Link
                         to={
-                          user?.cvr > 0
+                          user?.type === "Business"
                             ? `/business/app/company/${user?.user_id}/deck`
                             : `/investor/app/profile/${user?.user_id}`
                         }

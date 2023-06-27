@@ -8,17 +8,27 @@ import TopBanner from "../../components/InvestmentProfile/TopBanner";
 import { userService } from "../../store/services";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const InvestorProfile = () => {
   const { id } = useParams();
+  const user = useSelector((state) => state.authentication.user);
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    userService.getById(id).then((res) => {
-      console.log(res);
-      setProfile(res.data);
-    });
-  }, []);
+    if (Number(id) !== Number(user.user_id)) {
+      const getInvestorProfile = async () => {
+        try {
+          const res = await userService.getById(id);
+          setProfile(res.data);
+        } catch (error) {
+          // Handle error appropriately (e.g., show error message)
+        }
+      };
+
+      getInvestorProfile();
+    }
+  }, [id, user]);
 
   return (
     <>
@@ -31,7 +41,7 @@ const InvestorProfile = () => {
               <Tab.Content>
                 <AboutMe />
                 <InvestmentDetails />
-                <CapitalAndCompetences capital={profile.available_capital} />
+                <CapitalAndCompetences capital={profile?.available_capital} />
               </Tab.Content>
             </Col>
           </Tab.Container>

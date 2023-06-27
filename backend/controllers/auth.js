@@ -136,22 +136,76 @@ exports.signin = (req, res) => {
               // password match
               const token = jwt.sign(dbUser, "secret", { expiresIn: "1h" });
               const type = dbUser.type;
-
               if (type == "Investor") {
-                const investor = await Investor.findOne({
+                const investor = await User.findOne({
                   where: {
-                    user_id: dbUser.id,
+                    id: dbUser.id,
                   },
-                  raw: true,
+                  include: [
+                    {
+                      model: db.Investor,
+                      include: [
+                        {
+                          model: db.Market,
+                        },
+                        {
+                          model: db.PreviousInvestment,
+                        },
+                        {
+                          model: db.Industry,
+                        },
+                        {
+                          model: db.InvestmentInterest,
+                        },
+                        {
+                          model: db.Competence,
+                        },
+                      ],
+                    },
+                  ],
                 });
+
+                // Create a new object with the necessary properties from the investor object
+                const investorData = {
+                  id: investor.user_id,
+                  investor_experience: investor.Investor.investor_experience,
+                  investor_type: investor.Investor.investor_type,
+                  available_capital: investor.Investor.available_capital,
+                  public: investor.Investor.public,
+                  markets: investor.Investor.Markets.map((market) => ({
+                    id: market.id,
+                    name: market.name,
+                    icon: market.icon,
+                  })),
+                  industries: investor.Investor.Industries.map((industry) => ({
+                    id: industry.id,
+                    name: industry.name,
+                  })),
+                  investmentInterests:
+                    investor.Investor.InvestmentInterests.map((interest) => ({
+                      id: interest.id,
+                      name: interest.name,
+                    })),
+                  previousInvestments:
+                    investor.Investor.PreviousInvestments.map((investment) => ({
+                      id: investment.id,
+                      name: investment.name,
+                      icon: investment.icon,
+                    })),
+                  competences: investor.Investor.Competences.map(
+                    (competence) => ({
+                      id: competence.id,
+                      name: competence.name,
+                    })
+                  ),
+                };
 
                 return res.status(200).json({
                   message: "user logged in",
                   token: token,
                   user: {
-                    ...investor,
+                    ...investorData,
                     ...dbUser,
-                    id: investor.user_id,
                     user_id: dbUser.id,
                   },
                   type: type,
@@ -203,7 +257,9 @@ exports.signin = (req, res) => {
         );
       }
     })
-    .catch((err) => {});
+    .catch((err) => {
+      res.status(401).json({ message: "Invalid credentials" });
+    });
 };
 
 exports.hasFileAccess = async (req, res, next) => {

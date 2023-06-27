@@ -1,48 +1,40 @@
 const {
-  getAllUsers,
   updateDescription,
   updateCapitalGoal,
   updateDevelopmentStage,
   updateCompetences,
   updateMarkets,
   updatePreviousInvestments,
-  updateIndustrys,
   updateInvestmentInterest,
   updateInvestorCompetences,
   updateCapital,
   updateCalendly,
   getUser,
   updateProfilePicture,
-  getChatProfile,
   updateBusinessIndustrys,
-  updateBusinessMarkets,
   getInvestor,
   getBusiness,
   updateLocation,
+  updateIndustries,
 } = require("../../controllers/users");
-const { auth } = require("../../middleware/auth");
+const { isAuthor, auth } = require("../../middleware/auth");
 
 module.exports = function (app) {
-  app.get("/getAllUsers", auth, getAllUsers);
-  app.get("/getUser/:id", auth, getUser);
+  app.get("/user/:id", auth, getUser);
   app.get("/investor/:id", auth, getInvestor);
-  app.get("/getChatProfile/:id", auth, getChatProfile);
   app.get("/business/:id", auth, getBusiness);
-
-  app.put("/updateMarkets/:id", auth, updateMarkets);
-  app.put("/updateBusinessMarkets/:id", auth, updateBusinessMarkets);
-  app.put("/competences/:id", auth, updateCompetences);
-  app.put("/updateDescription/:id", auth, updateDescription);
-  app.post("/updateProfilePicture/:id", auth, updateProfilePicture);
-  app.put("/updateCapital/:id", auth, updateCapital);
-  app.put("/location/:id", auth, updateLocation);
-
-  app.put("/updateGoal/:id", auth, updateCapitalGoal);
-  app.put("/updateStage/:id", auth, updateDevelopmentStage);
-  app.put("/updatePreviousInvestments/:id", auth, updatePreviousInvestments);
-  app.put("/updateIndustrys/:id", auth, updateIndustrys);
-  app.put("/updateBusinessIndustry/:id", auth, updateBusinessIndustrys);
-  app.put("/updateInvestmentInterests/:id", auth, updateInvestmentInterest);
-  app.put("/updateInvestorCompetences/:id", auth, updateInvestorCompetences);
-  app.put("/updateCalendly/:id", auth, updateCalendly);
+  app.put("/markets/:id", isAuthor, updateMarkets);
+  app.put("/competences/:id", isAuthor, updateCompetences);
+  app.put("/description/:id", isAuthor, updateDescription);
+  app.post("/profilepicture/:id", isAuthor, updateProfilePicture);
+  app.put("/capital/:id", isAuthor, updateCapital);
+  app.put("/location/:id", isAuthor, updateLocation);
+  app.put("/goal/:id", isAuthor, updateCapitalGoal);
+  app.put("/stage/:id", isAuthor, updateDevelopmentStage);
+  app.put("/previousinvestments/:id", isAuthor, updatePreviousInvestments);
+  app.put("/industrys/:id", isAuthor, updateIndustries);
+  app.put("/businessindustry/:id", isAuthor, updateBusinessIndustrys);
+  app.put("/investmentinterests/:id", isAuthor, updateInvestmentInterest);
+  app.put("/investorcompetences/:id", isAuthor, updateInvestorCompetences);
+  app.put("/calendly/:id", isAuthor, updateCalendly);
 };

@@ -90,6 +90,17 @@ ul {
   border: none;
 }
 
+@media screen and (max-width: 767px) {
+  #container-inside {
+    position: absolute;
+  }
+
+  section {
+    overflow-x: hidden;
+    height: 100vh;
+  }
+}
+
 .badge > p {
   margin: 0;
   padding: 0;

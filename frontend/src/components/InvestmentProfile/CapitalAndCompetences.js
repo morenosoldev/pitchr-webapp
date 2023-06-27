@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import Competences from "./Competences";
 import { userActions } from "../../store/actions";
 
-export default function CapitalAndCompetences() {
+export default function CapitalAndCompetences({ available_capital }) {
   const user = useSelector((state) => state.authentication.user);
 
   const [writeCapital, setWriteCapital] = useState(false);
@@ -80,12 +80,12 @@ export default function CapitalAndCompetences() {
                   </div>
                 ) : (
                   <>
-                    {user?.available_capital?.length > 0 ? (
+                    {user?.available_capital ? (
                       <ul className="suggestions-lists m-0 p-0">
                         <li className="d-flex mb-4 align-items-center">
                           <div>
                             <Badge style={{ padding: "8px" }} pill bg="primary">
-                              {user?.available_capital}
+                              {user?.available_capital} k
                             </Badge>{" "}
                           </div>
                         </li>

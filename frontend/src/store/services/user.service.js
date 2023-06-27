@@ -46,11 +46,11 @@ function getById(id) {
     method: "GET",
   };
 
-  return config.get(`/getUser/${id}`, requestOptions);
+  return config.get(`/user/${id}`, requestOptions);
 }
 
 function updateIndustry(industry, id) {
-  return config.put(`/updateBusinessIndustry/${id}`, { industry: industry });
+  return config.put(`/businessindustry/${id}`, { industry: industry });
 }
 
 function updateLocation(location, id) {
@@ -78,34 +78,34 @@ async function registerBusiness(user) {
 }
 
 function updateCalendly(calendly, id) {
-  return config.put(`/updateCalendly/${id}`, { calendly: calendly });
+  return config.put(`/calendly/${id}`, { calendly: calendly });
 }
 
 function updateDescription(description, id) {
-  return config.put(`/updateDescription/${id}`, { description: description });
+  return config.put(`/description/${id}`, { description: description });
 }
 
 function updateCapital(capital, id) {
-  return config.put(`/updateCapital/${id}`, { capital: capital });
+  return config.put(`/capital/${id}`, { capital: capital });
 }
 
 function updateGoal(goal, percentage, id) {
-  return config.put(`/updateGoal/${id}`, {
+  return config.put(`/goal/${id}`, {
     goal: goal,
     percentage: percentage,
   });
 }
 
 function updateProfilePicture(picture, id) {
-  return config.post(`/updateProfilePicture/${id}`, { picture: picture });
+  return config.post(`/orofilepicture/${id}`, { picture: picture });
 }
 
 function updateDevelopmentStage(stage, id) {
-  return config.put(`/updateStage/${id}`, { development_stage: stage });
+  return config.put(`/stage/${id}`, { development_stage: stage });
 }
 
 function updateInvestmentPreference(preferences, id) {
-  return config.put(`/updateInvestmentPreference/${id}`, {
+  return config.put(`/investmentpreference/${id}`, {
     preferences: preferences,
   });
 }

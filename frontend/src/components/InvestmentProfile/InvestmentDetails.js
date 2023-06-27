@@ -57,7 +57,7 @@ export default function InvestmentDetails() {
 
   const submitMarkets = async (e) => {
     e.preventDefault();
-    await API.put(`/updateMarkets/${user.user_id}`, {
+    await API.put(`/markets/${user.user_id}`, {
       markets: temporaryMarkets,
     })
       .then((res) => {
@@ -72,12 +72,9 @@ export default function InvestmentDetails() {
       ...oldArray,
       { name: investmentInterest },
     ]);
-    console.log("her", temporaryInterests);
-    //setInvestmentInterests(oldArray => [...oldArray, {"name": investmentInterest}]);
   };
 
   const removeInvestmentInterest = (key) => {
-    //setInvestmentInterests(investmentInterests.filter((item,index) => index !== key));
     setTemporaryInterests(
       temporaryInterests.filter((item, index) => index !== key)
     );
@@ -85,7 +82,7 @@ export default function InvestmentDetails() {
 
   const submitInvestmentInterest = async (e) => {
     e.preventDefault();
-    await API.put(`/updateInvestmentInterests/${user.user_id}`, {
+    await API.put(`/investmentinterests/${user.user_id}`, {
       investmentInterests: temporaryInterests,
     })
       .then((res) => {
@@ -112,7 +109,7 @@ export default function InvestmentDetails() {
 
   const submitPreviousInvestment = async (e) => {
     e.preventDefault();
-    await API.put(`/updatePreviousInvestments/${user.user_id}`, {
+    await API.put(`/previousinvestments/${user.user_id}`, {
       previousInvestments: temporaryInvestments,
     })
       .then((res) => {
@@ -140,7 +137,7 @@ export default function InvestmentDetails() {
 
   const submitIndustrys = async (e) => {
     e.preventDefault();
-    await API.put(`/updateIndustrys/${user.user_id}`, {
+    await API.put(`/industrys/${user.user_id}`, {
       industrys: temporaryIndustrys,
     })
       .then((res) => {
@@ -230,9 +227,9 @@ export default function InvestmentDetails() {
                       </div>
                     ) : (
                       <>
-                        {investmentInterests.length > 0 ? (
+                        {user?.investmentInterests?.length > 0 ? (
                           <ul className="suggestions-lists m-0 p-0">
-                            {investmentInterests?.map((interest, key) => (
+                            {user?.investmentInterests?.map((interest, key) => (
                               <Badge
                                 style={{ padding: "8px" }}
                                 pill
@@ -357,17 +354,19 @@ export default function InvestmentDetails() {
                             </div>
                           ) : (
                             <>
-                              {previousInvestments.length > 0 ? (
+                              {user?.previousInvestments.length > 0 ? (
                                 <ul className="suggestions-lists m-0 p-0">
-                                  {previousInvestments?.map((interest, key) => (
-                                    <Badge
-                                      style={{ padding: "8px" }}
-                                      pill
-                                      bg="primary"
-                                    >
-                                      {interest.name}
-                                    </Badge>
-                                  ))}
+                                  {user?.previousInvestments?.map(
+                                    (interest, key) => (
+                                      <Badge
+                                        style={{ padding: "8px" }}
+                                        pill
+                                        bg="primary"
+                                      >
+                                        {interest.name}
+                                      </Badge>
+                                    )
+                                  )}
                                 </ul>
                               ) : (
                                 <ul className="suggestions-lists m-0 p-0">
@@ -474,10 +473,10 @@ export default function InvestmentDetails() {
                             </div>
                           ) : (
                             <>
-                              {markets.length > 0 ? (
+                              {user?.markets.length > 0 ? (
                                 <div className="markets">
                                   <div className="user-img img-fluid"></div>
-                                  {markets?.map((market, key) => (
+                                  {user?.markets?.map((market, key) => (
                                     <>
                                       <Badge pill bg="primary">
                                         <Flag flagNationCode={market.name} />
@@ -582,11 +581,11 @@ export default function InvestmentDetails() {
                             </div>
                           ) : (
                             <>
-                              {industrys.length > 0 ? (
+                              {user?.industries.length > 0 ? (
                                 <div className="markets">
                                   <div className="user-img img-fluid"></div>
 
-                                  {industrys?.map((industry, key) => (
+                                  {user?.industries?.map((industry, key) => (
                                     <>
                                       <Badge
                                         style={{ padding: "8px" }}
